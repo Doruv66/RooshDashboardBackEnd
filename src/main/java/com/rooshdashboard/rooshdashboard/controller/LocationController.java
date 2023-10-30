@@ -1,6 +1,6 @@
 package com.rooshdashboard.rooshdashboard.controller;
 
-import com.rooshdashboard.rooshdashboard.business.location.*;
+import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.domain.location.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

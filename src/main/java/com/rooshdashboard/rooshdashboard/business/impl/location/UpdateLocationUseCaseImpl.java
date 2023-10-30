@@ -1,7 +1,7 @@
-package com.rooshdashboard.rooshdashboard.business.location.impl;
+package com.rooshdashboard.rooshdashboard.business.impl.location;
 
-import com.rooshdashboard.rooshdashboard.business.location.UpdateLocationUseCase;
-import com.rooshdashboard.rooshdashboard.business.location.exception.InvalidLocationException;
+import com.rooshdashboard.rooshdashboard.business.UpdateLocationUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidLocationException;
 import com.rooshdashboard.rooshdashboard.domain.location.UpdateLocationRequest;
 import com.rooshdashboard.rooshdashboard.persistance.LocationRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.LocationEntity;

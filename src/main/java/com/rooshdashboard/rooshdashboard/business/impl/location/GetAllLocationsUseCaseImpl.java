@@ -1,10 +1,9 @@
-package com.rooshdashboard.rooshdashboard.business.location.impl;
+package com.rooshdashboard.rooshdashboard.business.impl.location;
 
-import com.rooshdashboard.rooshdashboard.business.location.GetAllLocationsUseCase;
+import com.rooshdashboard.rooshdashboard.business.GetAllLocationsUseCase;
 import com.rooshdashboard.rooshdashboard.domain.location.GetAllLocationsResponse;
 import com.rooshdashboard.rooshdashboard.domain.location.Location;
 import com.rooshdashboard.rooshdashboard.persistance.LocationRepository;
-import com.rooshdashboard.rooshdashboard.persistance.impl.FakeLocationRepositoryImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;

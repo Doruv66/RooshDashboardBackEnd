@@ -1,17 +1,8 @@
 package com.rooshdashboard.rooshdashboard.persistance;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.LocationEntity;
-import java.util.Optional;
-import java.util.List;
-public interface LocationRepository {
-    boolean existsById(long locationId);
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    Optional<LocationEntity> findById(long locationId);
+public interface LocationRepository extends JpaRepository<LocationEntity, Long> {
 
-    LocationEntity save(LocationEntity location);
-
-    List<LocationEntity> findAll();
-
-    int count();
-    void deleteById(long locationId);
 }

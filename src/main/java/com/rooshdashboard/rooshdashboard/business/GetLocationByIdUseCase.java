@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.business.location;
+package com.rooshdashboard.rooshdashboard.business;
 
 import com.rooshdashboard.rooshdashboard.domain.location.Location;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.rooshdashboard.rooshdashboard.business.location.impl;
+package com.rooshdashboard.rooshdashboard.business.impl.location;
 
-import com.rooshdashboard.rooshdashboard.business.location.DeleteLocationUseCase;
-import com.rooshdashboard.rooshdashboard.business.location.exception.InvalidLocationException;
+import com.rooshdashboard.rooshdashboard.business.DeleteLocationUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidLocationException;
 import com.rooshdashboard.rooshdashboard.persistance.LocationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

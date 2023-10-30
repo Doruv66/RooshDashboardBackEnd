@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.business.location.impl;
+package com.rooshdashboard.rooshdashboard.business.impl.location;
 
 import com.rooshdashboard.rooshdashboard.domain.location.Location;
 import com.rooshdashboard.rooshdashboard.persistance.entity.LocationEntity;
