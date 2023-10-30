@@ -1,0 +1,25 @@
+<configuration>
+    <!-- dev environments -->
+    <springProfile name="!prod">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+        <!-- Add Hibernate logging configuration here -->
+        <logger name="com.example.individuals3ajaspar">
+            <level value="debug"/>
+        </logger>
+        <logger name="org.springframework.web.client">
+            <level value="debug"/>
+        </logger>
+        <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter">
+            <level value="debug" />
+        </logger>
+
+        <!-- Hibernate-specific logging -->
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

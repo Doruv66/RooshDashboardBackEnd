@@ -16,7 +16,7 @@ public class GetAllCarsUseCaseImpl implements GetAllCarsUseCase {
 
     @Override
     public GetAllCarsResponse getCars() {
-        List<Car> Cars = carRepository.getAllCars()
+        List<Car> Cars = carRepository.findAll()
                 .stream()
                 .map(CarConverter::convert)
                 .toList();

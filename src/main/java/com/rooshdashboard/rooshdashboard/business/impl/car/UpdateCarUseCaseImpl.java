@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.car;
 
 import com.rooshdashboard.rooshdashboard.business.UpdateCarUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidCarException;
 import com.rooshdashboard.rooshdashboard.domain.car.UpdateCarRequest;
 import com.rooshdashboard.rooshdashboard.domain.car.UpdateCarResponse;
 import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
@@ -15,27 +16,22 @@ public class UpdateCarUseCaseImpl implements UpdateCarUseCase {
 
     @Override
     public UpdateCarResponse updateCar(UpdateCarRequest request){
-        if (request.getBrand().isBlank() ||
-                request.getModel().isBlank() ||
-                request.getLicensePlate().isBlank() ||
-                request.getElectric() == null) {
-            //throw new InvalidDataException();
+        if (!carRepository.existsById(request.getId())) {
+            throw new InvalidCarException("CAR_NOT_FOUND");
         }
-        if(carRepository.getCarById(request.getId()) == null){
-            //throw new NotFoundException();
-        }
-        CarEntity CarEntity = carRepository.getCarById(request.getId());
+        CarEntity CarEntity = carRepository.findById(request.getId()).get();
         long updatedCarId = updateFields(request, CarEntity);
         return UpdateCarResponse.builder()
                 .id(updatedCarId)
                 .build();
     }
-    private Long updateFields(UpdateCarRequest request, CarEntity Car){
-        Car.setId(request.getId());
-        Car.setBrand(request.getBrand());
-        Car.setModel(request.getModel());
-        Car.setLicensePlate(request.getLicensePlate());
-        Car.setElectric(request.getElectric());
-        return carRepository.saveCar(Car);
+    private Long updateFields(UpdateCarRequest request, CarEntity car){
+        car.setId(request.getId());
+        car.setBrand(request.getBrand());
+        car.setModel(request.getModel());
+        car.setLicensePlate(request.getLicensePlate());
+        car.setElectric(request.getElectric());
+        carRepository.save(car);
+        return car.getId();
     }
 }

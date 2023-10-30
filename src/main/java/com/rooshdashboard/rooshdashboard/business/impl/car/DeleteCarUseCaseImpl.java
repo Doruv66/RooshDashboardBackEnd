@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.car;
 
 import com.rooshdashboard.rooshdashboard.business.DeleteCarUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidCarException;
 import com.rooshdashboard.rooshdashboard.domain.car.DeleteCarResponse;
 import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
 import lombok.AllArgsConstructor;
@@ -13,12 +14,12 @@ public class DeleteCarUseCaseImpl implements DeleteCarUseCase {
 
     @Override
     public DeleteCarResponse deleteCar(long CarId) {
-        if(carRepository.getCarById(CarId) == null){
-            //throw new NotFoundException();
+        if(!carRepository.existsById(CarId)){
+            throw new InvalidCarException("CAR_NOT_FOUND");
         }
-        Long deletedCarId = carRepository.deleteById(CarId);
+        carRepository.deleteById(CarId);
         return DeleteCarResponse.builder()
-                .id(deletedCarId)
+                .id(CarId)
                 .build();
     }
 }
