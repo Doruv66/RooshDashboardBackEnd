@@ -25,8 +25,8 @@ public class CarsController {
     }
     @GetMapping("{carId}")
     public ResponseEntity<GetCarByIdResponse> getCar(@PathVariable(value = "carId") final long carId) {
-        final GetCarByIdResponse response = getCarUseCase.getCar(carId);
-        return ResponseEntity.ok().body(response);
+        final GetCarByIdResponse car = getCarUseCase.getCar(carId);
+        return ResponseEntity.ok().body(car);
     }
     @DeleteMapping("{carId}")
     public ResponseEntity<DeleteCarResponse> deleteCar(@PathVariable int carId) {
