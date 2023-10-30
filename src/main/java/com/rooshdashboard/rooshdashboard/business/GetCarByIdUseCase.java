@@ -1,7 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business;
 
-import com.rooshdashboard.rooshdashboard.domain.car.Car;
+import com.rooshdashboard.rooshdashboard.domain.car.GetCarByIdResponse;
 
 public interface GetCarByIdUseCase {
-    Car getCar(long carId);
+    GetCarByIdResponse getCar(long carId);
 }

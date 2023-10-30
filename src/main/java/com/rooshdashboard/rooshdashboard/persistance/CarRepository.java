@@ -1,13 +1,8 @@
 package com.rooshdashboard.rooshdashboard.persistance;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.CarEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-@Repository
-public interface CarRepository {
-    Long saveCar(CarEntity Car);
-    Long deleteById(long carId);
-    List<CarEntity> getAllCars();
-    CarEntity getCarById(long carId);
+public interface CarRepository extends JpaRepository<CarEntity, Long> {
+
 }

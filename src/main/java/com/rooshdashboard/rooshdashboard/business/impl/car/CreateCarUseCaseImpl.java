@@ -36,6 +36,7 @@ public class CreateCarUseCaseImpl implements CreateCarUseCase {
                 .brand(request.getBrand())
                 .licensePlate(request.getLicensePlate())
                 .build();
-        return carRepository.saveCar(newCar);
+        carRepository.save(newCar);
+        return newCar.getId();
     }
 }
