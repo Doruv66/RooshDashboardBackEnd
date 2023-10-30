@@ -8,7 +8,6 @@ import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
