@@ -57,6 +57,6 @@ CREATE TABLE Location (
 CREATE TABLE Service (
                          id INT NOT NULL AUTO_INCREMENT,
                          price DOUBLE,
-                         type ENUM('type1', 'type2'), <-- actual enum values here
+                         type ENUM('Valet', 'Shuttle'), <-- actual enum values here
                          PRIMARY KEY (Id)
     );
