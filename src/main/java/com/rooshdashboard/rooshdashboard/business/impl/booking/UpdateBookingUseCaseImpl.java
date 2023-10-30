@@ -3,7 +3,6 @@ package com.rooshdashboard.rooshdashboard.business.impl.booking;
 import com.rooshdashboard.rooshdashboard.business.UpdateBookingUseCase;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidBookingException;
 import com.rooshdashboard.rooshdashboard.domain.booking.Booking;
-import com.rooshdashboard.rooshdashboard.domain.booking.GetBookingByIdResponse;
 import com.rooshdashboard.rooshdashboard.domain.booking.UpdateBookingRequest;
 import com.rooshdashboard.rooshdashboard.domain.booking.UpdateBookingResponse;
 import com.rooshdashboard.rooshdashboard.persistance.BookingRepository;
