@@ -28,6 +28,7 @@ public class CreateCustomerUseCaseImpl implements CreateCustomerUseCase {
                 .email(request.getEmail())
                 .phoneNumber(request.getPhoneNumber())
                 .build();
-        return customerRepository.save(newCustomer);
+        customerRepository.save(newCustomer);
+        return newCustomer.getId();
     }
 }

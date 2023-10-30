@@ -16,7 +16,7 @@ public class UpdateCustomerUseCaseImpl implements UpdateCustomerUseCase {
     @Override
     public UpdateCustomerResponse updateCustomer(UpdateCustomerRequest request) {
         if(customerRepository.existsById(request.getId())){
-            CustomerEntity customer = customerRepository.findById(request.getId());
+            CustomerEntity customer = customerRepository.findById(request.getId()).get();
             updateFields(request, customer);
             return UpdateCustomerResponse.builder()
                     .customerId(request.getId())
