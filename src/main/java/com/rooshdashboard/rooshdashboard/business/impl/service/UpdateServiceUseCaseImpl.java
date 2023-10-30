@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.service;
 
 import com.rooshdashboard.rooshdashboard.business.UpdateServiceUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidServiceException;
 import com.rooshdashboard.rooshdashboard.domain.service.UpdateServiceRequest;
 import com.rooshdashboard.rooshdashboard.domain.service.UpdateServiceResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ServiceRepository;
@@ -16,10 +17,10 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
 
     @Override
     public UpdateServiceResponse updateService(UpdateServiceRequest request) {
-        if(serviceRepository.getServicesById(request.getId()) == null) {
-            //throw not found exception
+        if(!serviceRepository.existsById(request.getId())) {
+            throw new InvalidServiceException("SERVICE_NOT_FOUND");
         }
-        ServiceEntity serviceEntity = serviceRepository.getServicesById(request.getId());
+        ServiceEntity serviceEntity = serviceRepository.findById(request.getId()).get();
         long updatedCarId = updateFields(request, serviceEntity);
         return UpdateServiceResponse.builder()
                 .id(updatedCarId)
@@ -29,6 +30,6 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
     private Long updateFields(UpdateServiceRequest request, ServiceEntity service) {
         service.setServiceType(request.getType());
         service.setPrice(request.getPrice());
-        return serviceRepository.saveService(service);
+        return serviceRepository.save(service).getId();
     }
 }

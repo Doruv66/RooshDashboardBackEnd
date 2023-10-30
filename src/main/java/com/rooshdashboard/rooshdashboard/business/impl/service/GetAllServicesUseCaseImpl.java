@@ -16,7 +16,7 @@ public class GetAllServicesUseCaseImpl implements GetAllServicesUseCase {
 
     @Override
     public GetAllServicesResponse getAllServices() {
-        List<Service> services  = serviceRepository.getAllServices()
+        List<Service> services  = serviceRepository.findAll()
                 .stream()
                 .map(ServiceConverter::convert)
                 .toList();

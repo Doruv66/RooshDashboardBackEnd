@@ -26,6 +26,6 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
                 .price(request.getPrice())
                 .serviceType(request.getServiceType())
                 .build();
-        return serviceRepository.saveService(newService);
+        return serviceRepository.save(newService).getId();
     }
 }
