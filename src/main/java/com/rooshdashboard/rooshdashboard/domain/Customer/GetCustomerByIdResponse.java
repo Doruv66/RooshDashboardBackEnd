@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetCustomerByIdResponse {
-    private Long customerId;
+    private Customer customer;
 }
