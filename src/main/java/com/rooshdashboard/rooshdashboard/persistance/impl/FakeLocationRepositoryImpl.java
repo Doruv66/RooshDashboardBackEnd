@@ -2,10 +2,11 @@ package com.rooshdashboard.rooshdashboard.persistance.impl;
 
 import com.rooshdashboard.rooshdashboard.persistance.LocationRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.LocationEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public class FakeLocationRepositoryImpl implements LocationRepository {
     @Override
     public boolean existsById(long locationId) {
