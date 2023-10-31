@@ -7,6 +7,6 @@ import lombok.Data;
 @Builder
 public class ParkingGarageEntity {
     private Integer id;
-    private String location;
+    private String Address;
     private Integer bookingId;
 }
