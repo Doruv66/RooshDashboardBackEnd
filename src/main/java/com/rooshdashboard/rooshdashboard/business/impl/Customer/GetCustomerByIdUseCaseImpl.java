@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GetCustomerByIdUseCaseImpl implements GetCustomerByIdUseCase {
     private final CustomerRepository customerRepository;
-//HELLO!!
     @Override
     public GetCustomerByIdResponse getCustomerById(Long customerId){
         if(!customerRepository.existsById(customerId))
