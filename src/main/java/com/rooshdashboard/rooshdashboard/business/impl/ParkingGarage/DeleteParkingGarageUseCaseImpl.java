@@ -3,7 +3,6 @@ package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.DeleteParkingGarageUseCase;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.DeleteParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

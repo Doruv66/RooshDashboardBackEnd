@@ -1,12 +1,13 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.GetParkingGarageByIdUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.ParkingGarage;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.Optional;
-import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.ParkingGarage;
 
 
 @Service
@@ -16,6 +17,9 @@ public class GetParkingGarageByIdUseCaseImpl implements GetParkingGarageByIdUseC
 
     @Override
     public Optional<ParkingGarage> getParkingGarageById(int id) {
+        if(!parkingGarageRepository.existsById(id)){
+            throw new InvalidParkingGarageExeption("PARKINGGARAGE_ID_INVALID");
+        }
         return parkingGarageRepository.findById(id).map(ParkingGarageConverter::convert);
     }
 }

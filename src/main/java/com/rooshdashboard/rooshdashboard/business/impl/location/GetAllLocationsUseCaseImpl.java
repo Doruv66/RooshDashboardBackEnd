@@ -6,6 +6,7 @@ import com.rooshdashboard.rooshdashboard.domain.location.Location;
 import com.rooshdashboard.rooshdashboard.persistance.LocationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
