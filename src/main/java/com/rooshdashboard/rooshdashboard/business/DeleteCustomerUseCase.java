@@ -1,5 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business;
 
+import com.rooshdashboard.rooshdashboard.domain.Customer.DeleteCustomerResponse;
+
 public interface DeleteCustomerUseCase {
-    void deleteCustomer(Long customerId);
+    DeleteCustomerResponse deleteCustomer(Long customerId);
 }

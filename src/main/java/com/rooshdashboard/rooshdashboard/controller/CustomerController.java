@@ -31,9 +31,9 @@ public class CustomerController {
     }
 
     @DeleteMapping("{CustomerId}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable long CustomerId) {
-        deleteCustomerUseCase.deleteCustomer(CustomerId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<DeleteCustomerResponse> deleteCustomer(@PathVariable long CustomerId) {
+        final DeleteCustomerResponse response = deleteCustomerUseCase.deleteCustomer(CustomerId);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping()
