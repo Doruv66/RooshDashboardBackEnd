@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.Customer;
 
 import com.rooshdashboard.rooshdashboard.business.UpdateCustomerUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidCustomerException;
 import com.rooshdashboard.rooshdashboard.domain.Customer.UpdateCustomerRequest;
 import com.rooshdashboard.rooshdashboard.domain.Customer.UpdateCustomerResponse;
 import com.rooshdashboard.rooshdashboard.persistance.CustomerRepository;
@@ -23,7 +24,7 @@ public class UpdateCustomerUseCaseImpl implements UpdateCustomerUseCase {
                     .build();
         }
         else{
-            return null;
+            throw new InvalidCustomerException("CUSTOMER_NOT_FOUND");
         }
     }
 

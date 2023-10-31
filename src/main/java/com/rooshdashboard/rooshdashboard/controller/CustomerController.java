@@ -25,9 +25,9 @@ public class CustomerController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable(value = "id") final long id) {
-        final Customer customer = getCustomerByIdUseCase.getCustomerById(id);
-        return ResponseEntity.ok().body(customer);
+    public ResponseEntity<GetCustomerByIdResponse> getCustomerById(@PathVariable(value = "id") final long id) {
+        final GetCustomerByIdResponse response = getCustomerByIdUseCase.getCustomerById(id);
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping("{CustomerId}")

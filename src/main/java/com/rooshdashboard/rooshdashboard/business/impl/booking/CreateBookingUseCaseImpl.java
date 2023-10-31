@@ -16,7 +16,7 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase {
 
     @Override
     public CreateBookingResponse createBooking(CreateBookingRequest request) {
-        if(request != null){
+        if(request == null){
             throw new InvalidBookingException("COULD_NOT_CREATE_BOOKING");
         }
         Long bookingId = saveBooking(request);
@@ -25,7 +25,8 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase {
     }
 
     private Long saveBooking(CreateBookingRequest request){
-        BookingEntity newBookingEntity = BookingEntity.builder().id(request.getId())
+        BookingEntity newBookingEntity = BookingEntity.builder()
+                .id(request.getId())
                 .locationId(request.getLocationId())
                 .serviceId(request.getServiceId())
                 .startDate(request.getStartDate())
@@ -34,7 +35,6 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase {
                 .flightNumberDeparture(request.getFlightNumberDeparture())
                 .customerId(request.getCustomerId())
                 .carId(request.getCustomerId())
-                .serviceId(request.getServiceId())
                 .build();
         bookingRepository.save(newBookingEntity);
         return newBookingEntity.getId();

@@ -13,7 +13,7 @@ public class DeleteBookingUseCaseImpl implements DeleteBookingUseCase {
     private final BookingRepository bookingRepository;
     @Override
     public DeleteBookingResponse deleteBooking(long id) {
-        if(!this.bookingRepository.existsById(id)){
+        if(this.bookingRepository.existsById(id)){
             this.bookingRepository.deleteById(id);
             return DeleteBookingResponse.builder().id(id).build();
         }

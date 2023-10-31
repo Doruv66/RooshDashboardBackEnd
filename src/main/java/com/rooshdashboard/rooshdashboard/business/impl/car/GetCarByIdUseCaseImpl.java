@@ -8,7 +8,6 @@ import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class GetCarByIdUseCaseImpl implements GetCarByIdUseCase {
 
     @Override
     public GetCarByIdResponse getCar(long carId){
-        if(carRepository.existsById(carId)){
+        if(!carRepository.existsById(carId)){
             throw new InvalidCarException("CAR_NOT_FOUND");
         }
         Car car = carRepository.findById(carId).map(CarConverter::convert).get();
