@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,8 +31,8 @@ public class CustomerTests {
     @InjectMocks
     private DeleteCustomerUseCaseImpl deleteCustomerUseCase;
 
-//    @InjectMocks
-//    private GetAllCustomersImpl getAllCustomersUseCase;
+    @InjectMocks
+    private GetCustomersUseCaseImpl getCustomersUseCase;
     @InjectMocks
     private GetCustomerByIdUseCaseImpl getCustomerByIdUseCase;
 
@@ -80,21 +82,21 @@ public class CustomerTests {
         verify(mockCustomerRepository).save(any(CustomerEntity.class));
     }
 
-//    @Test
-//    public void testDeleteCustomerWithValidId() {
-//        // Arrange
-//        Long validId = 1L;
-//        when(mockCustomerRepository.existsById(validId)).thenReturn(true);
-//
-//        // Act
-//        DeleteCustomerResponse response = deleteCustomerUseCase.deleteCustomer(validId);
-//
-//        // Assert
-//        assertNotNull(response);
-//        assertEquals(validId, response.getId());
-//        verify(mockCustomerRepository).existsById(validId);
-//        verify(mockCustomerRepository).deleteById(validId);
-//    }
+    @Test
+    public void testDeleteCustomerWithValidId() {
+        // Arrange
+        Long validId = 1L;
+        when(mockCustomerRepository.existsById(validId)).thenReturn(true);
+
+        // Act
+        DeleteCustomerResponse response = deleteCustomerUseCase.deleteCustomer(validId);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(validId, response.getCustomerId());
+        verify(mockCustomerRepository).existsById(validId);
+        verify(mockCustomerRepository).deleteById(validId);
+    }
 
     @Test
     public void testDeleteCustomerWithInvalidId() {
@@ -145,35 +147,35 @@ public class CustomerTests {
         verify(mockCustomerRepository, never()).findById(invalidCustomerId);
     }
 
-//    @Test
-//    public void testGetAllCustomersWithEmptyRepository() {
-//        // Arrange
-//        when(mockCustomerRepository.findAll()).thenReturn(Collections.emptyList());
-//
-//        // Act
-//        GetAllCustomersResponse response = getAllCustomersUseCase.getCustomers();
-//
-//        // Assert
-//        assertNotNull(response);
-//        assertTrue(response.getCustomers().isEmpty());
-//    }
+    @Test
+    public void testGetAllCustomersWithEmptyRepository() {
+        // Arrange
+        when(mockCustomerRepository.findAll()).thenReturn(Collections.emptyList());
 
-//    @Test
-//    public void testGetAllCustomersWithFilledRepository() {
-//        // Arrange
-//        List<CustomerEntity> customerEntities = List.of(
-//                CustomerEntity.builder().id(1L).name("John").email("john@example.com").phoneNumber("123-456-7890").build(),
-//                CustomerEntity.builder().id(2L).name("Jane").email("jane@example.com").phoneNumber("987-654-3210").build()
-//        );
-//        when(mockCustomerRepository.findAll()).thenReturn(customerEntities);
-//
-//        // Act
-//        GetAllCustomersResponse response = getAllCustomersUseCase.getCustomers();
-//
-//        // Assert
-//        assertNotNull(response);
-//        assertEquals(2, response.getCustomers().size());
-//    }
+        // Act
+        GetCustomersResponse response = getCustomersUseCase.getCustomers();
+
+        // Assert
+        assertNotNull(response);
+        assertTrue(response.getCustomers().isEmpty());
+    }
+
+    @Test
+    public void testGetAllCustomersWithFilledRepository() {
+        // Arrange
+        List<CustomerEntity> customerEntities = List.of(
+                CustomerEntity.builder().id(1L).name("John").email("john@example.com").phoneNumber("123-456-7890").build(),
+                CustomerEntity.builder().id(2L).name("Jane").email("jane@example.com").phoneNumber("987-654-3210").build()
+        );
+        when(mockCustomerRepository.findAll()).thenReturn(customerEntities);
+
+        // Act
+        GetCustomersResponse response = getCustomersUseCase.getCustomers();
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(2, response.getCustomers().size());
+    }
 
     @Test
     public void testGetCustomerByIdWithNonExistingCustomer() {
