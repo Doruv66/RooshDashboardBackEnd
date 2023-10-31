@@ -1,10 +1,10 @@
 package com.rooshdashboard.rooshdashboard.tests.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidBookingException;
 import com.rooshdashboard.rooshdashboard.controller.BookingController;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

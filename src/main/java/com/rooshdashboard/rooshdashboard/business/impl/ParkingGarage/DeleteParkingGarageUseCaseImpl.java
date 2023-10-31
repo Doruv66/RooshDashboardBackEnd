@@ -4,7 +4,6 @@ import com.rooshdashboard.rooshdashboard.business.IParkingGarage.DeleteParkingGa
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.DeleteParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,9 +1,5 @@
 package com.rooshdashboard.rooshdashboard.tests.business;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidCustomerException;
 import com.rooshdashboard.rooshdashboard.business.impl.Customer.*;
 import com.rooshdashboard.rooshdashboard.domain.Customer.*;
@@ -18,6 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CustomerTests {

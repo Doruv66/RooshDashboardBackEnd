@@ -1,8 +1,5 @@
 package com.rooshdashboard.rooshdashboard.tests.business;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidBookingException;
 import com.rooshdashboard.rooshdashboard.business.impl.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
@@ -21,6 +18,9 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class BookingTests {
