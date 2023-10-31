@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateParkingGarageRequest {
-    private Integer id;
+    private Long id;
     @NotBlank
     private String Address;
     @NotNull

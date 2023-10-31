@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ParkingGarage {
-    private Integer id;
+    private Long id;
     private String Address;
     private Integer bookingId;
 

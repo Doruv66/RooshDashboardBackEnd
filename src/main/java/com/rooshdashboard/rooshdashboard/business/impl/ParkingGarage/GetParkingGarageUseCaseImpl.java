@@ -16,13 +16,13 @@ public class GetParkingGarageUseCaseImpl implements GetParkingGarageUseCase {
 
     @Override
     public GetParkingGarageResponse getParkingGarage() {
-        List<ParkingGarage> parkinggarages = parkingGarageRepository.findAll()
+        List<ParkingGarage> parkingGarages = parkingGarageRepository.findAll()
                 .stream()
                 .map(ParkingGarageConverter::convert)
                 .toList();
 
         return GetParkingGarageResponse.builder()
-                .parkingGarages(parkinggarages)
+                .parkingGarages(parkingGarages)
                 .build();
     }
 }

@@ -16,7 +16,7 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase {
 
     @Override
     public CreateBookingResponse createBooking(CreateBookingRequest request) {
-        if(request == null){
+        if(request == null || bookingRepository.existsById(request.getId())){
             throw new InvalidBookingException("COULD_NOT_CREATE_BOOKING");
         }
         Long bookingId = saveBooking(request);

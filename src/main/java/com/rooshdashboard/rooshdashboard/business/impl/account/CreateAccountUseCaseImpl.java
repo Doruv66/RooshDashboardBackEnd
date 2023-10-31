@@ -9,6 +9,8 @@ import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @AllArgsConstructor
 public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
@@ -17,7 +19,7 @@ public class CreateAccountUseCaseImpl implements CreateAccountUseCase {
     @Override
     public CreateAccountResponse CreateAccounts(CreateAccountRequest request) {
 
-        if (accountRepository.accountExists(request.getEmail())) {
+        if (Objects.equals(accountRepository.checkIfEmailIsUsed(request.getEmail()), request.getEmail())) {
             throw new AccountAlreadyExistsException();
         }
 

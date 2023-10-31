@@ -5,5 +5,5 @@ import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.ParkingGarage;
 import java.util.Optional;
 
 public interface GetParkingGarageByIdUseCase {
-    Optional<ParkingGarage> getParkingGarageById(int id);
+    Optional<ParkingGarage> getParkingGarageById(long id);
 }

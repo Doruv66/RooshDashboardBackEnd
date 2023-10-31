@@ -28,7 +28,7 @@ public class ParkingGarageController {
         return ResponseEntity.ok(getParkingGarageUseCase.getParkingGarage());
     }
     @GetMapping("{id}")
-    public ResponseEntity<ParkingGarage> getParkingGarage(@PathVariable(value = "id") final int id) {
+    public ResponseEntity<ParkingGarage> getParkingGarage(@PathVariable(value = "id") final long id) {
         final Optional<ParkingGarage> garage = getParkingGarageByIdUseCase.getParkingGarageById((id));
         if (garage.isEmpty())
         {
@@ -46,13 +46,13 @@ public class ParkingGarageController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @PutMapping("{id}")
-    public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(@PathVariable("id") int id, @RequestBody @Valid UpdateParkingGarageRequest request){
+    public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(@PathVariable("id") long id, @RequestBody @Valid UpdateParkingGarageRequest request){
         request.setId(id);
         UpdateParkingGarageResponse response = updateParkingGarageUseCase.updateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @DeleteMapping("{id}")
-    public ResponseEntity<DeleteParkingGarageResponse> deleteParkingGarage(@PathVariable int id) {
+    public ResponseEntity<DeleteParkingGarageResponse> deleteParkingGarage(@PathVariable long id) {
         DeleteParkingGarageResponse response = deleteParkingGarageUseCase.deleteParkingGarage(id);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

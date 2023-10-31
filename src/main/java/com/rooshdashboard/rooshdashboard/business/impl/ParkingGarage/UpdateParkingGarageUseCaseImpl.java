@@ -18,13 +18,11 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
     @Override
     public UpdateParkingGarageResponse updateParkingGarage(UpdateParkingGarageRequest request)
     {
-        Optional<ParkingGarageEntity> parkingGarageOptional = parkingGarageRepository.findById(request.getId());
-
         if (!parkingGarageRepository.existsById(request.getId())) {
             throw new InvalidParkingGarageExeption("PARKING_GARAGE_ID_INVALID");
         }
 
-
+        Optional<ParkingGarageEntity> parkingGarageOptional = parkingGarageRepository.findById(request.getId());
         ParkingGarageEntity parkingGarage = parkingGarageOptional.get();
         updateFields(request, parkingGarage);
         return UpdateParkingGarageResponse.builder()

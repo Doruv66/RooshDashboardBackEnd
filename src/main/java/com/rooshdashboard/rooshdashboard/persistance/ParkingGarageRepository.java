@@ -1,16 +1,8 @@
 package com.rooshdashboard.rooshdashboard.persistance;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-@Repository
-public interface ParkingGarageRepository {
-    boolean existsById(int id);
+public interface ParkingGarageRepository extends JpaRepository<ParkingGarageEntity, Long> {
 
-    void deleteById(int id);
-    ParkingGarageEntity save(ParkingGarageEntity parkingGarage);
-    List<ParkingGarageEntity>  findAll();
-    Optional<ParkingGarageEntity> findById(int id);
 }

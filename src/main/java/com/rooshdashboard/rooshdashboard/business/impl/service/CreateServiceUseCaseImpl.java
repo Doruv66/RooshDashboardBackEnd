@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.service;
 
 import com.rooshdashboard.rooshdashboard.business.CreateServiceUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidServiceException;
 import com.rooshdashboard.rooshdashboard.domain.service.CreateServiceRequest;
 import com.rooshdashboard.rooshdashboard.domain.service.CreateServiceResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ServiceRepository;
@@ -15,6 +16,9 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
 
     @Override
     public CreateServiceResponse createService(CreateServiceRequest request) {
+        if(request == null){
+            throw new InvalidServiceException("SERVICE_COULD_NOT_BE_CREATED");
+        }
         Long savedServiceId = saveNewService(request);
         return CreateServiceResponse.builder()
                 .id(savedServiceId)

@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.CreateParkingGarageUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.CreateParkingGarageRequest;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.CreateParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
@@ -16,10 +17,13 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     @Override
     public CreateParkingGarageResponse CreateParkingGarage(CreateParkingGarageRequest request)
     {
-        ParkingGarageEntity parkingGarage = saveNewParkingGarage(request);
-        return CreateParkingGarageResponse.builder()
-                .id(parkingGarage.getId())
-                .build();
+        if(request.getAddress().isEmpty() || request.getBookingId() != null) {
+            ParkingGarageEntity parkingGarage = saveNewParkingGarage(request);
+            return CreateParkingGarageResponse.builder()
+                    .id(parkingGarage.getId())
+                    .build();
+        }
+        throw new  InvalidParkingGarageExeption("COULD_NOT_CREATE_PARKING_GARAGE");
     }
 
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {

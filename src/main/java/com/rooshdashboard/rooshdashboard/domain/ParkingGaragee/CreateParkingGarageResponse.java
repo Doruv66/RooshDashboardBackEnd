@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class CreateParkingGarageResponse {
-    private int id;
+    private long id;
 }

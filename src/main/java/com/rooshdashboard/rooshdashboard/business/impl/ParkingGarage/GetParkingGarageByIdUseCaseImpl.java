@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.GetParkingGarageByIdUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,10 @@ public class GetParkingGarageByIdUseCaseImpl implements GetParkingGarageByIdUseC
     private final ParkingGarageRepository parkingGarageRepository;
 
     @Override
-    public Optional<ParkingGarage> getParkingGarageById(int id) {
+    public Optional<ParkingGarage> getParkingGarageById(long id) {
+        if(!parkingGarageRepository.existsById(id)){
+            throw new InvalidParkingGarageExeption("PARKING_GARAGE_NOT_FOUND");
+        }
         return parkingGarageRepository.findById(id).map(ParkingGarageConverter::convert);
     }
 }

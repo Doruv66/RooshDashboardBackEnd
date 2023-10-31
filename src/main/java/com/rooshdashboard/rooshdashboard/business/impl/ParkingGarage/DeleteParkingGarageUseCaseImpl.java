@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.DeleteParkingGarageUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.DeleteParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
@@ -13,13 +14,11 @@ public class DeleteParkingGarageUseCaseImpl implements DeleteParkingGarageUseCas
     private final ParkingGarageRepository parkingGarageRepository;
 
     @Override
-    public DeleteParkingGarageResponse deleteParkingGarage(int id)
+    public DeleteParkingGarageResponse deleteParkingGarage(Long id)
     {
         if (!this.parkingGarageRepository.existsById(id))
         {
-            return DeleteParkingGarageResponse.builder()
-                    .message("No job with id: " + id)
-                    .build();
+            throw new InvalidParkingGarageExeption("PARKING_GARAGE_NOT_FOUND");
         }
         else {
             this.parkingGarageRepository.deleteById((id));
