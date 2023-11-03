@@ -10,6 +10,19 @@ CREATE TABLE Parking_garage (
                                 id INT NOT NULL AUTO_INCREMENT,
                                 location VARCHAR(255),
                                 booking_id INT,
+                                parking_garage_utility_id INT,
+                                PRIMARY KEY (id),
+                                FOREIGN KEY (parking_garage_utility_id) REFERENCES Parking_garage(id)
+);
+
+CREATE TABLE Parking_garage_utility (
+                                id INT NOT NULL AUTO_INCREMENT,
+                                parking_garage_id INT,
+                                toilet BOOLEAN,
+                                electricChargePoint BOOLEAN,
+                                floors INT,
+                                parkingSpaces INT,
+                                parkingSpacesElectric INT,
                                 PRIMARY KEY (id)
 );
 

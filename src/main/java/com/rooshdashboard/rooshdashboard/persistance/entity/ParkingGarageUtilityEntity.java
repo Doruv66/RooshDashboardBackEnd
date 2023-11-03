@@ -10,26 +10,33 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "parking_garages")
+@Table(name = "parking_garage_utility")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkingGarageEntity {
+public class ParkingGarageUtilityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @NotBlank
-    @Column(name = "address")
-    @Length(max = 50)
-    private String Address;
     @NotNull
-    @Column(name = "booking_id")
-    private int bookingId;
+    @Column(name = "parking_garage_id")
+    private Long parkingGarageId;
     @NotNull
+    @Column(name = "toilet")
+    private Boolean toilet;
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "parking_garage_utility_id")
-    private ParkingGarageUtilityEntity parkingGarageUtility;
+    @Column(name = "electric_charge_point")
+    private Boolean electricChargePoint;
+    @NotNull
+    @Column(name = "floors")
+    private int floors;
+    @NotNull
+    @Column(name = "parking_spaces")
+    private int parkingSpaces;
+    @NotNull
+    @Column(name = "parking_spaces_electric")
+    private int parkingSpacesElectric;
+
 }
