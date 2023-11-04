@@ -7,27 +7,23 @@ CREATE TABLE Admin (
 );
 
 CREATE TABLE Parking_garage (
-                        id INT NOT NULL AUTO_INCREMENT,
-                        location VARCHAR(255),
-                        booking_id INT,
-
-
-                        PRIMARY KEY (id),
-                        FOREIGN
+                                id INT NOT NULL AUTO_INCREMENT,
+                                location VARCHAR(255),
+                                booking_id INT,
+                                parking_garage_utility_id INT,
+                                PRIMARY KEY (id),
+                                FOREIGN KEY (parking_garage_utility_id) REFERENCES Parking_garage(id)
 );
 
-CREATE TABLE Parking_garage_utilities(
-                         id INT NOT NULL AUTO_INCREMENT,
-                         parking_garage_id INT NOT NULL,
-                         toilet BOOLEAN,
-                         accessibility BOOLEAN,
-                         electric_charger BOOLEAN,
-                         surveillance BOOLEAN,
-                         car_wash BOOLEAN,
-                         covered BOOLEAN,
-                         max_height DECIMAL, -- In case this is null no max height and in case not null that is the max height.
-                         FOREIGN KEY (parking_garage_id) REFERENCES Parking_garage(id),
-                         PRIMARY KEY (id)
+CREATE TABLE Parking_garage_utility (
+                                id INT NOT NULL AUTO_INCREMENT,
+                                parking_garage_id INT,
+                                toilet BOOLEAN,
+                                electricChargePoint BOOLEAN,
+                                floors INT,
+                                parkingSpaces INT,
+                                parkingSpacesElectric INT,
+                                PRIMARY KEY (id)
 );
 
 CREATE TABLE Customer (
@@ -73,7 +69,7 @@ CREATE TABLE Location (
 
 CREATE TABLE Service (
                          id INT NOT NULL AUTO_INCREMENT,
-                         price DECIMAL,
-                         type ENUM('Valet', 'Shuttle'), -- actual enum values here
-                         PRIMARY KEY (id)
+                         price DOUBLE,
+                         type ENUM('Valet', 'Shuttle'), <-- actual enum values here
+                         PRIMARY KEY (Id)
     );
