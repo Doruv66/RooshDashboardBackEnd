@@ -11,6 +11,7 @@ import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.*;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 
+import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageUtilityEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -150,7 +151,8 @@ public class ParkingGarageTests {
     public void testUpdateParkingGarageWithValidRequest() {
         // Arrange
         Long validGarageId = 1L;
-        UpdateParkingGarageRequest validRequest = new UpdateParkingGarageRequest(validGarageId, "456 Main St", 789);
+        ParkingGarageUtilityEntity parkingGarageUtility = new ParkingGarageUtilityEntity(2L, 1L, false, false, 2, 120, 2);
+        UpdateParkingGarageRequest validRequest = new UpdateParkingGarageRequest(validGarageId, "456 Main St", 789, parkingGarageUtility);
         ParkingGarageEntity existingGarage = ParkingGarageEntity.builder()
                 .id(validGarageId)
                 .Address("123 Main St")
@@ -196,7 +198,8 @@ public class ParkingGarageTests {
     public void testUpdateParkingGarageWithInvalidId() {
         // Arrange
         Long invalidGarageId = 99L;
-        UpdateParkingGarageRequest requestWithInvalidId = new UpdateParkingGarageRequest(invalidGarageId, "Fake Address", 1000);
+        ParkingGarageUtilityEntity parkingGarageUtility = new ParkingGarageUtilityEntity(2L, 1L, false, false, 2, 120, 2);
+        UpdateParkingGarageRequest requestWithInvalidId = new UpdateParkingGarageRequest(invalidGarageId, "Fake Address", 1000, parkingGarageUtility);
         when(mockParkingGarageRepository.existsById(invalidGarageId)).thenReturn(false);
 
         // Act & Assert
