@@ -49,7 +49,7 @@ public class ParkingGarageTests {
         for (int i = 0; i < 3; i++){
             ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder()
                     .id((long) i+1)
-                    .Address("123 Main St")
+                    .location("123 Main St")
                     .bookingId(456)
                     .build();
             parkingGarageEntityList.add(parkingGarageEntity);
@@ -88,7 +88,7 @@ public class ParkingGarageTests {
         Long validId = 1L;
         ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder()
                 .id(validId)
-                .Address("123 Main St")
+                .location("123 Main St")
                 .bookingId(456)
                 .build();
 
@@ -110,14 +110,14 @@ public class ParkingGarageTests {
     public void testCreateParkingGarageWithValidRequest() {
         // Arrange
         CreateParkingGarageRequest validRequest = CreateParkingGarageRequest.builder()
-                .Address("123 Main St")
+                .location("123 Main St")
                 .id(1L)
                 .bookingId(456)
                 .build();
 
         ParkingGarageEntity savedGarage = ParkingGarageEntity.builder()
                 .id(1L)
-                .Address("123 Main St")
+                .location("123 Main St")
                 .bookingId(456)
                 .build();
         when(mockParkingGarageRepository.save(any(ParkingGarageEntity.class))).thenReturn(savedGarage);
@@ -155,7 +155,7 @@ public class ParkingGarageTests {
         UpdateParkingGarageRequest validRequest = new UpdateParkingGarageRequest(validGarageId, "456 Main St", 789, parkingGarageUtility);
         ParkingGarageEntity existingGarage = ParkingGarageEntity.builder()
                 .id(validGarageId)
-                .Address("123 Main St")
+                .location("123 Main St")
                 .bookingId(456)
                 .build();
         when(mockParkingGarageRepository.existsById(validGarageId)).thenReturn(true);

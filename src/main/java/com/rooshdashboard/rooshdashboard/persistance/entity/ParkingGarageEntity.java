@@ -23,13 +23,13 @@ public class ParkingGarageEntity {
     @NotBlank
     @Column(name = "address")
     @Length(max = 50)
-    private String Address;
+    private String location;
     @NotNull
     @Column(name = "booking_id")
     private int bookingId;
     @NotNull
     @NotNull
     @OneToOne
-    @JoinColumn(name = "parking_garage_utility_id")
+    @JoinColumn(name = "")
     private ParkingGarageUtilityEntity parkingGarageUtility;
 }

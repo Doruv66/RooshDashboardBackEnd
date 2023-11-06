@@ -16,7 +16,7 @@ public class CreateParkingGarageRequest {
     @NotNull
     private Long id;
     @NotBlank
-    private String Address;
+    private String location;
     @NotNull
     private Integer bookingId;
     @NotNull

@@ -27,7 +27,6 @@ public class CreateServiceUseCaseImpl implements CreateServiceUseCase {
 
     private Long saveNewService(CreateServiceRequest request) {
         ServiceEntity newService = ServiceEntity.builder()
-                .price(request.getPrice())
                 .serviceType(request.getServiceType())
                 .build();
         return serviceRepository.save(newService).getId();

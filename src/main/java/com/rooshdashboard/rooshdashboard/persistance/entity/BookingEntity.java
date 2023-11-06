@@ -39,8 +39,8 @@ public class BookingEntity {
     @Column(name = "flight_number_arrivel")
     private Long flightNumberArrival;
     @NotNull
-    @JoinColumn(name = "location_id")
-    private Long locationId;
+    @JoinColumn(name = "garage_id")
+    private Long garageId;
     @NotNull
     @Column(name = "service_id")
     private Long serviceId;

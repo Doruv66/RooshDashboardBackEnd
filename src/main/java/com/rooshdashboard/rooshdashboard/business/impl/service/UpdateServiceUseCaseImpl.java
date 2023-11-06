@@ -29,7 +29,6 @@ public class UpdateServiceUseCaseImpl implements UpdateServiceUseCase {
 
     private Long updateFields(UpdateServiceRequest request, ServiceEntity service) {
         service.setServiceType(request.getType());
-        service.setPrice(request.getPrice());
         return serviceRepository.save(service).getId();
     }
 }

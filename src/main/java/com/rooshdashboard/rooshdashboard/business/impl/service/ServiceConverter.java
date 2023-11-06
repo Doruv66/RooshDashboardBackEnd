@@ -10,7 +10,6 @@ public class ServiceConverter {
     public static Service convert(ServiceEntity service) {
         return Service.builder()
                 .id(service.getId())
-                .price(service.getPrice())
                 .serviceType(service.getServiceType())
                 .build();
     }

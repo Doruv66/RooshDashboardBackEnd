@@ -35,7 +35,7 @@ public class CreateBookingRequest {
     private Long flightNumberArrival;
 
     @NotNull
-    private Long locationId;
+    private Long garageId;
 
     @NotNull
     private Long serviceId;

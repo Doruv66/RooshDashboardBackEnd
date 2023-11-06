@@ -17,7 +17,7 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     @Override
     public CreateParkingGarageResponse CreateParkingGarage(CreateParkingGarageRequest request)
     {
-        if(request.getAddress().isEmpty() || request.getBookingId() != null) {
+        if(request.getLocation().isEmpty() || request.getBookingId() != null) {
             ParkingGarageEntity parkingGarage = saveNewParkingGarage(request);
             return CreateParkingGarageResponse.builder()
                     .id(parkingGarage.getId())
@@ -28,7 +28,7 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
 
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
-                .Address(request.getAddress())
+                .location(request.getLocation())
                 .bookingId(request.getBookingId())
                 .parkingGarageUtility(request.getParkingGarageUtility())
                 .build();

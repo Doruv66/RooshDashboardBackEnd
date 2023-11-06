@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UpdateParkingGarageRequest {
     private Long id;
     @NotBlank
-    private String Address;
+    private String location;
     @NotNull
     private Integer bookingId;
     @NotNull

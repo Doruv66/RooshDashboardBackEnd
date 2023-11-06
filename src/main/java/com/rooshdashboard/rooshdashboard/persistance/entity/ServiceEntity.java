@@ -19,9 +19,6 @@ public class ServiceEntity {
     @Column(name = "id")
     private Long id;
     @NotNull
-    @Column(name = "price")
-    private double price;
-    @NotNull
     @Column(name = "service_type")
     private ServiceType serviceType;
 }

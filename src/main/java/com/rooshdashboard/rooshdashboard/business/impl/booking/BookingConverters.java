@@ -9,7 +9,7 @@ public class BookingConverters {
 
     public static Booking convertToBooking(BookingEntity bookingEntity){
         return Booking.builder().id(bookingEntity.getId())
-                .locationId(bookingEntity.getLocationId())
+                .garageId(bookingEntity.getGarageId())
                 .serviceId(bookingEntity.getServiceId())
                 .startDate(bookingEntity.getStartDate())
                 .endDate(bookingEntity.getEndDate())
@@ -24,7 +24,7 @@ public class BookingConverters {
 
     public static BookingEntity convertToBookingEntity(Booking booking){
         return BookingEntity.builder().id(booking.getId())
-                .locationId(booking.getLocationId())
+                .garageId(booking.getGarageId())
                 .serviceId(booking.getServiceId())
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())

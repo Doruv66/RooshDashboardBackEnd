@@ -53,23 +53,16 @@ CREATE TABLE Bookings (
                           end_date DATETIME,
                           flight_number_departure INT,
                           flight_number_arrival INT,
-                          location_id INT,
+                          garage_id INT,
                           service_id INT,
                           PRIMARY KEY (id),
                           FOREIGN KEY (customer_id) REFERENCES Customer(id),
                           FOREIGN KEY (car_id) REFERENCES Car(id)
 );
 
-CREATE TABLE Location (
-                          id INT NOT NULL AUTO_INCREMENT,
-                          parkingSlot INT,
-                          floor INT,
-                          PRIMARY KEY (id)
-);
 
 CREATE TABLE Service (
                          id INT NOT NULL AUTO_INCREMENT,
-                         price DOUBLE,
-                         type ENUM('Valet', 'Shuttle'), <-- actual enum values here
+                         type ENUM('Valet', 'Shuttle'), -- actual enum values here
                          PRIMARY KEY (Id)
     );

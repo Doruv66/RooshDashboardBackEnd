@@ -42,8 +42,8 @@ public class ServiceTests {
     @Test
     public void testCreateServiceWithValidRequest() {
         // Happy Flow
-        CreateServiceRequest validRequest = new CreateServiceRequest(100.0, com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet);
-        ServiceEntity savedService = ServiceEntity.builder().id(1L).price(100.0).serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build();
+        CreateServiceRequest validRequest = new CreateServiceRequest( com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet);
+        ServiceEntity savedService = ServiceEntity.builder().id(1L).serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build();
         when(mockServiceRepository.save(any(ServiceEntity.class))).thenReturn(savedService);
 
         // Act
@@ -69,8 +69,8 @@ public class ServiceTests {
         // Happy Flow
         long validServiceId = 1L;
         UpdateServiceRequest validRequest = new UpdateServiceRequest(validServiceId, 150.0, Shuttle);
-        ServiceEntity existingService = ServiceEntity.builder().id(validServiceId).price(100.0).serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build();
-        ServiceEntity updatedService = ServiceEntity.builder().id(validServiceId).price(150.0).serviceType(Shuttle).build();
+        ServiceEntity existingService = ServiceEntity.builder().id(validServiceId).serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build();
+        ServiceEntity updatedService = ServiceEntity.builder().id(validServiceId).serviceType(Shuttle).build();
 
         when(mockServiceRepository.findById(validServiceId)).thenReturn(Optional.of(existingService));
         when(mockServiceRepository.existsById(validServiceId)).thenReturn(true);
@@ -142,7 +142,7 @@ public class ServiceTests {
     @Test
     public void testGetAllServicesWithFilledRepository() {
         // Sad Flow
-        List<ServiceEntity> serviceEntities = IntStream.range(1, 6).mapToObj(i -> ServiceEntity.builder().id((long) i).price(i * 100.0).
+        List<ServiceEntity> serviceEntities = IntStream.range(1, 6).mapToObj(i -> ServiceEntity.builder().id((long) i).
                 serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build()).collect(Collectors.toList());
         when(mockServiceRepository.findAll()).thenReturn(serviceEntities);
 
@@ -158,7 +158,7 @@ public class ServiceTests {
     public void testGetServiceByIdWithExistingService() {
         // Happy Flow
         Long validId = 1L;
-        ServiceEntity serviceEntity = ServiceEntity.builder().id(validId).price(100.0)
+        ServiceEntity serviceEntity = ServiceEntity.builder().id(validId)
                 .serviceType(com.rooshdashboard.rooshdashboard.persistance.entity.ServiceType.Valet).build();
         Service service = ServiceConverter.convert(serviceEntity);
         when(mockServiceRepository.existsById(validId)).thenReturn(true);

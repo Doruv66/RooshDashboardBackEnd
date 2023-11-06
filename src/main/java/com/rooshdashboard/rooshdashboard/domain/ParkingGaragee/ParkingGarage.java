@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ParkingGarage {
     private Long id;
-    private String Address;
+    private String location;
     private Integer bookingId;
 
 }

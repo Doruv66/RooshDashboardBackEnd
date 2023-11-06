@@ -30,7 +30,7 @@ public class UpdateBookingUseCaseImpl implements UpdateBookingUseCase {
         bookingEntity.setId(request.getId());
         bookingEntity.setCustomerId(request.getCustomerId());
         bookingEntity.setCarId(request.getCarId());
-        bookingEntity.setLocationId(request.getLocationId());
+        bookingEntity.setGarageId(request.getGarageId());
         bookingEntity.setEndDate(request.getEndDate());
         bookingEntity.setEndDate(request.getEndDate());
         bookingEntity.setFlightNumberArrival(request.getFlightNumberArrival());

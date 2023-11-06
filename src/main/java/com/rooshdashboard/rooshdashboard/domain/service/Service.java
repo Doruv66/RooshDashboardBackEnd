@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Service {
     private Long id;
-    private double price;
     private ServiceType serviceType;
 }
