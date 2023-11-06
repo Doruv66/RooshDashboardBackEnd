@@ -21,7 +21,7 @@ public class ParkingGarageEntity {
     @Column(name = "id")
     private Long id;
     @NotBlank
-    @Column(name = "address")
+    @Column(name = "location")
     @Length(max = 50)
     private String location;
     @NotNull

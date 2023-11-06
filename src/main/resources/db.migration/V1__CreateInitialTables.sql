@@ -8,7 +8,12 @@ CREATE TABLE Admin (
 
 CREATE TABLE Parking_garage (
                                 id INT NOT NULL AUTO_INCREMENT,
+                                name VARCHAR(255),
+                                airport VARCHAR(255),
                                 location VARCHAR(255),
+                                travelTime INT,
+                                travelDistance INT,
+                                phoneNumber INT,
                                 booking_id INT,
                                 parking_garage_utility_id INT,
                                 PRIMARY KEY (id),
