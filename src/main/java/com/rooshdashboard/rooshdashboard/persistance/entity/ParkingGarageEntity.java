@@ -30,6 +30,6 @@ public class ParkingGarageEntity {
     @NotNull
     @NotNull
     @OneToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "parking_garage_utility")
     private ParkingGarageUtilityEntity parkingGarageUtility;
 }
