@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.List;
+
 @Entity
 @Table(name = "parking_garages")
 @Data
@@ -24,10 +26,13 @@ public class ParkingGarageEntity {
     @Column(name = "address")
     @Length(max = 50)
     private String Address;
-    @NotNull
+    @ElementCollection
+    @CollectionTable(
+            name = "Bookings",
+            joinColumns = @JoinColumn(name = "parking_garage_id")
+    )
     @Column(name = "booking_id")
-    private int bookingId;
-    @NotNull
+    private List<Long> bookingId;
     @NotNull
     @OneToOne
     @JoinColumn(name = "parking_garage_utility_id")

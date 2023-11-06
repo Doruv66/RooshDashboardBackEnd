@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -12,6 +14,5 @@ import lombok.NoArgsConstructor;
 public class ParkingGarage {
     private Long id;
     private String Address;
-    private Integer bookingId;
-
+    private List<Long> bookingIds;
 }
