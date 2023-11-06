@@ -30,6 +30,7 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .Address(request.getAddress())
                 .bookingId(request.getBookingId())
+                .parkingGarageUtility(request.getParkingGarageUtility())
                 .build();
         return parkingGarageRepository.save(newParkingGarage);
     }

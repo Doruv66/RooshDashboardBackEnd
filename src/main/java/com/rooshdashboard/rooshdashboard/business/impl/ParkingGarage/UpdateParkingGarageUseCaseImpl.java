@@ -34,6 +34,7 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
     private void updateFields(UpdateParkingGarageRequest request, ParkingGarageEntity parkingGarage) {
         parkingGarage.setAddress(request.getAddress());
         parkingGarage.setBookingId(request.getBookingId());
+        parkingGarage.setParkingGarageUtility(request.getParkingGarageUtility());
         parkingGarageRepository.save(parkingGarage);
     }
 }
