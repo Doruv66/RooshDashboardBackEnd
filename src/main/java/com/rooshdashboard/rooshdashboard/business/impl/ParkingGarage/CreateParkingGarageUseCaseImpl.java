@@ -29,6 +29,12 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
+                .name(request.getName())
+                .travelDistance(request.getTravelDistance())
+                .travelTime(request.getTravelTime())
+                .location(request.getLocation())
+                .phoneNumber(request.getPhoneNumber())
+                .airport(request.getAirport())
                 .bookingId(request.getBookingId())
                 .parkingGarageUtility(request.getParkingGarageUtility())
                 .build();

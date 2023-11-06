@@ -21,15 +21,32 @@ public class ParkingGarageEntity {
     @Column(name = "id")
     private Long id;
     @NotBlank
+    @Column(name = "name")
+    @Length(max = 50)
+    private String name;
+    @NotBlank
+    @Column(name = "airport")
+    @Length(max = 50)
+    private String airport;
+    @NotBlank
     @Column(name = "location")
     @Length(max = 50)
     private String location;
+    @NotNull
+    @Column(name = "travel_time")
+    private int travelTime;
+    @NotNull
+    @Column(name = "travel_distance")
+    private int travelDistance;
+    @NotNull
+    @Column(name = "phone_number")
+    private int phoneNumber;
     @NotNull
     @Column(name = "booking_id")
     private int bookingId;
     @NotNull
     @NotNull
     @OneToOne
-    @JoinColumn(name = "")
+    @JoinColumn(name = "parking_garage_utility_id")
     private ParkingGarageUtilityEntity parkingGarageUtility;
 }
