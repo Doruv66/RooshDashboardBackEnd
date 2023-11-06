@@ -63,7 +63,7 @@ public class BookingControllerTests {
                 .endDate(now.plusDays(random.nextInt(10)))
                 .flightNumberDeparture((long) random.nextInt(10000) + 1)
                 .flightNumberArrival((long) random.nextInt(10000) + 1)
-                .locationId((long) random.nextInt(100) + 1)
+                .garageId((long) random.nextInt(100) + 1)
                 .serviceId((long) random.nextInt(100) + 1)
                 .build();
     }
@@ -104,7 +104,7 @@ public class BookingControllerTests {
                 .endDate(now.plusDays(random.nextInt(10)))
                 .flightNumberDeparture((long) random.nextInt(10000) + 1)
                 .flightNumberArrival((long) random.nextInt(10000) + 1)
-                .locationId((long) random.nextInt(100) + 1)
+                .garageId((long) random.nextInt(100) + 1)
                 .serviceId((long) random.nextInt(100) + 1)
                 .build();
         CreateBookingResponse response = CreateBookingResponse.builder().id(request.getId()).build();
@@ -128,7 +128,7 @@ public class BookingControllerTests {
                 .carId(booking.getCarId())
                 .customerId(booking.getCustomerId())
                 .serviceId(booking.getServiceId())
-                .locationId(booking.getLocationId())
+                .garageId(booking.getGarageId())
                 .startDate(booking.getStartDate())
                 .endDate(booking.getEndDate())
                 .flightNumberArrival(booking.getFlightNumberArrival())
