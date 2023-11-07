@@ -9,6 +9,6 @@ public class ParkingGarageConverter {
     }
 
     public static ParkingGarage convert(ParkingGarageEntity parkingGarage) {
-        return ParkingGarage.builder().id(parkingGarage.getId()).bookingId(parkingGarage.getBookingId()).location(parkingGarage.getLocation()).build();
+        return ParkingGarage.builder().id(parkingGarage.getId()).location(parkingGarage.getLocation()).build();
     }
 }
