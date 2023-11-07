@@ -28,13 +28,14 @@ public class UpdateBookingUseCaseImpl implements UpdateBookingUseCase {
 
     private Long updateFields(UpdateBookingRequest request, BookingEntity bookingEntity){
         bookingEntity.setId(request.getId());
-        bookingEntity.setCustomerId(request.getCustomerId());
-        bookingEntity.setCarId(request.getCarId());
-        bookingEntity.setGarageId(request.getGarageId());
+        bookingEntity.setCustomer(request.getCustomer());
+        bookingEntity.setCar(request.getCar());
+        bookingEntity.setGarage(request.getGarage());
         bookingEntity.setEndDate(request.getEndDate());
         bookingEntity.setEndDate(request.getEndDate());
         bookingEntity.setFlightNumberArrival(request.getFlightNumberArrival());
         bookingEntity.setFlightNumberDeparture(request.getFlightNumberDeparture());
+        bookingEntity.setService(request.getService());
         bookingRepository.save(bookingEntity);
         return bookingEntity.getId();
     }

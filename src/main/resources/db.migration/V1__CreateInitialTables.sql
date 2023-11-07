@@ -1,45 +1,47 @@
-CREATE TABLE Admin (
+CREATE TABLE accounts (
                        id INT NOT NULL AUTO_INCREMENT,
                        username VARCHAR(255),
+                       email VARCHAR(255),
                        password VARCHAR(255),
-                       parking_garage_id INT,
-                       PRIMARY KEY (id)
+                       role_id INT,
+                       PRIMARY KEY (id),
+                       FOREIGN KEY(role_id) REFERENCES roles(id)
 );
 
-CREATE TABLE Parking_garage (
+CREATE TABLE parking_garages (
                                 id INT NOT NULL AUTO_INCREMENT,
                                 name VARCHAR(255),
                                 airport VARCHAR(255),
                                 location VARCHAR(255),
-                                travelTime INT,
-                                travelDistance INT,
-                                phoneNumber INT,
-                                booking_id INT,
+                                account_id INT,
+                                travel_time INT,
+                                travel_distance INT,
+                                phone_number VARCHAR(255),
                                 parking_garage_utility_id INT,
                                 PRIMARY KEY (id),
-                                FOREIGN KEY (parking_garage_utility_id) REFERENCES Parking_garage(id)
+                                FOREIGN KEY (parking_garage_utility_id) REFERENCES parking_garage_utility(id),
+                                FOREIGN KEY (account_id) REFERENCES  accounts(id)
 );
 
-CREATE TABLE Parking_garage_utility (
+CREATE TABLE parking_garage_utility (
                                 id INT NOT NULL AUTO_INCREMENT,
-                                parking_garage_id INT,
                                 toilet BOOLEAN,
-                                electricChargePoint BOOLEAN,
+                                electric_charge_point BOOLEAN,
                                 floors INT,
-                                parkingSpaces INT,
-                                parkingSpacesElectric INT,
-                                PRIMARY KEY (id)
+                                parking_spaces INT,
+                                parking_spaces_electric INT,
+                                PRIMARY KEY (id),
 );
 
-CREATE TABLE Customer (
+CREATE TABLE customers (
                           id INT NOT NULL AUTO_INCREMENT,
                           name VARCHAR(255),
                           email VARCHAR(255),
-                          mobile INT,
+                          phone_number VARCHAR(255),
                           PRIMARY KEY (id)
 );
 
-CREATE TABLE Car (
+CREATE TABLE cars (
                      id INT NOT NULL AUTO_INCREMENT,
                      customer_id INT,
                      license_plate VARCHAR(255),
@@ -47,10 +49,10 @@ CREATE TABLE Car (
                      model VARCHAR(255),
                      electric BOOLEAN,
                      PRIMARY KEY (Id),
-                     FOREIGN KEY (customer_id) REFERENCES Customer(id)
+                     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
-CREATE TABLE Bookings (
+CREATE TABLE bookings (
                           id INT NOT NULL AUTO_INCREMENT,
                           customer_id INT,
                           car_id INT,
@@ -61,13 +63,21 @@ CREATE TABLE Bookings (
                           garage_id INT,
                           service_id INT,
                           PRIMARY KEY (id),
-                          FOREIGN KEY (customer_id) REFERENCES Customer(id),
-                          FOREIGN KEY (car_id) REFERENCES Car(id)
+                          FOREIGN KEY (customer_id) REFERENCES customers(id),
+                          FOREIGN KEY (car_id) REFERENCES cars(id),
+                          FOREIGN KEY (garage_id) REFERENCES parking_garages(id),
+                          FOREIGN KEY (service_id) REFERENCES service(id)
 );
 
 
-CREATE TABLE Service (
+CREATE TABLE service (
                          id INT NOT NULL AUTO_INCREMENT,
                          type ENUM('Valet', 'Shuttle'), -- actual enum values here
-                         PRIMARY KEY (Id)
+                         PRIMARY KEY (id)
     );
+
+CREATE TABLE roles (
+                         id INT NOT NULL AUTO_INCREMENT,
+                         name VARCHAR(255),
+                         PRIMARY KEY (id)
+);

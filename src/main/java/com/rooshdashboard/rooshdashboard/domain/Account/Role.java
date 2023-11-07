@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.domain.ParkingGaragee;
+package com.rooshdashboard.rooshdashboard.domain.Account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkingGarage {
+public class Role {
     private Long id;
-    private String location;
-    private Integer bookingId;
+    private String roleName;
 
 }

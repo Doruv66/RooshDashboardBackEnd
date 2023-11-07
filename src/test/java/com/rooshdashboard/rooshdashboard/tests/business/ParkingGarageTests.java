@@ -3,11 +3,9 @@ package com.rooshdashboard.rooshdashboard.tests.business;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import com.rooshdashboard.rooshdashboard.business.IParkingGarage.GetParkingGarageUseCase;
-import com.rooshdashboard.rooshdashboard.business.exception.InvalidLocationException;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.*;
-import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.*;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 
@@ -17,10 +15,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

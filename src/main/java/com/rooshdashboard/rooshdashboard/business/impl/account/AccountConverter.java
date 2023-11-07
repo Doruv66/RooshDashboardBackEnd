@@ -14,7 +14,7 @@ public class AccountConverter {
                 .name(account.getName())
                 .email(account.getEmail())
                 .password(account.getPassword())
-                .RoleId(account.getRoleId())
+                .role(RoleConverter.convert(account.getRole()))
                 .build();
     }
 }

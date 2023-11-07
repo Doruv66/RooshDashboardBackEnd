@@ -20,6 +20,10 @@ public class CarEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @NotNull
+    @JoinColumn(name = "customer_id")
+    @ManyToOne
+    private CustomerEntity customer;
     @NotBlank
     @Column(name = "license_plate")
     @Length(min = 2, max = 50)

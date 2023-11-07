@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.persistance.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,29 +23,29 @@ public class ParkingGarageEntity {
     private Long id;
     @NotBlank
     @Column(name = "name")
-    @Length(max = 50)
+    @Length(max = 255)
     private String name;
     @NotBlank
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private AccountEntity account;
+    @NotBlank
     @Column(name = "airport")
-    @Length(max = 50)
+    @Length(max = 255)
     private String airport;
     @NotBlank
     @Column(name = "location")
-    @Length(max = 50)
+    @Length(max = 255)
     private String location;
     @NotNull
     @Column(name = "travel_time")
-    private int travelTime;
+    private Long travelTime;
     @NotNull
     @Column(name = "travel_distance")
-    private int travelDistance;
-    @NotNull
+    private Long travelDistance;
+    @NotEmpty
     @Column(name = "phone_number")
-    private int phoneNumber;
-    @NotNull
-    @Column(name = "booking_id")
-    private int bookingId;
-    @NotNull
+    private String phoneNumber;
     @NotNull
     @OneToOne
     @JoinColumn(name = "parking_garage_utility_id")

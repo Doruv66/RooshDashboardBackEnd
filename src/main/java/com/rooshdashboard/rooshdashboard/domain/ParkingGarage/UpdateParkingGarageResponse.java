@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.domain.ParkingGaragee;
+package com.rooshdashboard.rooshdashboard.domain.ParkingGarage;
 
 import lombok.Builder;
 import lombok.Data;

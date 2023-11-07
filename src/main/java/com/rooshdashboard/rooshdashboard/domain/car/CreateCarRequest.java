@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class CreateCarRequest {
     @NotBlank
     private String licensePlate;
+    @NotNull
+    private Long customerId;
     @NotBlank
     private String brand;
     @NotBlank

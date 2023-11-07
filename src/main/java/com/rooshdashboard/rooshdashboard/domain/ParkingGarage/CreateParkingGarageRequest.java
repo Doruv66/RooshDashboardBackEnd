@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.domain.ParkingGaragee;
+package com.rooshdashboard.rooshdashboard.domain.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageUtilityEntity;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateParkingGarageRequest {
+public class CreateParkingGarageRequest {
+    @NotNull
     private Long id;
     @NotBlank
     private String name;
@@ -21,13 +22,13 @@ public class UpdateParkingGarageRequest {
     @NotBlank
     private String location;
     @NotNull
-    private int travelTime;
+    private Long accountId;
     @NotNull
-    private int travelDistance;
+    private Long travelTime;
     @NotNull
-    private int phoneNumber;
+    private Long travelDistance;
     @NotNull
-    private Integer bookingId;
+    private String phoneNumber;
     @NotNull
-    private ParkingGarageUtilityEntity parkingGarageUtility;
+    private ParkingGarageUtilityEntity parkingGarageUtilityId;
 }

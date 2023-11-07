@@ -1,5 +1,9 @@
 package com.rooshdashboard.rooshdashboard.domain.booking;
 
+import com.rooshdashboard.rooshdashboard.domain.Customer.Customer;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.ParkingGarage;
+import com.rooshdashboard.rooshdashboard.domain.car.Car;
+import com.rooshdashboard.rooshdashboard.domain.service.Service;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,10 +21,10 @@ public class Booking {
     private Long id;
 
     @NotNull
-    private Long customerId;
+    private Customer customerId;
 
     @NotNull
-    private Long carId;
+    private Car carId;
 
     @NotNull
     private LocalDateTime startDate;
@@ -34,7 +38,7 @@ public class Booking {
     @NotNull
     private Long flightNumberArrival;
     @NotNull
-    private Long garageId;
+    private ParkingGarage garageId;
     @NotNull
-    private Long serviceId;
+    private Service serviceId;
 }

@@ -21,8 +21,9 @@ public class ParkingGarageUtilityEntity {
     @Column(name = "id")
     private Long id;
     @NotNull
-    @Column(name = "parking_garage_id")
-    private Long parkingGarageId;
+    @OneToOne
+    @JoinColumn(name = "parking_garage_id")
+    private ParkingGarageEntity parkingGarage;
     @NotNull
     @Column(name = "toilet")
     private Boolean toilet;
@@ -31,12 +32,12 @@ public class ParkingGarageUtilityEntity {
     private Boolean electricChargePoint;
     @NotNull
     @Column(name = "floors")
-    private int floors;
+    private Long floors;
     @NotNull
     @Column(name = "parking_spaces")
-    private int parkingSpaces;
+    private Long parkingSpaces;
     @NotNull
     @Column(name = "parking_spaces_electric")
-    private int parkingSpacesElectric;
+    private Long parkingSpacesElectric;
 
 }

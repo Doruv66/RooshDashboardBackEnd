@@ -2,7 +2,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
-import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.*;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

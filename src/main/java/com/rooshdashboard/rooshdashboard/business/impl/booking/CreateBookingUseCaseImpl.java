@@ -27,14 +27,14 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase {
     private Long saveBooking(CreateBookingRequest request){
         BookingEntity newBookingEntity = BookingEntity.builder()
                 .id(request.getId())
-                .garageId(request.getGarageId())
-                .serviceId(request.getServiceId())
+                .garage(request.getGarage())
+                .service(request.getService())
                 .startDate(request.getStartDate())
                 .endDate(request.getEndDate())
                 .flightNumberArrival(request.getFlightNumberArrival())
                 .flightNumberDeparture(request.getFlightNumberDeparture())
-                .customerId(request.getCustomerId())
-                .carId(request.getCustomerId())
+                .customer(request.getCustomer())
+                .car(request.getCar())
                 .build();
         bookingRepository.save(newBookingEntity);
         return newBookingEntity.getId();

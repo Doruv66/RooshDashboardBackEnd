@@ -1,5 +1,6 @@
 package com.rooshdashboard.rooshdashboard.domain.Account;
 
+import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,5 +21,5 @@ public class UpdateAccountRequest {
     @NotBlank
     private String password;
     @NotNull
-    private Long RoleId;
+    private RoleEntity role;
 }

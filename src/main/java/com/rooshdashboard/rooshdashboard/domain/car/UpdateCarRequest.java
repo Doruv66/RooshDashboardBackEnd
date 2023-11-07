@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class UpdateCarRequest {
     @NotNull
     private Long id;
+    @NotNull
+    private Long customerId;
     @NotBlank
     private String licensePlate;
     @NotBlank

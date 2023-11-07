@@ -5,6 +5,7 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidCarException;
 import com.rooshdashboard.rooshdashboard.domain.car.CreateCarRequest;
 import com.rooshdashboard.rooshdashboard.domain.car.CreateCarResponse;
 import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
+import com.rooshdashboard.rooshdashboard.persistance.CustomerRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.CarEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateCarUseCaseImpl implements CreateCarUseCase {
     private final CarRepository carRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public CreateCarResponse createCar(CreateCarRequest request) {
@@ -29,6 +31,7 @@ public class CreateCarUseCaseImpl implements CreateCarUseCase {
     private Long saveNewCar(CreateCarRequest request) {
 
         CarEntity newCar = CarEntity.builder()
+                .customer(customerRepository.getReferenceById(request.getCustomerId()))
                 .model(request.getModel())
                 .electric(request.getElectric())
                 .brand(request.getBrand())

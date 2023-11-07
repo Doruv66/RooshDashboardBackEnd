@@ -5,7 +5,7 @@ import com.rooshdashboard.rooshdashboard.business.IParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.ParkingGarageConverter;
 import com.rooshdashboard.rooshdashboard.controller.ParkingGarageController;
-import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.*;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import org.junit.jupiter.api.Test;

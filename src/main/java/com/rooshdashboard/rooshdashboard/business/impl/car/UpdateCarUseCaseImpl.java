@@ -5,6 +5,7 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidCarException;
 import com.rooshdashboard.rooshdashboard.domain.car.UpdateCarRequest;
 import com.rooshdashboard.rooshdashboard.domain.car.UpdateCarResponse;
 import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
+import com.rooshdashboard.rooshdashboard.persistance.CustomerRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.CarEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UpdateCarUseCaseImpl implements UpdateCarUseCase {
     private CarRepository carRepository;
+    private CustomerRepository customerRepository;
 
     @Override
     public UpdateCarResponse updateCar(UpdateCarRequest request){
@@ -27,6 +29,7 @@ public class UpdateCarUseCaseImpl implements UpdateCarUseCase {
     }
     private Long updateFields(UpdateCarRequest request, CarEntity car){
         car.setId(request.getId());
+        car.setCustomer(customerRepository.getReferenceById(request.getCustomerId()));
         car.setBrand(request.getBrand());
         car.setModel(request.getModel());
         car.setLicensePlate(request.getLicensePlate());

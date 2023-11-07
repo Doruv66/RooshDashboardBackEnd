@@ -21,11 +21,13 @@ public class BookingEntity {
     @Column(name = "id")
     private Long id;
     @NotNull
+    @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Long customerId;
+    private CustomerEntity customer;
     @NotNull
+    @ManyToOne
     @JoinColumn(name = "car_id")
-    private Long carId;
+    private CarEntity car;
     @NotNull
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -40,8 +42,10 @@ public class BookingEntity {
     private Long flightNumberArrival;
     @NotNull
     @JoinColumn(name = "garage_id")
-    private Long garageId;
+    @ManyToOne
+    private ParkingGarageEntity garage;
     @NotNull
     @Column(name = "service_id")
-    private Long serviceId;
+    @OneToOne
+    private ServiceEntity service;
 }

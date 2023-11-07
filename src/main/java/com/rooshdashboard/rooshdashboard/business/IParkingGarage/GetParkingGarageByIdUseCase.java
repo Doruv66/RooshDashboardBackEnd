@@ -1,6 +1,6 @@
 package com.rooshdashboard.rooshdashboard.business.IParkingGarage;
 
-import com.rooshdashboard.rooshdashboard.domain.ParkingGaragee.ParkingGarage;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.ParkingGarage;
 
 import java.util.Optional;
 
