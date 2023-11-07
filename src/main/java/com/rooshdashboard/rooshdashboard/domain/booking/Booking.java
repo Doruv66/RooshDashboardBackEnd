@@ -21,10 +21,10 @@ public class Booking {
     private Long id;
 
     @NotNull
-    private Customer customerId;
+    private Customer customer;
 
     @NotNull
-    private Car carId;
+    private Car car;
 
     @NotNull
     private LocalDateTime startDate;
@@ -38,7 +38,7 @@ public class Booking {
     @NotNull
     private Long flightNumberArrival;
     @NotNull
-    private ParkingGarage garageId;
+    private ParkingGarage garage;
     @NotNull
-    private Service serviceId;
+    private Service service;
 }
