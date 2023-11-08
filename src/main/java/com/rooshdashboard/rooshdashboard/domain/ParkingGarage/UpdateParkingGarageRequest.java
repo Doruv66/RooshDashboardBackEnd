@@ -21,8 +21,8 @@ public class UpdateParkingGarageRequest {
     private String airport;
     @NotBlank
     private String location;
-    @NotNull
-    private Long accountId;
+//    @NotNull
+//    private Long accountId;
     @NotNull
     private Long travelTime;
     @NotNull

@@ -28,5 +28,5 @@ public class CreateParkingGarageRequest {
     @NotBlank
     private String phoneNumber;
     @NotNull
-    private ParkingGarageUtilityEntity ParkingGarageUtility;
+    private ParkingGarageUtilityEntity parkingGarageUtility;
 }

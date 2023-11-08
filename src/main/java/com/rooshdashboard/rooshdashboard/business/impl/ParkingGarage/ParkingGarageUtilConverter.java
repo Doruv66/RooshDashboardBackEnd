@@ -14,6 +14,7 @@ public class ParkingGarageUtilConverter {
         return ParkingGarageUtility.builder()
                 .id(parkingGarageUtil.getId())
                 .parkingSpaces(parkingGarageUtil.getParkingSpaces())
+                .parkingSpacesElectric(parkingGarageUtil.getParkingSpacesElectric())
                 .electricChargePoint(parkingGarageUtil.getElectricChargePoint())
                 .floors(parkingGarageUtil.getFloors())
                 .toilet(parkingGarageUtil.getToilet())

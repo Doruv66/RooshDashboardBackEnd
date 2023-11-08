@@ -20,21 +20,19 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     @Override
     public CreateParkingGarageResponse CreateParkingGarage(CreateParkingGarageRequest request)
     {
-        if(request.getLocation().isEmpty()) {
             ParkingGarageEntity parkingGarage = saveNewParkingGarage(request);
             return CreateParkingGarageResponse.builder()
                     .id(parkingGarage.getId())
                     .build();
-        }
-        throw new  InvalidParkingGarageExeption("COULD_NOT_CREATE_PARKING_GARAGE");
     }
 
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {
-        AccountEntity foundAccount = accountRepository.getReferenceById(request.getAccountId());
+//        AccountEntity foundAccount = accountRepository.getReferenceById(request.getAccountId());
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
                 .name(request.getName())
-                .account(foundAccount)
+//                .account(foundAccount)
+                .parkingGarageUtility(request.getParkingGarageUtility())
                 .travelDistance(request.getTravelDistance())
                 .travelTime(request.getTravelTime())
                 .location(request.getLocation())
