@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ParkingGarageUtility {
     private Long id;
-    private ParkingGarageEntity parkingGarage;
     private Boolean toilet;
     private Boolean electricChargePoint;
     private Long floors;

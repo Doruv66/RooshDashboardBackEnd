@@ -21,10 +21,6 @@ public class ParkingGarageUtilityEntity {
     @Column(name = "id")
     private Long id;
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "parking_garage_id")
-    private ParkingGarageEntity parkingGarage;
-    @NotNull
     @Column(name = "toilet")
     private Boolean toilet;
     @NotNull
