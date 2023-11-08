@@ -12,15 +12,6 @@ CREATE TABLE accounts (
                           PRIMARY KEY (id),
                           FOREIGN KEY(role_id) REFERENCES roles(id)
 );
-CREATE TABLE parking_garage_utility (
-                                        id INT NOT NULL AUTO_INCREMENT,
-                                        toilet BOOLEAN,
-                                        electric_charge_point BOOLEAN,
-                                        floors INT,
-                                        parking_spaces INT,
-                                        parking_spaces_electric INT,
-                                        PRIMARY KEY (id)
-);
 
 CREATE TABLE parking_garages (
                                  id INT NOT NULL AUTO_INCREMENT,
@@ -31,10 +22,19 @@ CREATE TABLE parking_garages (
                                  travel_time INT,
                                  travel_distance INT,
                                  phone_number VARCHAR(255),
-                                 parking_garage_utility_id INT,
                                  PRIMARY KEY (id),
-                                 FOREIGN KEY (parking_garage_utility_id) REFERENCES parking_garage_utility(id),
                                  FOREIGN KEY (account_id) REFERENCES  accounts(id)
+);
+CREATE TABLE parking_garage_utility (
+                                        id INT NOT NULL AUTO_INCREMENT,
+                                        toilet BOOLEAN,
+                                        electric_charge_point BOOLEAN,
+                                        floors INT,
+                                        parking_spaces INT,
+                                        parking_garage_id INT,
+                                        parking_spaces_electric INT,
+                                        FOREIGN KEY (parking_garage_id) REFERENCES parking_garages(id),
+                                        PRIMARY KEY (id)
 );
 
 
