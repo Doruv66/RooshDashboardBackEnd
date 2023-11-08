@@ -47,7 +47,7 @@ public class ParkingGarageEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
     @NotNull
-    @OneToOne
     @JoinColumn(name = "parking_garage_utility_id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ParkingGarageUtilityEntity parkingGarageUtility;
 }

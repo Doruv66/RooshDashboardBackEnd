@@ -1,7 +1,6 @@
 package com.rooshdashboard.rooshdashboard.persistance.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,7 +29,7 @@ public class AccountEntity {
     @Column(name = "password")
     private String password;
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private RoleEntity role;
 }
