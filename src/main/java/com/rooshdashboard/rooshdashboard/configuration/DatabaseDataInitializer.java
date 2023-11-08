@@ -37,6 +37,6 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(savedParkingGarage);
             accountRepository.save(savedAccount);
             serviceRepository.save(savedService);
-            bookingRepository.save(BookingEntity.builder().car(savedCar).garage(savedParkingGarage).service(savedService).endDate(LocalDateTime.now().plusDays(1L)).startDate(LocalDateTime.now()).flightNumberArrival(1L).flightNumberDeparture(1L).build());
+            bookingRepository.save(BookingEntity.builder().customer(savedCustomer).car(savedCar).garage(savedParkingGarage).service(savedService).endDate(LocalDateTime.now().plusDays(1L)).startDate(LocalDateTime.now()).flightNumberArrival(1L).flightNumberDeparture(1L).build());
         }
     }}
