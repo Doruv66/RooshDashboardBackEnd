@@ -19,5 +19,6 @@ public class ParkingGarage {
     private Long travelTime;
     private Long travelDistance;
     private String phoneNumber;
+    private ParkingGarageUtility parkingGarageUtility;
 
 }
