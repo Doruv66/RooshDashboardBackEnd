@@ -45,7 +45,7 @@ public class BookingEntity {
     @ManyToOne
     private ParkingGarageEntity garage;
     @NotNull
-    @Column(name = "service_id")
+    @PrimaryKeyJoinColumn(name = "service_id")
     @OneToOne
     private ServiceEntity service;
 }
