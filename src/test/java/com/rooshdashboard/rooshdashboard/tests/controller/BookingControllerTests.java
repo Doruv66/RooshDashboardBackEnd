@@ -4,7 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidBookingException;
 import com.rooshdashboard.rooshdashboard.controller.BookingController;
+import com.rooshdashboard.rooshdashboard.domain.Customer.Customer;
+import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.ParkingGarage;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
+import com.rooshdashboard.rooshdashboard.domain.car.Car;
+import com.rooshdashboard.rooshdashboard.domain.service.Service;
+import com.rooshdashboard.rooshdashboard.persistance.entity.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,16 +60,24 @@ public class BookingControllerTests {
     }
 
     private Booking generateFakeBooking(long id) {
+        Customer customer = Customer.builder().id(1L).build();
+
+        Car car = Car.builder().id(1L).build();
+
+        ParkingGarage parkingGarage = ParkingGarage.builder().id(1L).build();
+
+        Service service = Service.builder().id(1L).build();
+
         return Booking.builder()
                 .id(id)
-                .customerId((long) random.nextInt(1000) + 1)
-                .carId((long) random.nextInt(1000) + 1)
+                .customer(customer)
+                .car(car)
                 .startDate(now.minusDays(random.nextInt(10)))
                 .endDate(now.plusDays(random.nextInt(10)))
                 .flightNumberDeparture((long) random.nextInt(10000) + 1)
                 .flightNumberArrival((long) random.nextInt(10000) + 1)
-                .garageId((long) random.nextInt(100) + 1)
-                .serviceId((long) random.nextInt(100) + 1)
+                .garage(parkingGarage)
+                .service(service)
                 .build();
     }
 
@@ -97,15 +110,24 @@ public class BookingControllerTests {
 
     @Test
     void testCreateBooking_ShouldReturn201ResponseWithCreatedBooking() throws Exception {
+
+        CustomerEntity customer = CustomerEntity.builder().build();
+
+        CarEntity car = CarEntity.builder().build();
+
+        ParkingGarageEntity parkingGarage = ParkingGarageEntity.builder().build();
+
+        ServiceEntity service = ServiceEntity.builder().build();
+
         CreateBookingRequest request = CreateBookingRequest.builder()
-                .customerId((long) random.nextInt(1000) + 1)
-                .carId((long) random.nextInt(1000) + 1)
+                .customer(customer)
+                .car(car)
                 .startDate(now.minusDays(random.nextInt(10)))
                 .endDate(now.plusDays(random.nextInt(10)))
                 .flightNumberDeparture((long) random.nextInt(10000) + 1)
                 .flightNumberArrival((long) random.nextInt(10000) + 1)
-                .garageId((long) random.nextInt(100) + 1)
-                .serviceId((long) random.nextInt(100) + 1)
+                .garage(parkingGarage)
+                .service(service)
                 .build();
         CreateBookingResponse response = CreateBookingResponse.builder().id(request.getId()).build();
         when(createBookingUseCase.createBooking(request)).thenReturn(response);
@@ -122,17 +144,25 @@ public class BookingControllerTests {
 
     @Test
     void testUpdateBooking_ShouldReturn200ResponseWithUpdatedBooking() throws Exception {
+        CustomerEntity customer = CustomerEntity.builder().build();
+
+        CarEntity car = CarEntity.builder().build();
+
+        ParkingGarageEntity parkingGarage = ParkingGarageEntity.builder().build();
+
+        ServiceEntity service = ServiceEntity.builder().build();
+
         Booking booking = generateFakeBooking(1L);
         UpdateBookingRequest request = UpdateBookingRequest.builder()
                 .id(booking.getId())
-                .carId(booking.getCarId())
-                .customerId(booking.getCustomerId())
-                .serviceId(booking.getServiceId())
-                .garageId(booking.getGarageId())
-                .startDate(booking.getStartDate())
-                .endDate(booking.getEndDate())
-                .flightNumberArrival(booking.getFlightNumberArrival())
-                .flightNumberDeparture(booking.getFlightNumberDeparture())
+                .customer(customer)
+                .car(car)
+                .startDate(now.minusDays(random.nextInt(10)))
+                .endDate(now.plusDays(random.nextInt(10)))
+                .flightNumberDeparture((long) random.nextInt(10000) + 1)
+                .flightNumberArrival((long) random.nextInt(10000) + 1)
+                .garage(parkingGarage)
+                .service(service)
                 .build();
         UpdateBookingResponse response = UpdateBookingResponse.builder().id(booking.getId()).build();
         when(updateBookingUseCase.updateBooking(request)).thenReturn(response);
@@ -172,7 +202,7 @@ public class BookingControllerTests {
     @Test
     void testCreateBooking_WithInvalidData_ShouldReturn400() throws Exception {
         CreateBookingRequest request = CreateBookingRequest.builder()
-                .customerId(null)
+                .customer(null)
                 .build();
         mockMvc.perform(post("/bookings")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -184,9 +214,12 @@ public class BookingControllerTests {
     @Test
     void testUpdateBooking_WithNonExistingId_ShouldReturn400() throws Exception {
         Booking booking = generateFakeBooking(9999L);
+
+        CarEntity car = CarEntity.builder().id(1L).build();
+
         UpdateBookingRequest request = UpdateBookingRequest.builder()
                 .id(booking.getId())
-                .carId(booking.getCarId())
+                .car(car)
                 .build();
         when(updateBookingUseCase.updateBooking(request)).thenReturn(null);
         mockMvc.perform(put("/bookings/" + booking.getId())

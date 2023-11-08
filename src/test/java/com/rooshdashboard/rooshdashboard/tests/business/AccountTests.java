@@ -9,6 +9,7 @@ import com.rooshdashboard.rooshdashboard.business.impl.account.*;
 import com.rooshdashboard.rooshdashboard.domain.Account.*;
 import com.rooshdashboard.rooshdashboard.persistance.AccountRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,8 +40,11 @@ public class AccountTests {
     @Test
     public void testCreateAccountWithUniqueEmail() {
         // Happy Flow
-        CreateAccountRequest validRequest = new CreateAccountRequest("John", "john@example.com", "pass123", 1L);
-        AccountEntity savedAccount = AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").RoleId(1L).build();
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
+        CreateAccountRequest validRequest = new CreateAccountRequest("John", "john@example.com", "pass123", role);
+        AccountEntity savedAccount = AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").role(role).build();
+
         when(mockAccountRepository.checkIfEmailIsUsed(validRequest.getEmail())).thenReturn(String.valueOf(Optional.empty()));
         when(mockAccountRepository.save(any(AccountEntity.class))).thenReturn(savedAccount);
 
@@ -56,12 +60,14 @@ public class AccountTests {
 
     @Test
     public void testCreateAccountWithDuplicateEmail() {
-        // Sad Flow
+        // Arrange
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
         CreateAccountRequest requestWithDuplicateEmail = CreateAccountRequest.builder()
                 .email("jane@example.com")
                 .password("pass456")
                 .name("Jane")
-                .RoleId(2L)
+                .role(role)
                 .build();
 
         when(mockAccountRepository.checkIfEmailIsUsed(requestWithDuplicateEmail.getEmail())).thenReturn("jane@example.com");
@@ -74,15 +80,17 @@ public class AccountTests {
 
     @Test
     public void testUpdateAccountWithValidRequest() {
-        // Happy Flow
+        // Arrange
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
         long validAccountId = 1L;
         UpdateAccountRequest validRequest = UpdateAccountRequest.builder()
                 .id(validAccountId)
                 .email("jane@example.com")
                 .password("pass456")
                 .name("Jane")
-                .RoleId(2L)
-                .build();        AccountEntity existingAccount = AccountEntity.builder().id(validAccountId).name("John").email("john@example.com").password("pass123").RoleId(1L).build();
+                .role(role)
+                .build();        AccountEntity existingAccount = AccountEntity.builder().id(validAccountId).name("John").email("john@example.com").password("pass123").role(role).build();
         when(mockAccountRepository.findById(validAccountId)).thenReturn(Optional.of(existingAccount));
 
         // Act
@@ -96,9 +104,11 @@ public class AccountTests {
 
     @Test
     public void testUpdateAccountWithInvalidId() {
-        // Sad Flow
+        // Arrange
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
         long invalidAccountId = 99L;
-        UpdateAccountRequest invalidRequest = new UpdateAccountRequest(invalidAccountId, "Jane", "jane@example.com", "pass456", 2L);
+        UpdateAccountRequest invalidRequest = new UpdateAccountRequest(invalidAccountId, "Jane", "jane@example.com", "pass456", role);
 
 
         // Act & Assert
@@ -137,8 +147,10 @@ public class AccountTests {
     @Test
     public void testGetAccountByIdWithExistingAccount() {
         // Arrange
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
         Long validId = 1L;
-        AccountEntity accountEntity = AccountEntity.builder().id(validId).name("John").email("john@example.com").password("pass123").RoleId(1L).build();
+        AccountEntity accountEntity = AccountEntity.builder().id(validId).name("John").email("john@example.com").password("pass123").role(role).build();
         when(mockAccountRepository.findById(validId)).thenReturn(Optional.of(accountEntity));
 
         // Act
@@ -179,9 +191,12 @@ public class AccountTests {
     @Test
     public void testGetAllAccountsWithFilledRepository() {
         // Happy Flow
+        RoleEntity role = RoleEntity.builder().roleName("user").build();
+
+
         List<AccountEntity> accounts = List.of(
-                AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").RoleId(1L).build(),
-                AccountEntity.builder().id(2L).name("Jane").email("jane@example.com").password("pass456").RoleId(2L).build()
+                AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").role(role).build(),
+                AccountEntity.builder().id(2L).name("Jane").email("jane@example.com").password("pass456").role(role).build()
         );
         when(mockAccountRepository.findAll()).thenReturn(accounts);
 

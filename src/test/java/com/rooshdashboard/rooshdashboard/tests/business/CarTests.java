@@ -59,7 +59,7 @@ public class CarTests {
     @Test
     public void testCreateCarWithValidRequest() {
         // Arrange
-        CreateCarRequest validRequest = new CreateCarRequest("XYZ123", "Toyota", "Camry", false);
+        CreateCarRequest validRequest = new CreateCarRequest("XYZ123", 1L, "Toyota", "Camry", false);
         CarEntity savedCar = CarEntity.builder().id(1L).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
         when(mockCarRepository.save(any(CarEntity.class))).thenReturn(savedCar);
 
@@ -104,7 +104,7 @@ public class CarTests {
     public void testUpdateCarWithValidRequest() {
         // Arrange
         long validCarId = 1L;
-        UpdateCarRequest validRequest = new UpdateCarRequest(validCarId, "XYZ124", "Toyota", "Camry", true);
+        UpdateCarRequest validRequest = new UpdateCarRequest(validCarId, 1L, "XYZ124", "Toyota", "Camry", true);
         CarEntity existingCar = CarEntity.builder().id(validCarId).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
         when(mockCarRepository.existsById(validCarId)).thenReturn(true);
         when(mockCarRepository.findById(validCarId)).thenReturn(Optional.of(existingCar));
@@ -123,7 +123,7 @@ public class CarTests {
     public void testUpdateCarWithInvalidId() {
         // Arrange
         long invalidCarId = 99L;
-        UpdateCarRequest requestWithInvalidId = new UpdateCarRequest(invalidCarId, "XYZ999", "Toyota", "Avalon", true);
+        UpdateCarRequest requestWithInvalidId = new UpdateCarRequest(invalidCarId, 1L, "XYZ999", "Toyota", "Avalon", true);
         when(mockCarRepository.existsById(invalidCarId)).thenReturn(false);
 
         // Act & Assert

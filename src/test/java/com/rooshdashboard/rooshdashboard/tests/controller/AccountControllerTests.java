@@ -5,6 +5,7 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidAccountExcept
 import com.rooshdashboard.rooshdashboard.controller.AccountController;
 import com.rooshdashboard.rooshdashboard.domain.Account.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +51,14 @@ public class AccountControllerTests {
     private CreateAccountUseCase createAccountUseCase;
 
     private Account generateFakeAccount(long id) {
+        Role role = Role.builder().roleName("User").build();
+
         return Account.builder()
                 .id(id)
                 .name("Account" + id)
                 .email("account@gmail.com")
                 .password("fakePass1234")
-                .RoleId(1L)
+                .role(role)
                 .build();
     }
 
@@ -107,11 +110,13 @@ public class AccountControllerTests {
 
     @Test
     void testCreateAccount_ShouldReturn201ResponseWithCreatedAccount() throws Exception {
+        RoleEntity role = RoleEntity.builder().roleName("User").build();
+
         CreateAccountRequest request = CreateAccountRequest.builder()
                 .name("Account")
                 .email("account@gmail.com")
                 .password("fakePass1234")
-                .RoleId(1L)
+                .role(role)
                 .build();
         CreateAccountResponse response = CreateAccountResponse.builder()
                 .id(1L)
@@ -164,12 +169,14 @@ public class AccountControllerTests {
     @Test
     void testUpdateAccount_ShouldReturn200ResponseWithUpdatedAccount() throws Exception {
         long accountId = 1;
+        RoleEntity role = RoleEntity.builder().roleName("User").build();
+
         UpdateAccountRequest request = UpdateAccountRequest.builder()
                 .id(1L)
                 .name("Account")
                 .email("account@gmail.com")
                 .password("fakePass1234")
-                .RoleId(1L)
+                .role(role)
                 .build();
         UpdateAccountResponse response = UpdateAccountResponse.builder().message("").build();
 

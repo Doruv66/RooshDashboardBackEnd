@@ -7,6 +7,7 @@ import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.ParkingGara
 import com.rooshdashboard.rooshdashboard.controller.ParkingGarageController;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 
+import com.rooshdashboard.rooshdashboard.domain.booking.Booking;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +55,11 @@ public class ParkingGarageControllerTests {
     @Test
     void testGetParkingGarage_ShouldReturn200ResponseWithParkingGarages() throws Exception {
         List<ParkingGarage> parkingGarageList = new ArrayList<>();
+
         for (int i = 0; i < 3; i++){
             ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder()
                     .id((long) i+1)
                     .location("123 Main St")
-                    .bookingId(456)
                     .build();
             parkingGarageList.add(ParkingGarageConverter.convert(parkingGarageEntity));
         }
@@ -82,7 +83,6 @@ public class ParkingGarageControllerTests {
         ParkingGarage garage = ParkingGarage.builder()
                 .id(garageId)
                 .location("123 Main St")
-                .bookingId(456)
                 .build();
 
         when(getParkingGarageByIdUseCase.getParkingGarageById(garageId)).thenReturn(Optional.of(garage));

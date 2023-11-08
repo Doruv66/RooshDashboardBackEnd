@@ -4,7 +4,7 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidBookingExcept
 import com.rooshdashboard.rooshdashboard.business.impl.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
 import com.rooshdashboard.rooshdashboard.persistance.BookingRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.BookingEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -81,16 +81,24 @@ public class BookingTests {
         // Arrange
         BookingEntity savedBooking = BookingEntity.builder().id(1L).build();
 
+        CustomerEntity customer = CustomerEntity.builder().build();
+
+        CarEntity car = CarEntity.builder().build();
+
+        ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder().build();
+
+        ServiceEntity service = ServiceEntity.builder().build();
+
         CreateBookingRequest request = CreateBookingRequest.builder()
                 .id(savedBooking.getId())
-                .customerId((long) random.nextInt(1000) + 1)
-                .carId((long) random.nextInt(1000) + 1)
+                .customer(customer)
+                .car(car)
                 .startDate(now.minusDays(random.nextInt(10)))
                 .endDate(now.plusDays(random.nextInt(10)))
                 .flightNumberDeparture((long) random.nextInt(10000) + 1)
                 .flightNumberArrival((long) random.nextInt(10000) + 1)
-                .garageId((long) random.nextInt(100) + 1)
-                .serviceId((long) random.nextInt(100) + 1)
+                .garage(parkingGarageEntity)
+                .service(service)
                 .build();
 
         when(mockBookingRepository.save(any(BookingEntity.class))).thenReturn(savedBooking);
