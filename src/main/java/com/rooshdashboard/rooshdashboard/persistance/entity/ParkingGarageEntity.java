@@ -25,7 +25,7 @@ public class ParkingGarageEntity {
     @Column(name = "name")
     @Length(max = 255)
     private String name;
-    @NotNull
+//    @NotNull
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
     private AccountEntity account;

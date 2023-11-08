@@ -13,22 +13,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateParkingGarageRequest {
-    @NotNull
-    private Long id;
     @NotBlank
     private String name;
     @NotBlank
     private String airport;
     @NotBlank
     private String location;
-    @NotNull
+//    @NotNull
     private Long accountId;
     @NotNull
     private Long travelTime;
     @NotNull
     private Long travelDistance;
-    @NotNull
+    @NotBlank
     private String phoneNumber;
     @NotNull
-    private ParkingGarageUtilityEntity parkingGarageUtilityId;
+    private ParkingGarageUtilityEntity ParkingGarageUtility;
 }

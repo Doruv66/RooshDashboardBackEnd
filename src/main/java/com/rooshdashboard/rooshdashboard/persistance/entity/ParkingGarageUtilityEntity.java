@@ -35,5 +35,4 @@ public class ParkingGarageUtilityEntity {
     @NotNull
     @Column(name = "parking_spaces_electric")
     private Long parkingSpacesElectric;
-
 }

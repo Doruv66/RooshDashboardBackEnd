@@ -14,8 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/parkinggarage")
 @AllArgsConstructor
-@CrossOrigin
-
+@CrossOrigin("http://localhost:5173")
 public class ParkingGarageController {
     private final UpdateParkingGarageUseCase updateParkingGarageUseCase;
     private final CreateParkingGarageUseCase createParkingGarageUseCase;
