@@ -12,10 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -46,7 +43,12 @@ public class BookingTests {
     public void testGetBookingByIdWithExistingBooking() {
         // Arrange
         Long validId = 1L;
-        BookingEntity bookingEntity = BookingEntity.builder().id(validId).build();
+        ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+        ServiceEntity fakeService = new ServiceEntity();
+        CustomerEntity fakeCustomer = new CustomerEntity();
+        CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
+        BookingEntity bookingEntity = BookingEntity.builder().id(validId).garage(fakeGarage).service(fakeService).customer(fakeCustomer).car(fakeCar).build();
         Booking booking  = BookingConverters.convertToBooking(bookingEntity);
 
         when(mockBookingRepository.existsById(validId)).thenReturn(true);
@@ -146,7 +148,12 @@ public class BookingTests {
         // Arrange
         long validBookingId = 1L;
         UpdateBookingRequest validRequest = UpdateBookingRequest.builder().id(validBookingId).build();
-        BookingEntity existingBooking = BookingEntity.builder().id(validBookingId).build();
+        ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+        ServiceEntity fakeService = new ServiceEntity();
+        CustomerEntity fakeCustomer = new CustomerEntity();
+        CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
+        BookingEntity existingBooking = BookingEntity.builder().id(validBookingId).garage(fakeGarage).service(fakeService).customer(fakeCustomer).car(fakeCar).build();
 
         when(mockBookingRepository.existsById(validBookingId)).thenReturn(true);
         when(mockBookingRepository.findById(validBookingId)).thenReturn(Optional.of(existingBooking));
@@ -192,17 +199,24 @@ public class BookingTests {
     @Test
     public void testGetAllBookingsWithFilledRepository() {
         // Arrange
-        List<BookingEntity> bookingEntities = IntStream.range(1, 6)
-                .mapToObj(i -> BookingEntity.builder().id((long) i).build())
-                .collect(Collectors.toList());
-        when(mockBookingRepository.findAll()).thenReturn(bookingEntities);
+        List<BookingEntity> storageList = new ArrayList<>();
+        ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+        ServiceEntity fakeService = new ServiceEntity();
+        CustomerEntity fakeCustomer = new CustomerEntity();
+        CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
+        BookingEntity bookingEntity1 = BookingEntity.builder().id(1L).garage(fakeGarage).service(fakeService).customer(fakeCustomer).car(fakeCar).build();
+        BookingEntity bookingEntity2 = BookingEntity.builder().id(1L).garage(fakeGarage).service(fakeService).customer(fakeCustomer).car(fakeCar).build();
+        storageList.add(bookingEntity1);
+        storageList.add(bookingEntity2);
+        when(mockBookingRepository.findAll()).thenReturn(storageList);
 
         // Act
         GetAllBookingResponse response = getAllBookingsUseCase.getAllBookings();
 
         // Assert
         assertNotNull(response);
-        assertEquals(5, response.getBookings().size());
+        assertEquals(2, response.getBookings().size());
 
         verify(mockBookingRepository).findAll();
     }

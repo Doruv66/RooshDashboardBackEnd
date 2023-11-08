@@ -21,7 +21,6 @@ public class BookingConverters {
                 .flightNumberDeparture(bookingEntity.getFlightNumberDeparture())
                 .customer(CustomerConverter.convert(bookingEntity.getCustomer()))
                 .car(CarConverter.convert(bookingEntity.getCar()))
-                .service(ServiceConverter.convert(bookingEntity.getService()))
                 .build();
 
     }

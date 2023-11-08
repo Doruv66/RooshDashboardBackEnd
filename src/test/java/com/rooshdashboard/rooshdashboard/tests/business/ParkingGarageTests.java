@@ -7,9 +7,11 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarage
 import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
+import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageUtilityEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,10 +43,15 @@ public class ParkingGarageTests {
     @Test
     public void testGetParkingGaragesUseCase_withFilledRepository(){
         // Arrange
+        RoleEntity fakeRole = new RoleEntity();
+        AccountEntity fakeAccount = AccountEntity.builder().role(fakeRole).build();
+        ParkingGarageUtilityEntity fakeUtil = new ParkingGarageUtilityEntity();
         List<ParkingGarageEntity> parkingGarageEntityList = new ArrayList<>();
         for (int i = 0; i < 3; i++){
             ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder()
                     .id((long) i+1)
+                    .account(fakeAccount)
+                    .parkingGarageUtility(fakeUtil)
                     .location("123 Main St")
                     .build();
             parkingGarageEntityList.add(parkingGarageEntity);
@@ -81,13 +88,19 @@ public class ParkingGarageTests {
     public void testGetParkingGarageByIdWithExistingParkingGarage() {
         // Arrange
         Long validId = 1L;
+        RoleEntity fakeRole = new RoleEntity();
+        AccountEntity fakeAccount = AccountEntity.builder().role(fakeRole).build();
+        ParkingGarageUtilityEntity fakeUtil = new ParkingGarageUtilityEntity();
+
         ParkingGarageEntity parkingGarageEntity = ParkingGarageEntity.builder()
                 .id(validId)
+                .account(fakeAccount)
+                .parkingGarageUtility(fakeUtil)
                 .location("123 Main St")
                 .build();
 
         ParkingGarage parkingGarage = ParkingGarageConverter.convert(parkingGarageEntity);
-        when(mockParkingGarageRepository.existsById(validId)).thenReturn(true);
+        when(mockParkingGarageRepository.existsById(anyLong())).thenReturn(true);
         when(mockParkingGarageRepository.findById(validId)).thenReturn(Optional.of(parkingGarageEntity));
 
         // Act
@@ -142,14 +155,20 @@ public class ParkingGarageTests {
     public void testUpdateParkingGarageWithValidRequest() {
         // Arrange
         Long validGarageId = 1L;
-        ParkingGarageUtilityEntity parkingGarageUtility = new ParkingGarageUtilityEntity();
-        UpdateParkingGarageRequest validRequest = new UpdateParkingGarageRequest();
+        RoleEntity fakeRole = new RoleEntity();
+        AccountEntity fakeAccount = AccountEntity.builder().role(fakeRole).build();
+        ParkingGarageUtilityEntity fakeUtil = new ParkingGarageUtilityEntity();
+        UpdateParkingGarageRequest validRequest = UpdateParkingGarageRequest.builder().id(1L).build();
         ParkingGarageEntity existingGarage = ParkingGarageEntity.builder()
                 .id(validGarageId)
+                .parkingGarageUtility(fakeUtil)
+                .account(fakeAccount)
                 .location("123 Main St")
                 .build();
+        when(mockParkingGarageRepository.save(any(ParkingGarageEntity.class))).thenReturn(existingGarage);
         when(mockParkingGarageRepository.existsById(validGarageId)).thenReturn(true);
         when(mockParkingGarageRepository.findById(validGarageId)).thenReturn(Optional.of(existingGarage));
+
 
         // Act
         UpdateParkingGarageResponse response = updateParkingGarageUseCase.updateParkingGarage(validRequest);

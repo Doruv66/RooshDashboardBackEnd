@@ -4,7 +4,9 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidCarException;
 import com.rooshdashboard.rooshdashboard.business.impl.car.*;
 import com.rooshdashboard.rooshdashboard.domain.car.*;
 import com.rooshdashboard.rooshdashboard.persistance.CarRepository;
+import com.rooshdashboard.rooshdashboard.persistance.CustomerRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.CarEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.CustomerEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +27,8 @@ public class CarTests {
 
     @Mock
     private CarRepository mockCarRepository;
+    @Mock
+    private CustomerRepository customerRepository;
 
     @InjectMocks
     private CreateCarUseCaseImpl createCarUseCase;
@@ -40,8 +44,9 @@ public class CarTests {
     @Test
     public void testGetCarByIdWithExistingCar() {
         // Arrange
+        CustomerEntity fakeCustomer = new CustomerEntity();
         Long validId = 1L;
-        CarEntity carEntity = CarEntity.builder().id(validId).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
+        CarEntity carEntity = CarEntity.builder().id(validId).customer(fakeCustomer).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
         Car car = CarConverter.convert(carEntity);
         when(mockCarRepository.existsById(validId)).thenReturn(true);
         when(mockCarRepository.findById(validId)).thenReturn(Optional.of(carEntity));
@@ -59,8 +64,9 @@ public class CarTests {
     @Test
     public void testCreateCarWithValidRequest() {
         // Arrange
+        CustomerEntity fakeCustomer = new CustomerEntity();
         CreateCarRequest validRequest = new CreateCarRequest("XYZ123", 1L, "Toyota", "Camry", false);
-        CarEntity savedCar = CarEntity.builder().id(1L).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
+        CarEntity savedCar = CarEntity.builder().id(1L).customer(fakeCustomer).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
         when(mockCarRepository.save(any(CarEntity.class))).thenReturn(savedCar);
 
         // Act
@@ -103,9 +109,10 @@ public class CarTests {
     @Test
     public void testUpdateCarWithValidRequest() {
         // Arrange
+        CustomerEntity fakeCustomer = new CustomerEntity();
         long validCarId = 1L;
         UpdateCarRequest validRequest = new UpdateCarRequest(validCarId, 1L, "XYZ124", "Toyota", "Camry", true);
-        CarEntity existingCar = CarEntity.builder().id(validCarId).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
+        CarEntity existingCar = CarEntity.builder().id(validCarId).customer(fakeCustomer).licensePlate("XYZ123").brand("Toyota").model("Camry").electric(false).build();
         when(mockCarRepository.existsById(validCarId)).thenReturn(true);
         when(mockCarRepository.findById(validCarId)).thenReturn(Optional.of(existingCar));
 
@@ -148,7 +155,8 @@ public class CarTests {
     @Test
     public void testGetAllCarsWithFilledRepository() {
         // Arrange
-        List<CarEntity> carEntities = IntStream.range(1, 6).mapToObj(i -> CarEntity.builder().id((long) i).licensePlate("XYZ" + i).brand("Toyota").model("Model" + i).electric(i % 2 == 0).build()).collect(Collectors.toList());
+        CustomerEntity fakeCustomer = new CustomerEntity();
+        List<CarEntity> carEntities = IntStream.range(1, 6).mapToObj(i -> CarEntity.builder().id((long) i).customer(fakeCustomer).licensePlate("XYZ" + i).brand("Toyota").model("Model" + i).electric(i % 2 == 0).build()).collect(Collectors.toList());
         when(mockCarRepository.findAll()).thenReturn(carEntities);
 
         // Act
