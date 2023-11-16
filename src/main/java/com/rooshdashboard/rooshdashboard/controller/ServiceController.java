@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/services")
 @AllArgsConstructor
-@CrossOrigin("http://localhost;5173/")
+@CrossOrigin("http://localhost:5173")
 public class ServiceController {
     private final GetAllServicesUseCase getAllServicesUseCase;
     private final GetServiceByIdUseCase getServiceByIdUseCase;

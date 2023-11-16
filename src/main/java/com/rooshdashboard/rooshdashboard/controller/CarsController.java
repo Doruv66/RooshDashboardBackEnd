@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/cars")
 @AllArgsConstructor
-@CrossOrigin("http://localhost:5173/")
+@CrossOrigin("http://localhost:5173")
 public class CarsController {
     private final GetAllCarsUseCase getCarsUseCase;
     private final GetCarByIdUseCase getCarUseCase;
