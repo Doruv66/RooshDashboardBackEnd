@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.IAccount.*;
 import com.rooshdashboard.rooshdashboard.domain.Account.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/accounts")
 @AllArgsConstructor
-@CrossOrigin("http://localhost:5173")
 public class AccountController {
     private final GetAccountsUseCase getAccountsUseCase;
     private final GetAccountUseCase getAccountUseCase;
@@ -22,6 +22,7 @@ public class AccountController {
     private final UpdateAccountUseCase updateAccountUseCase;
 
     @GetMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<Account> getAccount(@PathVariable(value = "id") final long id) {
         final Optional<Account> accountOptional = getAccountUseCase.getAccount(id);
         if (accountOptional.isEmpty()) {
@@ -31,17 +32,20 @@ public class AccountController {
     }
 
     @GetMapping
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetAccountResponse> getAccount() {
         return ResponseEntity.ok(getAccountsUseCase.getAccounts());
     }
 
     @PostMapping()
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody @Valid CreateAccountRequest request) {
         CreateAccountResponse response = createAccountUseCase.CreateAccounts(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("{accountId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<DeleteAccountResponse> deleteHouse(@PathVariable int accountId) {
 
         Optional<Account> OptionalAccountExists = getAccountUseCase.getAccount(accountId);
@@ -53,6 +57,7 @@ public class AccountController {
     }
 
     @PutMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateAccountResponse> updateAccount(@RequestBody @Valid UpdateAccountRequest request) {
 
         UpdateAccountResponse response = updateAccountUseCase.updateAccount(request);
