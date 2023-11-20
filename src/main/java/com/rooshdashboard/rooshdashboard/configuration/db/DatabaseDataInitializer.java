@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class DatabaseDataInitializer {
     private ServiceRepository serviceRepository;
     private CustomerRepository customerRepository;
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
     @EventListener(ApplicationReadyEvent.class)
     public void populateDatabaseInitialDummyData() {
         CustomerEntity savedCustomer = CustomerEntity.builder().name("Michael Brown").phoneNumber("555-111-2222").email("michael@example.com").build();
