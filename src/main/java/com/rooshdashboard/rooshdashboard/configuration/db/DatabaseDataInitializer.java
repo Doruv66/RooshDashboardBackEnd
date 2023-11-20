@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.configuration;
+package com.rooshdashboard.rooshdashboard.configuration.db;
 
 import com.rooshdashboard.rooshdashboard.domain.Account.CreateAccountRequest;
 import com.rooshdashboard.rooshdashboard.persistance.*;
