@@ -1,6 +1,6 @@
 package com.rooshdashboard.rooshdashboard.configuration.security;
 
-import fontys.sem3.school.configuration.security.auth.AuthenticationRequestFilter;
+import com.rooshdashboard.rooshdashboard.configuration.security.auth.AuthenticationRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
