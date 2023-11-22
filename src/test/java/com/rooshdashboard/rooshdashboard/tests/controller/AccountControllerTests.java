@@ -143,17 +143,17 @@ public class AccountControllerTests {
         verify(createAccountUseCase, never()).CreateAccounts(request);
     }
 
-//    @Test
-//    void testDeleteAccount_ShouldReturn200() throws Exception {
-//        long accountId = 1;
-//        DeleteAccountResponse response = DeleteAccountResponse.builder().message("").build();
-//        when(deleteAccountUseCase.deleteAccount(accountId)).thenReturn(response);
-//
-//        mockMvc.perform(delete("/accounts/" + accountId))
-//                .andDo(print())
-//                .andExpect(status().isOk());
-//        verify(deleteAccountUseCase).deleteAccount(accountId);
-//     }
+    @Test
+    void testDeleteAccount_ShouldReturn200() throws Exception {
+        long accountId = 1;
+        DeleteAccountResponse response = DeleteAccountResponse.builder().message("").build();
+        when(deleteAccountUseCase.deleteAccount(accountId)).thenReturn(response);
+
+        mockMvc.perform(delete("/accounts/" + accountId))
+                .andDo(print())
+                .andExpect(status().isOk());
+        verify(deleteAccountUseCase).deleteAccount(accountId);
+     }
 
     @Test
     void testDeleteAccount_ShouldReturn404WhenAccountNotFound() throws Exception {

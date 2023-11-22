@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bookings")
 @AllArgsConstructor
-@CrossOrigin("http://localhost:5173/")
+@CrossOrigin("http://localhost:5173")
 public class BookingController {
     private final GetAllBookingsUseCase getAllBookingsUseCase;
     private final GetBookingByIdUseCase getBookingByIdUseCase;
