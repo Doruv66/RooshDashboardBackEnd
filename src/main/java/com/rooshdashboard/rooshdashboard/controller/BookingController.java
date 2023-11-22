@@ -48,18 +48,27 @@ public class BookingController {
         return ResponseEntity.ok().body(updateBookingUseCase.updateBooking(request));
     }
 
-    @GetMapping("/bookings/filter")
+    @GetMapping("/filter")
     public ResponseEntity<List<Booking>> getFilteredBookings(
             @RequestParam(required = true) long garageId,
             @RequestParam(required = false) String service,
             @RequestParam(required = false, defaultValue = "false") boolean finished,
-            @RequestParam(required = false, defaultValue = "false") boolean ongoing
-            ) {
+            @RequestParam(required = false, defaultValue = "false") boolean ongoing) {
 
-        String capitalizedService = service.substring(0, 1).toUpperCase() + service.substring(1).toLowerCase();
+        ServiceType serviceType = null;
+        if (service != null && !"all".equalsIgnoreCase(service)) {
+            String capitalizedService = service.substring(0, 1).toUpperCase() + service.substring(1).toLowerCase();
+            try {
+                serviceType = ServiceType.valueOf(capitalizedService);
+            } catch (IllegalArgumentException e) {
+                // Handle the case where service string does not match any enum value
+                // e.g., return an error response or default to a specific service type
+            }
+        }
+
         FilterBookingRequest filterRequest = FilterBookingRequest.builder()
                 .garageId(garageId)
-                .service(ServiceType.valueOf(capitalizedService))
+                .service(serviceType) // Use the parsed or null value
                 .finished(finished)
                 .ongoing(ongoing)
                 .build();
@@ -69,4 +78,5 @@ public class BookingController {
 
         return ResponseEntity.ok(filteredBookings.getBookings());
     }
+
 }

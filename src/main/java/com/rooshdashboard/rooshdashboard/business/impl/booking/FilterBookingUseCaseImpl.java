@@ -26,9 +26,12 @@ public class FilterBookingUseCaseImpl implements FilterBookingsUseCase {
         Specification<BookingEntity> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if(request.getGarageId()!=0){
-            predicates.add(cb.equal(root.get("garageId"), request.getGarageId()));}
-            predicates.add(cb.equal(root.get("service").get("type"), request.getService().toString()));
+            if(request.getGarageId() != 0){
+                predicates.add(cb.equal(root.get("garage").get("id"), request.getGarageId()));
+            }
+            if (request.getService() != null && !"All".equalsIgnoreCase(request.getService().toString())) {
+                predicates.add(cb.equal(root.get("service").get("serviceType"), request.getService()));
+            }
 
             if (request.isFinished() && !request.isOngoing()) {
                 predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), LocalDateTime.now()));
