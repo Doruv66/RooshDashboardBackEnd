@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bookings")
 @AllArgsConstructor
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin(origins ="http://localhost:5173")
 public class BookingController {
     private final GetAllBookingsUseCase getAllBookingsUseCase;
     private final GetBookingByIdUseCase getBookingByIdUseCase;
@@ -56,6 +56,11 @@ public class BookingController {
             @RequestParam(required = false, defaultValue = "false") boolean ongoing) {
 
         ServiceType serviceType = null;
+
+        if (service != null && service.isEmpty()) {
+            service = null;
+        }
+
         if (service != null && !"all".equalsIgnoreCase(service)) {
             String capitalizedService = service.substring(0, 1).toUpperCase() + service.substring(1).toLowerCase();
             try {

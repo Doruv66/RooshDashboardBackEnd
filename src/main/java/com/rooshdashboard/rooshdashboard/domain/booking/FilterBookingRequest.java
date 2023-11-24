@@ -16,10 +16,7 @@ import lombok.NoArgsConstructor;
 public class FilterBookingRequest {
     @NotNull
     private long garageId;
-    @NotNull
     private ServiceType service;
-    @NotNull
     private boolean finished;
-    @NotNull
     private boolean ongoing;
 }
