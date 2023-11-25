@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -20,13 +21,13 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long>, J
 
     @Query("SELECT b FROM BookingEntity b WHERE b.startDate >= :startDateTime AND b.startDate < :endDateTime")
     List<BookingEntity> findAllByStartTimeInterval(
-            @Param("startDateTime") LocalDate startDateTime,
-            @Param("endDateTime") LocalDate endDateTime
+            @Param("startDateTime") LocalDateTime startDateTime,
+            @Param("endDateTime") LocalDateTime endDateTime
     );
 
     @Query("SELECT b FROM BookingEntity b WHERE b.endDate >= :startDateTime AND b.endDate < :endDateTime")
     List<BookingEntity> findAllByEndTimeInterval(
-            @Param("startDateTime") LocalDate startDateTime,
-            @Param("endDateTime") LocalDate endDateTime
+            @Param("startDateTime") LocalDateTime startDateTime,
+            @Param("endDateTime") LocalDateTime endDateTime
     );
 }
