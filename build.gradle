@@ -18,7 +18,7 @@ sonar {
 	properties {
 		property "sonar.gradle.skipCompile", "true"
 		property "sonar.tests", "src/test/java"
-		property "sonar.projectKey", ""
+		property "sonar.projectKey", ">>>add project key here<<<"
 		property "sonar.host.url", "http://localhost:9000"
 		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
 	}
