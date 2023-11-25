@@ -6,10 +6,12 @@ import com.rooshdashboard.rooshdashboard.domain.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.service.ServiceType;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,10 +25,29 @@ public class BookingController {
     private final UpdateBookingUseCase updateBookingUseCase;
     private final CreateBookingUseCase createBookingUseCase;
     private final FilterBookingsUseCase filterBookingsUseCase;
+    private final GetArrivalsDeparturesUseCase getArrivalsDeparturesUseCase;
+    private final GetIntervalArrivalsDeparturesUseCase getIntervalArrivalDepartures;
     @GetMapping
     public ResponseEntity<GetAllBookingResponse> getBookings() {
         return ResponseEntity.ok(getAllBookingsUseCase.getAllBookings());
     }
+
+    @GetMapping("/bookings/interval-arrivals-departures")
+    public ResponseEntity<GetArrivalsDepartures> getIntervalArrivalsDepartures(
+            @RequestParam("startTime") LocalDate startTime,
+            @RequestParam("endTime") LocalDate endTime
+    ) {
+        GetArrivalsDepartures arrivalsDepartures = getIntervalArrivalDepartures.getIntervalArrivalDepartures(startTime, endTime);
+        return ResponseEntity.ok(arrivalsDepartures);
+    }
+
+    @GetMapping("/arrivals-departures")
+    public ResponseEntity<GetArrivalsDepartures> getArrivalsDeparturesForDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date);
+        return ResponseEntity.ok(arrivalsDepartures);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<GetBookingByIdResponse> getBooking(@PathVariable(value = "id") final long id) {
         final GetBookingByIdResponse response = getBookingByIdUseCase.getBookingById(id);
