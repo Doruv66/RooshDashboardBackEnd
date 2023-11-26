@@ -26,7 +26,7 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
         ParkingGarageEntity parkingGarage = parkingGarageOptional.get();
         updateFields(request, parkingGarage);
         return UpdateParkingGarageResponse.builder()
-                .message("Parking Garage " + parkingGarage.getId() + " Has been updated!")
+                .id(parkingGarage.getId())
                 .build();
 
     }

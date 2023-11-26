@@ -3,6 +3,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,12 @@ public class ParkingGarageController {
     private final GetParkingGarageByIdUseCase getParkingGarageByIdUseCase;
 
     @GetMapping
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetParkingGarageResponse> getParkingGarage() {
         return ResponseEntity.ok(getParkingGarageUseCase.getParkingGarage());
     }
     @GetMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<ParkingGarage> getParkingGarage(@PathVariable(value = "id") final long id) {
         final Optional<ParkingGarage> garage = getParkingGarageByIdUseCase.getParkingGarageById((id));
         if (garage.isEmpty())
@@ -40,17 +43,20 @@ public class ParkingGarageController {
 
     }
     @PostMapping()
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(@RequestBody @Valid CreateParkingGarageRequest request) {
         CreateParkingGarageResponse response = createParkingGarageUseCase.CreateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @PutMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(@PathVariable("id") long id, @RequestBody @Valid UpdateParkingGarageRequest request){
         request.setId(id);
         UpdateParkingGarageResponse response = updateParkingGarageUseCase.updateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @DeleteMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<DeleteParkingGarageResponse> deleteParkingGarage(@PathVariable long id) {
         DeleteParkingGarageResponse response = deleteParkingGarageUseCase.deleteParkingGarage(id);
 
