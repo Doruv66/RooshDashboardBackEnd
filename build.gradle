@@ -2,6 +2,26 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.5'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id "org.sonarqube" version "4.4.1.3373"
+	id 'jacoco'
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		csv.required = true
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+}
+
+sonar {
+	properties {
+		property "sonar.gradle.skipCompile", "true"
+		property "sonar.tests", "src/test/java"
+		property "sonar.projectKey", ">>>add project key here<<<"
+		property "sonar.host.url", "http://localhost:9000"
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+	}
 }
 
 group = 'com.rooshdashboard'
