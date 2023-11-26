@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.configuration;
+package com.rooshdashboard.rooshdashboard.configuration.db;
 
 import com.rooshdashboard.rooshdashboard.domain.Account.CreateAccountRequest;
 import com.rooshdashboard.rooshdashboard.persistance.*;
@@ -7,10 +7,12 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -22,6 +24,8 @@ public class DatabaseDataInitializer {
     private CarRepository carRepository;
     private ServiceRepository serviceRepository;
     private CustomerRepository customerRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
     @EventListener(ApplicationReadyEvent.class)
     public void populateDatabaseInitialDummyData() {
         CustomerEntity savedCustomer = CustomerEntity.builder().name("Michael Brown").phoneNumber("555-111-2222").email("michael@example.com").build();
@@ -31,6 +35,10 @@ public class DatabaseDataInitializer {
         ServiceEntity savedService = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
         ParkingGarageUtilityEntity savedParkingGarageUtility = ParkingGarageUtilityEntity.builder().parkingSpaces(1L).parkingSpacesElectric(1L).electricChargePoint(false).floors(1L).toilet(false).build();
         ParkingGarageEntity savedParkingGarage = ParkingGarageEntity.builder().location("123 Main St").airport("PQR Airport").name("Cedar Road Parking").phoneNumber("123").travelDistance(12L).parkingGarageUtility(savedParkingGarageUtility).travelTime(12L).build();
+        if (userRepository.count() == 0)
+        {
+            insertAdminUser();
+        }
         if (bookingRepository.count() == 0) {
             customerRepository.save(savedCustomer);
             carRepository.save(savedCar);
@@ -123,4 +131,15 @@ public class DatabaseDataInitializer {
         }
 
 
-    }}
+
+    }
+    private void insertAdminUser() {
+        UserEntity adminUser = UserEntity.builder()
+                .username("admin@gmail.com")
+                .password(passwordEncoder.encode("123"))
+                .build();
+        UserRoleEntity adminRole = UserRoleEntity.builder().role(RoleEnum.ADMIN).user(adminUser).build();
+        adminUser.setUserRoles(Set.of(adminRole));
+        userRepository.save(adminUser);
+    }
+}

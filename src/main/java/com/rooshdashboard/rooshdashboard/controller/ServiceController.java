@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.domain.service.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,27 +21,33 @@ public class ServiceController {
     private final CreateServiceUseCase createServiceUseCase;
 
     @GetMapping
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetAllServicesResponse> getServices(){
         return ResponseEntity.ok(getAllServicesUseCase.getAllServices());
     }
 
     @GetMapping("{serviceId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<Service> getService(@PathVariable(value = "serviceId") final long serviceId) {
         final Service service = getServiceByIdUseCase.getServiceById(serviceId);
         return ResponseEntity.ok().body(service);
     }
 
     @DeleteMapping("{serviceId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<DeleteServiceResponse> deleteService(@PathVariable(value = "serviceId") final long serviceId) {
         return ResponseEntity.ok().body(deleteServiceUseCase.deleteService(serviceId));
     }
 
-    @PostMapping ResponseEntity<CreateServiceResponse> createService(@RequestBody @Valid CreateServiceRequest request) {
+    @PostMapping
+    @RolesAllowed({"ADMIN"})
+    ResponseEntity<CreateServiceResponse> createService(@RequestBody @Valid CreateServiceRequest request) {
         CreateServiceResponse response = createServiceUseCase.createService(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateServiceResponse> updateService(@PathVariable("id") long id,
                                                                @RequestBody @Valid UpdateServiceRequest request) {
         return ResponseEntity.ok().body(updateServiceUseCase.updateService(request));
