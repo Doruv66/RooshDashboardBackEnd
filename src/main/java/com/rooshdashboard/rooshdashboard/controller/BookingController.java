@@ -6,6 +6,7 @@ import com.rooshdashboard.rooshdashboard.domain.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.service.ServiceType;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class BookingController {
     }
 
     @GetMapping("/bookings/interval-arrivals-departures")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetArrivalsDepartures> getIntervalArrivalsDepartures(
             @RequestParam("startTime") LocalDate startTime,
             @RequestParam("endTime") LocalDate endTime
@@ -43,6 +45,7 @@ public class BookingController {
     }
 
     @GetMapping("/arrivals-departures")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetArrivalsDepartures> getArrivalsDeparturesForDate(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date);
@@ -75,6 +78,7 @@ public class BookingController {
     }
 
     @GetMapping("/filter")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<List<Booking>> getFilteredBookings(
             @RequestParam(required = true) long garageId,
             @RequestParam(required = false) String service,
