@@ -4,6 +4,7 @@ import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.business.impl.booking.FilterBookingUseCaseImpl;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.service.ServiceType;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
