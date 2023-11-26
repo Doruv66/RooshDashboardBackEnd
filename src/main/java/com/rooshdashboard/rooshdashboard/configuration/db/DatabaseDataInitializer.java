@@ -131,6 +131,186 @@ public class DatabaseDataInitializer {
         }
 
 
+        if (bookingRepository.count() == 6) {
+            CustomerEntity customer6 = CustomerEntity.builder().name("Michael Brown").phoneNumber("555-111-2222").email("michael@example.com").build();
+            CarEntity car6 = CarEntity.builder().id(7L).licensePlate("MNO789").brand("Tesla").model("Model 3").electric(true).customer(customer6).build();
+            RoleEntity role6 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account6 = AccountEntity.builder().email("michael@example.com").password("pass789").name("Michael").role(role6).build();
+            ServiceEntity service6 = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
+            ParkingGarageUtilityEntity garageUtility6 = ParkingGarageUtilityEntity.builder().parkingSpaces(50L).parkingSpacesElectric(10L).electricChargePoint(true).floors(4L).toilet(true).build();
+            ParkingGarageEntity parkingGarage6 = ParkingGarageEntity.builder().location("789 Oak Ave").airport("ABC Airport").name("Oak Avenue Parking").phoneNumber("555-222-3333").travelDistance(10L).parkingGarageUtility(garageUtility6).travelTime(20L).build();
+
+            customerRepository.save(customer6);
+            carRepository.save(car6);
+            parkingGarageRepository.save(parkingGarage6);
+            accountRepository.save(account6);
+            serviceRepository.save(service6);
+            bookingRepository.save(BookingEntity.builder().customer(customer6).car(car6).garage(parkingGarage6).service(service6).endDate(LocalDateTime.now().plusDays(7L)).startDate(LocalDateTime.now().plusDays(6L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).build());
+        }
+
+        if (bookingRepository.count() == 7) {
+            CustomerEntity customer7 = CustomerEntity.builder().name("Alice Johnson").phoneNumber("555-123-4567").email("alice@example.com").build();
+            CarEntity car7 = CarEntity.builder().id(8L).licensePlate("PQR123").brand("Chevrolet").model("Equinox").electric(false).customer(customer7).build();
+            RoleEntity role7 = RoleEntity.builder().roleName("Admin").build();
+            AccountEntity account7 = AccountEntity.builder().email("alice@example.com").password("pass456").name("Alice").role(role7).build();
+            ServiceEntity service7 = ServiceEntity.builder().serviceType(ServiceType.Shuttle).build();
+            ParkingGarageUtilityEntity garageUtility7 = ParkingGarageUtilityEntity.builder().parkingSpaces(75L).parkingSpacesElectric(5L).electricChargePoint(true).floors(3L).toilet(true).build();
+            ParkingGarageEntity parkingGarage7 = ParkingGarageEntity.builder().location("789 Maple Ln").airport("MNO International Airport").name("Maple Lane Parking").phoneNumber("555-987-6543").travelDistance(7L).parkingGarageUtility(garageUtility7).travelTime(18L).build();
+
+            customerRepository.save(customer7);
+            carRepository.save(car7);
+            parkingGarageRepository.save(parkingGarage7);
+            accountRepository.save(account7);
+            serviceRepository.save(service7);
+            bookingRepository.save(BookingEntity.builder().customer(customer7).car(car7).garage(parkingGarage7).service(service7).endDate(LocalDateTime.now().plusDays(8L)).startDate(LocalDateTime.now().plusDays(7L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).build());
+        }
+
+
+        if (bookingRepository.count() == 8) {
+            CustomerEntity customer8 = CustomerEntity.builder().name("Bob Smith").phoneNumber("555-987-6543").email("bob@example.com").build();
+            CarEntity car8 = CarEntity.builder().id(9L).licensePlate("XYZ456").brand("Ford").model("Explorer").electric(true).customer(customer8).build();
+            RoleEntity role8 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account8 = AccountEntity.builder().email("bob@example.com").password("pass123").name("Bob").role(role8).build();
+            ServiceEntity service8 = ServiceEntity.builder().serviceType(ServiceType.Shuttle).build();
+            ParkingGarageUtilityEntity garageUtility8 = ParkingGarageUtilityEntity.builder().parkingSpaces(60L).parkingSpacesElectric(10L).electricChargePoint(true).floors(4L).toilet(true).build();
+            ParkingGarageEntity parkingGarage8 = ParkingGarageEntity.builder().location("456 Cedar Rd").airport("PQR Airport").name("Cedar Road Parking").phoneNumber("555-333-2222").travelDistance(9L).parkingGarageUtility(garageUtility8).travelTime(22L).build();
+
+            customerRepository.save(customer8);
+            carRepository.save(car8);
+            parkingGarageRepository.save(parkingGarage8);
+            accountRepository.save(account8);
+            serviceRepository.save(service8);
+            bookingRepository.save(BookingEntity.builder().customer(customer8).car(car8).garage(parkingGarage8).service(service8).endDate(LocalDateTime.now().plusDays(9L)).startDate(LocalDateTime.now().plusDays(8L)).flightNumberArrival(345678L).flightNumberDeparture(876543L).build());
+        }
+
+
+        if (bookingRepository.count() == 9) {
+            CustomerEntity customer9 = CustomerEntity.builder().name("David Miller").phoneNumber("555-444-1234").email("david@example.com").build();
+            CarEntity car9 = CarEntity.builder().id(10L).licensePlate("ABC789").brand("Toyota").model("Rav4").electric(false).customer(customer9).build();
+            RoleEntity role9 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account9 = AccountEntity.builder().email("david@example.com").password("pass789").name("David").role(role9).build();
+            ServiceEntity service9 = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
+            ParkingGarageUtilityEntity garageUtility9 = ParkingGarageUtilityEntity.builder().parkingSpaces(80L).parkingSpacesElectric(15L).electricChargePoint(true).floors(5L).toilet(true).build();
+            ParkingGarageEntity parkingGarage9 = ParkingGarageEntity.builder().location("123 Pine Ave").airport("STU International Airport").name("Pine Avenue Parking").phoneNumber("555-111-9999").travelDistance(8L).parkingGarageUtility(garageUtility9).travelTime(20L).build();
+
+            customerRepository.save(customer9);
+            carRepository.save(car9);
+            parkingGarageRepository.save(parkingGarage9);
+            accountRepository.save(account9);
+            serviceRepository.save(service9);
+            bookingRepository.save(BookingEntity.builder().customer(customer9).car(car9).garage(parkingGarage9).service(service9).endDate(LocalDateTime.now().plusDays(10L)).startDate(LocalDateTime.now().plusDays(9L)).flightNumberArrival(456789L).flightNumberDeparture(987654L).build());
+        }
+
+        if (bookingRepository.count() == 10) {
+            CustomerEntity customer10 = CustomerEntity.builder().name("Emily Davis").phoneNumber("555-876-5432").email("emily@example.com").build();
+            CarEntity car10 = CarEntity.builder().id(11L).licensePlate("GHI456").brand("Honda").model("Accord").electric(false).customer(customer10).build();
+            RoleEntity role10 = RoleEntity.builder().roleName("Admin").build();
+            AccountEntity account10 = AccountEntity.builder().email("emily@example.com").password("pass567").name("Emily").role(role10).build();
+            ServiceEntity service10 = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
+            ParkingGarageUtilityEntity garageUtility10 = ParkingGarageUtilityEntity.builder().parkingSpaces(70L).parkingSpacesElectric(8L).electricChargePoint(true).floors(3L).toilet(true).build();
+            ParkingGarageEntity parkingGarage10 = ParkingGarageEntity.builder().location("789 Oak St").airport("XYZ Airport").name("Oak Street Parking").phoneNumber("555-333-4444").travelDistance(10L).parkingGarageUtility(garageUtility10).travelTime(20L).build();
+
+            customerRepository.save(customer10);
+            carRepository.save(car10);
+            parkingGarageRepository.save(parkingGarage10);
+            accountRepository.save(account10);
+            serviceRepository.save(service10);
+            bookingRepository.save(BookingEntity.builder().customer(customer10).car(car10).garage(parkingGarage10).service(service10).endDate(LocalDateTime.now().plusDays(11L)).startDate(LocalDateTime.now().plusDays(10L)).flightNumberArrival(567890L).flightNumberDeparture(109876L).build());
+        }
+
+        if (bookingRepository.count() == 11) {
+            CustomerEntity customer11 = CustomerEntity.builder().name("Grace Wilson").phoneNumber("555-222-1111").email("grace@example.com").build();
+            CarEntity car11 = CarEntity.builder().id(12L).licensePlate("JKL789").brand("Subaru").model("Forester").electric(false).customer(customer11).build();
+            RoleEntity role11 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account11 = AccountEntity.builder().email("grace@example.com").password("pass678").name("Grace").role(role11).build();
+            ServiceEntity service11 = ServiceEntity.builder().serviceType(ServiceType.Shuttle).build();
+            ParkingGarageUtilityEntity garageUtility11 = ParkingGarageUtilityEntity.builder().parkingSpaces(90L).parkingSpacesElectric(12L).electricChargePoint(true).floors(4L).toilet(true).build();
+            ParkingGarageEntity parkingGarage11 = ParkingGarageEntity.builder().location("123 Oak Ln").airport("MNO Airport").name("Oak Lane Parking").phoneNumber("555-444-5555").travelDistance(12L).parkingGarageUtility(garageUtility11).travelTime(25L).build();
+
+            customerRepository.save(customer11);
+            carRepository.save(car11);
+            parkingGarageRepository.save(parkingGarage11);
+            accountRepository.save(account11);
+            serviceRepository.save(service11);
+            bookingRepository.save(BookingEntity.builder().customer(customer11).car(car11).garage(parkingGarage11).service(service11).endDate(LocalDateTime.now().plusDays(12L)).startDate(LocalDateTime.now().plusDays(11L)).flightNumberArrival(678901L).flightNumberDeparture(210987L).build());
+        }
+
+        if (bookingRepository.count() == 12) {
+            CustomerEntity customer12 = CustomerEntity.builder().name("Michael Brown").phoneNumber("555-111-2222").email("michael@example.com").build();
+            CarEntity car12 = CarEntity.builder().id(13L).licensePlate("MNO123").brand("Tesla").model("Model 3").electric(true).customer(customer12).build();
+            RoleEntity role12 = RoleEntity.builder().roleName("Admin").build();
+            AccountEntity account12 = AccountEntity.builder().email("michael@example.com").password("pass789").name("Michael").role(role12).build();
+            ServiceEntity service12 = ServiceEntity.builder().serviceType(ServiceType.Shuttle).build();
+            ParkingGarageUtilityEntity garageUtility12 = ParkingGarageUtilityEntity.builder().parkingSpaces(110L).parkingSpacesElectric(25L).electricChargePoint(true).floors(7L).toilet(true).build();
+            ParkingGarageEntity parkingGarage12 = ParkingGarageEntity.builder().location("789 Maple St").airport("PQR Airport").name("Maple Street Parking").phoneNumber("555-777-8888").travelDistance(15L).parkingGarageUtility(garageUtility12).travelTime(30L).build();
+
+            customerRepository.save(customer12);
+            carRepository.save(car12);
+            parkingGarageRepository.save(parkingGarage12);
+            accountRepository.save(account12);
+            serviceRepository.save(service12);
+            bookingRepository.save(BookingEntity.builder().customer(customer12).car(car12).garage(parkingGarage12).service(service12).endDate(LocalDateTime.now().plusDays(13L)).startDate(LocalDateTime.now().plusDays(12L)).flightNumberArrival(789012L).flightNumberDeparture(321098L).build());
+        }
+
+        if (bookingRepository.count() == 13) {
+            CustomerEntity customer14 = CustomerEntity.builder().name("Bob Smith").phoneNumber("555-987-6543").email("bob@example.com").build();
+            CarEntity car14 = CarEntity.builder().id(15L).licensePlate("BOB789").brand("Chevrolet").model("Equinox").electric(false).customer(customer14).build();
+            RoleEntity role14 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account14 = AccountEntity.builder().email("bob@example.com").password("pass234").name("Bob").role(role14).build();
+            ServiceEntity service14 = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
+            ParkingGarageUtilityEntity garageUtility14 = ParkingGarageUtilityEntity.builder().parkingSpaces(80L).parkingSpacesElectric(10L).electricChargePoint(true).floors(5L).toilet(true).build();
+            ParkingGarageEntity parkingGarage14 = ParkingGarageEntity.builder().location("789 Cedar Ave").airport("PQR Airport").name("Cedar Avenue Parking").phoneNumber("555-444-3333").travelDistance(12L).parkingGarageUtility(garageUtility14).travelTime(22L).build();
+
+            customerRepository.save(customer14);
+            carRepository.save(car14);
+            parkingGarageRepository.save(parkingGarage14);
+            accountRepository.save(account14);
+            serviceRepository.save(service14);
+            bookingRepository.save(BookingEntity.builder().customer(customer14).car(car14).garage(parkingGarage14).service(service14).endDate(LocalDateTime.now().plusDays(15L)).startDate(LocalDateTime.now().plusDays(14L)).flightNumberArrival(901234L).flightNumberDeparture(543210L).build());
+        }
+
+
+        if (bookingRepository.count() == 14) {
+            CustomerEntity customer15 = CustomerEntity.builder().name("David Miller").phoneNumber("555-444-1234").email("david@example.com").build();
+            CarEntity car15 = CarEntity.builder().id(16L).licensePlate("DAV123").brand("Volkswagen").model("Jetta").electric(false).customer(customer15).build();
+            RoleEntity role15 = RoleEntity.builder().roleName("User").build();
+            AccountEntity account15 = AccountEntity.builder().email("david@example.com").password("pass678").name("David").role(role15).build();
+            ServiceEntity service15 = ServiceEntity.builder().serviceType(ServiceType.Shuttle).build();
+            ParkingGarageUtilityEntity garageUtility15 = ParkingGarageUtilityEntity.builder().parkingSpaces(85L).parkingSpacesElectric(15L).electricChargePoint(true).floors(4L).toilet(true).build();
+            ParkingGarageEntity parkingGarage15 = ParkingGarageEntity.builder().location("456 Oak Ln").airport("MNO International Airport").name("Oak Lane Parking").phoneNumber("555-888-9999").travelDistance(8L).parkingGarageUtility(garageUtility15).travelTime(20L).build();
+
+            customerRepository.save(customer15);
+            carRepository.save(car15);
+            parkingGarageRepository.save(parkingGarage15);
+            accountRepository.save(account15);
+            serviceRepository.save(service15);
+            bookingRepository.save(BookingEntity.builder().customer(customer15).car(car15).garage(parkingGarage15).service(service15).endDate(LocalDateTime.now().plusDays(16L)).startDate(LocalDateTime.now().plusDays(15L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).build());
+        }
+
+
+        if (bookingRepository.count() == 15) {
+            CustomerEntity customer16 = CustomerEntity.builder().name("Emily Davis").phoneNumber("555-876-5432").email("emily@example.com").build();
+            CarEntity car16 = CarEntity.builder().id(17L).licensePlate("EMI456").brand("Ford").model("Explorer").electric(true).customer(customer16).build();
+            RoleEntity role16 = RoleEntity.builder().roleName("Admin").build();
+            AccountEntity account16 = AccountEntity.builder().email("emily@example.com").password("pass456").name("Emily").role(role16).build();
+            ServiceEntity service16 = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
+            ParkingGarageUtilityEntity garageUtility16 = ParkingGarageUtilityEntity.builder().parkingSpaces(120L).parkingSpacesElectric(30L).electricChargePoint(true).floors(8L).toilet(true).build();
+            ParkingGarageEntity parkingGarage16 = ParkingGarageEntity.builder().location("789 Maple St").airport("ABC Airport").name("Maple Street Parking").phoneNumber("555-666-7777").travelDistance(15L).parkingGarageUtility(garageUtility16).travelTime(28L).build();
+
+            customerRepository.save(customer16);
+            carRepository.save(car16);
+            parkingGarageRepository.save(parkingGarage16);
+            accountRepository.save(account16);
+            serviceRepository.save(service16);
+            bookingRepository.save(BookingEntity.builder().customer(customer16).car(car16).garage(parkingGarage16).service(service16).endDate(LocalDateTime.now().plusDays(17L)).startDate(LocalDateTime.now().plusDays(16L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).build());
+        }
+
+
+
+
+
+
+
 
     }
     private void insertAdminUser() {
