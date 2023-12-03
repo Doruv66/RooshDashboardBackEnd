@@ -316,7 +316,7 @@ public class DatabaseDataInitializer {
     private void insertAdminUser() {
         UserEntity adminUser = UserEntity.builder()
                 .username("admin@gmail.com")
-                .password(passwordEncoder.encode("123"))
+                .password(passwordEncoder.encode("123456789"))
                 .build();
         UserRoleEntity adminRole = UserRoleEntity.builder().role(RoleEnum.ADMIN).user(adminUser).build();
         adminUser.setUserRoles(Set.of(adminRole));

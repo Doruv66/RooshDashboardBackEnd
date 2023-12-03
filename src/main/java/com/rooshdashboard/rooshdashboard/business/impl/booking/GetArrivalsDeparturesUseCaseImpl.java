@@ -20,11 +20,11 @@ public class GetArrivalsDeparturesUseCaseImpl implements GetArrivalsDeparturesUs
 
     @Transactional
     @Override
-    public GetArrivalsDepartures getArrivalsDepartures(LocalDate date) {
-        List<Booking> departures = bookingRepository.findAllByEndDate(date).stream()
+    public GetArrivalsDepartures getArrivalsDepartures(LocalDate date, long garageId) {
+        List<Booking> departures = bookingRepository.findAllByEndDate(date, garageId).stream()
                 .map(BookingConverters::convertToBooking)
                 .toList();
-        List<Booking> arrivals = bookingRepository.findAllByStartDate(date).stream()
+        List<Booking> arrivals = bookingRepository.findAllByStartDate(date, garageId).stream()
                 .map(BookingConverters::convertToBooking)
                 .toList();
 

@@ -5,5 +5,5 @@ import com.rooshdashboard.rooshdashboard.domain.booking.GetArrivalsDepartures;
 import java.time.LocalDate;
 
 public interface GetIntervalArrivalsDeparturesUseCase {
-    GetArrivalsDepartures getIntervalArrivalDepartures(LocalDate startTime, LocalDate endTime);
+    GetArrivalsDepartures getIntervalArrivalDepartures(LocalDate startTime, LocalDate endTime, long garageId);
 }
