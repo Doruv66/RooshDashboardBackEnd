@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.domain.car.*;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,24 +21,29 @@ public class CarsController {
     private final UpdateCarUseCase updateCarUseCase;
 
     @GetMapping
+
     public ResponseEntity<GetAllCarsResponse> getCars() {
         return ResponseEntity.ok(getCarsUseCase.getCars());
     }
     @GetMapping("{carId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetCarByIdResponse> getCar(@PathVariable(value = "carId") final long carId) {
         final GetCarByIdResponse car = getCarUseCase.getCar(carId);
         return ResponseEntity.ok().body(car);
     }
     @DeleteMapping("{carId}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<DeleteCarResponse> deleteCar(@PathVariable int carId) {
         return ResponseEntity.ok().body(deleteCarUseCase.deleteCar(carId));
     }
     @PostMapping()
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateCarResponse> createCar(@RequestBody @Valid CreateCarRequest request) {
         CreateCarResponse response = createCarUseCase.createCar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @PutMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateCarResponse> updateCar(@PathVariable("id") long id,
                                                        @RequestBody @Valid UpdateCarRequest request) {
         request.setId(id);

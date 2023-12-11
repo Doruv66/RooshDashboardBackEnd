@@ -4,12 +4,16 @@ import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.business.impl.booking.FilterBookingUseCaseImpl;
 import com.rooshdashboard.rooshdashboard.domain.booking.*;
 import com.rooshdashboard.rooshdashboard.domain.service.ServiceType;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,25 +27,53 @@ public class BookingController {
     private final UpdateBookingUseCase updateBookingUseCase;
     private final CreateBookingUseCase createBookingUseCase;
     private final FilterBookingsUseCase filterBookingsUseCase;
+    private final GetArrivalsDeparturesUseCase getArrivalsDeparturesUseCase;
+    private final GetIntervalArrivalsDeparturesUseCase getIntervalArrivalDepartures;
     @GetMapping
     public ResponseEntity<GetAllBookingResponse> getBookings() {
         return ResponseEntity.ok(getAllBookingsUseCase.getAllBookings());
     }
+
+    @GetMapping("/bookings/interval-arrivals-departures")
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<GetArrivalsDepartures> getIntervalArrivalsDepartures(
+            @RequestParam("startTime") LocalDate startTime,
+            @RequestParam("endTime") LocalDate endTime,
+            @RequestParam("garageId") long garageId
+    ) {
+        GetArrivalsDepartures arrivalsDepartures = getIntervalArrivalDepartures.getIntervalArrivalDepartures(startTime, endTime, garageId);
+        return ResponseEntity.ok(arrivalsDepartures);
+    }
+
+    @GetMapping("/arrivals-departures")
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<GetArrivalsDepartures> getArrivalsDeparturesForDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam("garageId") long garageId
+    ) {
+        GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date, garageId);
+        return ResponseEntity.ok(arrivalsDepartures);
+    }
+
     @GetMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetBookingByIdResponse> getBooking(@PathVariable(value = "id") final long id) {
         final GetBookingByIdResponse response = getBookingByIdUseCase.getBookingById(id);
         return ResponseEntity.ok().body(response);
     }
     @DeleteMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<DeleteBookingResponse> deleteBooking(@PathVariable long id) {
         return ResponseEntity.ok().body(deleteBookingUseCase.deleteBooking(id));
     }
     @PostMapping()
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateBookingResponse> createBooking(@RequestBody @Valid CreateBookingRequest request) {
         CreateBookingResponse response = createBookingUseCase.createBooking(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     @PutMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateBookingResponse> updateBooking(@PathVariable("id") long id,
                                                        @RequestBody @Valid UpdateBookingRequest request) {
         request.setId(id);
@@ -49,6 +81,7 @@ public class BookingController {
     }
 
     @GetMapping("/filter")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<List<Booking>> getFilteredBookings(
             @RequestParam(required = true) long garageId,
             @RequestParam(required = false) String service,
