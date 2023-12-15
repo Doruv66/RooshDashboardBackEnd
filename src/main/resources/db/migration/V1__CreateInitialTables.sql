@@ -81,6 +81,14 @@ CREATE TABLE service (
                          PRIMARY KEY (id)
 );
 
+CREATE TABLE image (
+                         id INT NOT NULL AUTO_INCREMENT,
+                         image_path VARCHAR(255),
+                         garage_id INT NOT NULL,
+                         PRIMARY KEY (id),
+                         FOREIGN KEY (garage_id) REFERENCES parking_garages(id)
+);
+
 
 CREATE TABLE bookings (
                           id INT NOT NULL AUTO_INCREMENT,

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -31,4 +33,6 @@ public class UpdateParkingGarageRequest {
     private String phoneNumber;
     @NotNull
     private ParkingGarageUtilityEntity parkingGarageUtility;
+    @NotNull
+    private List<String> imagePaths;
 }

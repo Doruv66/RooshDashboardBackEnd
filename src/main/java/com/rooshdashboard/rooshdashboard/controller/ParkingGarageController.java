@@ -42,9 +42,10 @@ public class ParkingGarageController {
         }
 
     }
-    @PostMapping()
+    @PostMapping(consumes = {"multipart/form-data"})
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(@RequestBody @Valid CreateParkingGarageRequest request) {
+    public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(
+            @ModelAttribute @Valid CreateParkingGarageRequest request) {
         CreateParkingGarageResponse response = createParkingGarageUseCase.CreateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

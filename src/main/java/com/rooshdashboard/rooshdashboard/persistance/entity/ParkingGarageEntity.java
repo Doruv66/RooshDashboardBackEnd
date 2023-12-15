@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.List;
+
 @Entity
 @Table(name = "parking_garages")
 @Data
@@ -50,4 +52,8 @@ public class ParkingGarageEntity {
     @JoinColumn(name = "parking_garage_utility_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ParkingGarageUtilityEntity parkingGarageUtility;
+    @ElementCollection
+    @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "garage_id"))
+    @Column(name = "image_path")
+    private List<String> imagePaths;
 }
