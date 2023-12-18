@@ -19,13 +19,13 @@ public class GetIntervalArrivalsDepartureUseCaseImpl implements GetIntervalArriv
 
     @Transactional
     @Override
-    public GetArrivalsDepartures getIntervalArrivalDepartures(LocalDate startTime, LocalDate endTime) {
+    public GetArrivalsDepartures getIntervalArrivalDepartures(LocalDate startTime, LocalDate endTime, long garageId) {
         LocalDateTime startDateTime = startTime.atStartOfDay().plusDays(1);
         LocalDateTime endDateTime = endTime.plusDays(1).atStartOfDay();
-        List<Booking> arrivals = bookingRepository.findAllByStartTimeInterval(startDateTime, endDateTime).stream()
+        List<Booking> arrivals = bookingRepository.findAllByStartTimeInterval(startDateTime, endDateTime, garageId).stream()
                 .map(BookingConverters::convertToBooking)
                 .toList();
-        List<Booking> departures = bookingRepository.findAllByEndTimeInterval(startDateTime, endDateTime).stream()
+        List<Booking> departures = bookingRepository.findAllByEndTimeInterval(startDateTime, endDateTime, garageId).stream()
                 .map(BookingConverters::convertToBooking)
                 .toList();
 

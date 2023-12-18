@@ -13,21 +13,29 @@ import java.util.List;
 
 public interface BookingRepository extends JpaRepository<BookingEntity, Long>, JpaSpecificationExecutor<BookingEntity> {
 
-    @Query("SELECT b FROM BookingEntity b WHERE DATE(b.startDate) = DATE(:givenDate)")
-    List<BookingEntity> findAllByStartDate(@Param("givenDate") LocalDate givenDate);
-
-    @Query("SELECT b FROM BookingEntity b WHERE DATE(b.endDate) = DATE(:givenDate)")
-    List<BookingEntity> findAllByEndDate(@Param("givenDate") LocalDate givenDate);
-
-    @Query("SELECT b FROM BookingEntity b WHERE b.startDate >= :startDateTime AND b.startDate < :endDateTime")
-    List<BookingEntity> findAllByStartTimeInterval(
-            @Param("startDateTime") LocalDateTime startDateTime,
-            @Param("endDateTime") LocalDateTime endDateTime
+    @Query("SELECT b FROM BookingEntity b WHERE DATE(b.startDate) = DATE(:givenDate) AND b.garage.id = :garageId")
+    List<BookingEntity> findAllByStartDate(
+            @Param("givenDate") LocalDate givenDate,
+            @Param("garageId") Long garageId
     );
 
-    @Query("SELECT b FROM BookingEntity b WHERE b.endDate >= :startDateTime AND b.endDate < :endDateTime")
+    @Query("SELECT b FROM BookingEntity b WHERE DATE(b.endDate) = DATE(:givenDate) AND b.garage.id = :garageId")
+    List<BookingEntity> findAllByEndDate(
+            @Param("givenDate") LocalDate givenDate,
+            @Param("garageId") Long garageId
+    );
+
+    @Query("SELECT b FROM BookingEntity b WHERE b.startDate >= :startDateTime AND b.startDate < :endDateTime AND b.garage.id = :garageId")
+    List<BookingEntity> findAllByStartTimeInterval(
+            @Param("startDateTime") LocalDateTime startDateTime,
+            @Param("endDateTime") LocalDateTime endDateTime,
+            @Param("garageId") Long garageId
+    );
+
+    @Query("SELECT b FROM BookingEntity b WHERE b.endDate >= :startDateTime AND b.endDate < :endDateTime AND b.garage.id = :garageId")
     List<BookingEntity> findAllByEndTimeInterval(
             @Param("startDateTime") LocalDateTime startDateTime,
-            @Param("endDateTime") LocalDateTime endDateTime
+            @Param("endDateTime") LocalDateTime endDateTime,
+            @Param("garageId") Long garageId
     );
 }

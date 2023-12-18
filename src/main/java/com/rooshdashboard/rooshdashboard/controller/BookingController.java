@@ -38,17 +38,20 @@ public class BookingController {
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetArrivalsDepartures> getIntervalArrivalsDepartures(
             @RequestParam("startTime") LocalDate startTime,
-            @RequestParam("endTime") LocalDate endTime
+            @RequestParam("endTime") LocalDate endTime,
+            @RequestParam("garageId") long garageId
     ) {
-        GetArrivalsDepartures arrivalsDepartures = getIntervalArrivalDepartures.getIntervalArrivalDepartures(startTime, endTime);
+        GetArrivalsDepartures arrivalsDepartures = getIntervalArrivalDepartures.getIntervalArrivalDepartures(startTime, endTime, garageId);
         return ResponseEntity.ok(arrivalsDepartures);
     }
 
     @GetMapping("/arrivals-departures")
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<GetArrivalsDepartures> getArrivalsDeparturesForDate(
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date);
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam("garageId") long garageId
+    ) {
+        GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date, garageId);
         return ResponseEntity.ok(arrivalsDepartures);
     }
 
