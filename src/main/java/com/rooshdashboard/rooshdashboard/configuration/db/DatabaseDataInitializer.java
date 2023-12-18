@@ -45,7 +45,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(savedParkingGarage);
             accountRepository.save(savedAccount);
             serviceRepository.save(savedService);
-            bookingRepository.save(BookingEntity.builder().customer(savedCustomer).car(savedCar).garage(savedParkingGarage).service(savedService).endDate(LocalDateTime.now().plusDays(1L)).startDate(LocalDateTime.now()).flightNumberArrival(1L).flightNumberDeparture(1L).build());
+            bookingRepository.save(BookingEntity.builder().customer(savedCustomer).car(savedCar).garage(savedParkingGarage).service(savedService).endDate(LocalDateTime.now().plusDays(1L)).startDate(LocalDateTime.now()).flightNumberArrival(1L).flightNumberDeparture(1L).price(400.99).build());
         }
 
         CustomerEntity customer1 = CustomerEntity.builder().name("Alice Johnson").phoneNumber("555-123-4567").email("alice@example.com").build();
@@ -61,7 +61,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(parkingGarage1);
             accountRepository.save(account1);
             serviceRepository.save(service1);
-            bookingRepository.save(BookingEntity.builder().customer(customer1).car(car1).garage(parkingGarage1).service(service1).endDate(LocalDateTime.now().plusDays(2L)).startDate(LocalDateTime.now().plusDays(1L)).flightNumberArrival(12345L).flightNumberDeparture(54321L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer1).car(car1).garage(parkingGarage1).service(service1).endDate(LocalDateTime.now().plusDays(2L)).startDate(LocalDateTime.now().plusDays(1L)).flightNumberArrival(12345L).flightNumberDeparture(54321L).price(200.99).build());
         }
 
         CustomerEntity customer2 = CustomerEntity.builder().name("Bob Smith").phoneNumber("555-987-6543").email("bob@example.com").build();
@@ -77,7 +77,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(parkingGarage2);
             accountRepository.save(account2);
             serviceRepository.save(service2);
-            bookingRepository.save(BookingEntity.builder().customer(customer2).car(car2).garage(parkingGarage2).service(service2).endDate(LocalDateTime.now().plusDays(3L)).startDate(LocalDateTime.now().plusDays(2L)).flightNumberArrival(67890L).flightNumberDeparture(98765L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer2).car(car2).garage(parkingGarage2).service(service2).endDate(LocalDateTime.now().plusDays(3L)).startDate(LocalDateTime.now().plusDays(2L)).flightNumberArrival(67890L).flightNumberDeparture(98765L).price(350.99).build());
         }
 
         CustomerEntity customer3 = CustomerEntity.builder().name("David Miller").phoneNumber("555-444-1234").email("david@example.com").build();
@@ -93,7 +93,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(parkingGarage3);
             accountRepository.save(account3);
             serviceRepository.save(service3);
-            bookingRepository.save(BookingEntity.builder().customer(customer3).car(car3).garage(parkingGarage3).service(service3).endDate(LocalDateTime.now().plusDays(4L)).startDate(LocalDateTime.now().plusDays(3L)).flightNumberArrival(23456L).flightNumberDeparture(65432L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer3).car(car3).garage(parkingGarage3).service(service3).endDate(LocalDateTime.now().plusDays(4L)).startDate(LocalDateTime.now().plusDays(3L)).flightNumberArrival(23456L).flightNumberDeparture(65432L).price(250.99).build());
         }
 
 
@@ -110,7 +110,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(parkingGarage4);
             accountRepository.save(account4);
             serviceRepository.save(service4);
-            bookingRepository.save(BookingEntity.builder().customer(customer4).car(car4).garage(parkingGarage4).service(service4).endDate(LocalDateTime.now().plusDays(5L)).startDate(LocalDateTime.now().plusDays(4L)).flightNumberArrival(34567L).flightNumberDeparture(76543L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer4).car(car4).garage(parkingGarage4).service(service4).endDate(LocalDateTime.now().plusDays(5L)).startDate(LocalDateTime.now().plusDays(4L)).flightNumberArrival(34567L).flightNumberDeparture(76543L).price(500.68).build());
         }
 
 
@@ -127,7 +127,7 @@ public class DatabaseDataInitializer {
             parkingGarageRepository.save(parkingGarage5);
             accountRepository.save(account5);
             serviceRepository.save(service5);
-            bookingRepository.save(BookingEntity.builder().customer(customer5).car(car5).garage(parkingGarage5).service(service5).endDate(LocalDateTime.now().plusDays(6L)).startDate(LocalDateTime.now().plusDays(5L)).flightNumberArrival(45678L).flightNumberDeparture(87654L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer5).car(car5).garage(parkingGarage5).service(service5).endDate(LocalDateTime.now().plusDays(6L)).startDate(LocalDateTime.now().plusDays(5L)).flightNumberArrival(45678L).flightNumberDeparture(87654L).price(345.68).build());
         }
 
 
@@ -145,7 +145,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage6);
             accountRepository.save(account6);
             serviceRepository.save(service6);
-            bookingRepository.save(BookingEntity.builder().customer(customer6).car(car6).garage(parkingGarage1).service(service6).endDate(LocalDateTime.now().plusDays(7L)).startDate(LocalDateTime.now().plusDays(6L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer6).car(car6).garage(parkingGarage1).service(service6).endDate(LocalDateTime.now().plusDays(7L)).startDate(LocalDateTime.now().plusDays(6L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).price(645.68).build());
         }
 
         if (bookingRepository.count() == 7) {
@@ -162,7 +162,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage7);
             accountRepository.save(account7);
             serviceRepository.save(service7);
-            bookingRepository.save(BookingEntity.builder().customer(customer7).car(car7).garage(parkingGarage2).service(service7).endDate(LocalDateTime.now().plusDays(8L)).startDate(LocalDateTime.now().plusDays(7L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer7).car(car7).garage(parkingGarage2).service(service7).endDate(LocalDateTime.now().plusDays(8L)).startDate(LocalDateTime.now().plusDays(7L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).price(945.68).build());
         }
 
 
@@ -180,7 +180,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage8);
             accountRepository.save(account8);
             serviceRepository.save(service8);
-            bookingRepository.save(BookingEntity.builder().customer(customer8).car(car8).garage(parkingGarage3).service(service8).endDate(LocalDateTime.now().plusDays(9L)).startDate(LocalDateTime.now().plusDays(8L)).flightNumberArrival(345678L).flightNumberDeparture(876543L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer8).car(car8).garage(parkingGarage3).service(service8).endDate(LocalDateTime.now().plusDays(9L)).startDate(LocalDateTime.now().plusDays(8L)).flightNumberArrival(345678L).flightNumberDeparture(876543L).price(765.68).build());
         }
 
 
@@ -198,7 +198,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage9);
             accountRepository.save(account9);
             serviceRepository.save(service9);
-            bookingRepository.save(BookingEntity.builder().customer(customer9).car(car9).garage(parkingGarage4).service(service9).endDate(LocalDateTime.now().plusDays(10L)).startDate(LocalDateTime.now().plusDays(9L)).flightNumberArrival(456789L).flightNumberDeparture(987654L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer9).car(car9).garage(parkingGarage4).service(service9).endDate(LocalDateTime.now().plusDays(10L)).startDate(LocalDateTime.now().plusDays(9L)).flightNumberArrival(456789L).flightNumberDeparture(987654L).price(3425.74).build());
         }
 
         if (bookingRepository.count() == 10) {
@@ -215,7 +215,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage10);
             accountRepository.save(account10);
             serviceRepository.save(service10);
-            bookingRepository.save(BookingEntity.builder().customer(customer10).car(car10).garage(parkingGarage5).service(service10).endDate(LocalDateTime.now().plusDays(11L)).startDate(LocalDateTime.now().plusDays(10L)).flightNumberArrival(567890L).flightNumberDeparture(109876L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer10).car(car10).garage(parkingGarage5).service(service10).endDate(LocalDateTime.now().plusDays(11L)).startDate(LocalDateTime.now().plusDays(10L)).flightNumberArrival(567890L).flightNumberDeparture(109876L).price(1345.68).build());
         }
 
         if (bookingRepository.count() == 11) {
@@ -232,7 +232,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage11);
             accountRepository.save(account11);
             serviceRepository.save(service11);
-            bookingRepository.save(BookingEntity.builder().customer(customer11).car(car11).garage(parkingGarage1).service(service11).endDate(LocalDateTime.now().plusDays(12L)).startDate(LocalDateTime.now().plusDays(11L)).flightNumberArrival(678901L).flightNumberDeparture(210987L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer11).car(car11).garage(parkingGarage1).service(service11).endDate(LocalDateTime.now().plusDays(12L)).startDate(LocalDateTime.now().plusDays(11L)).flightNumberArrival(678901L).flightNumberDeparture(210987L).price(700.00).build());
         }
 
         if (bookingRepository.count() == 12) {
@@ -249,7 +249,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage12);
             accountRepository.save(account12);
             serviceRepository.save(service12);
-            bookingRepository.save(BookingEntity.builder().customer(customer12).car(car12).garage(parkingGarage2).service(service12).endDate(LocalDateTime.now().plusDays(13L)).startDate(LocalDateTime.now().plusDays(12L)).flightNumberArrival(789012L).flightNumberDeparture(321098L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer12).car(car12).garage(parkingGarage2).service(service12).endDate(LocalDateTime.now().plusDays(13L)).startDate(LocalDateTime.now().plusDays(12L)).flightNumberArrival(789012L).flightNumberDeparture(321098L).price(462.90).build());
         }
 
         if (bookingRepository.count() == 13) {
@@ -266,7 +266,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage14);
             accountRepository.save(account14);
             serviceRepository.save(service14);
-            bookingRepository.save(BookingEntity.builder().customer(customer14).car(car14).garage(parkingGarage3).service(service14).endDate(LocalDateTime.now().plusDays(15L)).startDate(LocalDateTime.now().plusDays(14L)).flightNumberArrival(901234L).flightNumberDeparture(543210L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer14).car(car14).garage(parkingGarage3).service(service14).endDate(LocalDateTime.now().plusDays(15L)).startDate(LocalDateTime.now().plusDays(14L)).flightNumberArrival(901234L).flightNumberDeparture(543210L).price(900.50).build());
         }
 
 
@@ -284,7 +284,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage15);
             accountRepository.save(account15);
             serviceRepository.save(service15);
-            bookingRepository.save(BookingEntity.builder().customer(customer15).car(car15).garage(parkingGarage4).service(service15).endDate(LocalDateTime.now().plusDays(16L)).startDate(LocalDateTime.now().plusDays(15L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer15).car(car15).garage(parkingGarage4).service(service15).endDate(LocalDateTime.now().plusDays(16L)).startDate(LocalDateTime.now().plusDays(15L)).flightNumberArrival(123456L).flightNumberDeparture(654321L).price(190.50).build());
         }
 
 
@@ -302,7 +302,7 @@ public class DatabaseDataInitializer {
 //            parkingGarageRepository.save(parkingGarage16);
             accountRepository.save(account16);
             serviceRepository.save(service16);
-            bookingRepository.save(BookingEntity.builder().customer(customer16).car(car16).garage(parkingGarage5).service(service16).endDate(LocalDateTime.now().plusDays(17L)).startDate(LocalDateTime.now().plusDays(16L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).build());
+            bookingRepository.save(BookingEntity.builder().customer(customer16).car(car16).garage(parkingGarage5).service(service16).endDate(LocalDateTime.now().plusDays(17L)).startDate(LocalDateTime.now().plusDays(16L)).flightNumberArrival(234567L).flightNumberDeparture(765432L).price(1730.30).build());
         }
 
 
