@@ -38,4 +38,10 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long>, J
             @Param("endDateTime") LocalDateTime endDateTime,
             @Param("garageId") Long garageId
     );
+    @Query("SELECT FUNCTION('DATE', b.startDate), COUNT(b), SUM(b.price) FROM BookingEntity b WHERE b.garage.id = :garageId AND b.startDate BETWEEN :startDate AND :endDate GROUP BY FUNCTION('DATE', b.startDate)")
+    List<Object[]> findBookingStatistics(
+            @Param("garageId") Long garageId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
+    );
 }

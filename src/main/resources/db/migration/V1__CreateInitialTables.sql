@@ -92,6 +92,7 @@ CREATE TABLE bookings (
                           flight_number_arrival INT,
                           garage_id INT,
                           service_id INT,
+                          price DOUBLE,
                           PRIMARY KEY (id),
                           FOREIGN KEY (customer_id) REFERENCES customers(id),
                           FOREIGN KEY (car_id) REFERENCES cars(id),
