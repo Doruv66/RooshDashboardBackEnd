@@ -52,7 +52,7 @@ public class ParkingGarageEntity {
     @JoinColumn(name = "parking_garage_utility_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ParkingGarageUtilityEntity parkingGarageUtility;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "image", joinColumns = @JoinColumn(name = "garage_id"))
     @Column(name = "image_path")
     private List<String> imagePaths;

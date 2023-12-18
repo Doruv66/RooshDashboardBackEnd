@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,6 +34,6 @@ public class UpdateParkingGarageRequest {
     private String phoneNumber;
     @NotNull
     private ParkingGarageUtilityEntity parkingGarageUtility;
-    @NotNull
-    private List<String> imagePaths;
+    private List<MultipartFile> images;
+    private List<String> imagesToRemove;
 }
