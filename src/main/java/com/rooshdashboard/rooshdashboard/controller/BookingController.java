@@ -57,11 +57,15 @@ public class BookingController {
     }
 
     @GetMapping("/getBookingStatistics")
-    @RolesAllowed({"ADMIN"})
-    public ResponseEntity<GetBookingStatisticsResponse> getBookingStatistics(GetBookingStatisticsRequest request) {
+  //  @RolesAllowed({"ADMIN"})
+    public ResponseEntity<GetBookingStatisticsResponse> getBookingStatistics(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("garageId") Long garageId) {
+
+
         final GetBookingStatisticsResponse response = getBookingStatisticsUseCase.getBookingStatistics(
-                request.getStartDate(),
-                request.getGarageId());
+                startDate,
+                garageId);
         return ResponseEntity.ok().body(response);
     }
 
