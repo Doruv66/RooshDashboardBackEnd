@@ -23,6 +23,7 @@ import java.util.List;
 public class BookingController {
     private final GetAllBookingsUseCase getAllBookingsUseCase;
     private final GetBookingByIdUseCase getBookingByIdUseCase;
+    private final GetBookingStatisticsUseCase getBookingStatisticsUseCase;
     private final DeleteBookingUseCase deleteBookingUseCase;
     private final UpdateBookingUseCase updateBookingUseCase;
     private final CreateBookingUseCase createBookingUseCase;
@@ -54,6 +55,16 @@ public class BookingController {
         GetArrivalsDepartures arrivalsDepartures = getArrivalsDeparturesUseCase.getArrivalsDepartures(date, garageId);
         return ResponseEntity.ok(arrivalsDepartures);
     }
+
+    @GetMapping("/getBookingStatistics")
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<GetBookingStatisticsResponse> getBookingStatistics(GetBookingStatisticsRequest request) {
+        final GetBookingStatisticsResponse response = getBookingStatisticsUseCase.getBookingStatistics(
+                request.getStartDate(),
+                request.getGarageId());
+        return ResponseEntity.ok().body(response);
+    }
+
 
     @GetMapping("{id}")
     @RolesAllowed({"ADMIN"})
