@@ -151,12 +151,15 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
         return errors;
     }
     private boolean isImage(List<MultipartFile> images) {
-        for(MultipartFile file : images){
-            if (file != null) {
-                String contentType = file.getContentType();
-                return contentType != null && contentType.startsWith("image/");
+        if(images != null){
+            for(MultipartFile file : images){
+                if (file != null) {
+                    String contentType = file.getContentType();
+                    return contentType != null && contentType.startsWith("image/");
+                }
+                return false;
             }
-            return false;
+            return true;
         }
         return true;
     }
