@@ -8,7 +8,20 @@ import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +45,53 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
     }
 
     private void updateFields(UpdateParkingGarageRequest request, ParkingGarageEntity parkingGarage) {
+        List<String> existingImageFilePaths = new ArrayList<>(parkingGarage.getImagePaths());
+        List<String> newImageFilePaths = new ArrayList<>();
+        try {
+            String uploadDir = "uploaded-images/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            if(!(request.getImages() == null)){
+                for (MultipartFile image : request.getImages()) {
+                    String fileName = StringUtils.cleanPath(image.getOriginalFilename());
+
+                    String fileExtension = "";
+                    int lastDot = fileName.lastIndexOf('.');
+                    if (lastDot > 0) {
+                        fileExtension = fileName.substring(lastDot);
+                        fileName = fileName.substring(0, lastDot);
+                    }
+                    String uniqueFileName = fileName + "_" + System.currentTimeMillis() + fileExtension;
+                    Path filePath = uploadPath.resolve(uniqueFileName);
+
+                    try (InputStream inputStream = image.getInputStream()) {
+                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                        String encodedFileName = URLEncoder.encode(uniqueFileName, StandardCharsets.UTF_8).replace("+", "%20");
+                        newImageFilePaths.add(uploadDir + encodedFileName);
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+//            errors.put("image", "Unable to save the image files.");
+//            throw new InvalidDataException(errors);
+        }
+        existingImageFilePaths.addAll(newImageFilePaths);
+        if (request.getImagesToRemove() != null) {
+            for (String imagePath : request.getImagesToRemove()) {
+                existingImageFilePaths.removeIf(path -> path.endsWith(imagePath));
+                String decodedPath = URLDecoder.decode(imagePath, StandardCharsets.UTF_8);
+                Path filePath = Paths.get(decodedPath);
+                try {
+                    Files.deleteIfExists(filePath);
+                } catch (IOException e) {
+                    // Handle file deletion error
+                }
+            }
+        }
         parkingGarage.setLocation(request.getLocation());
         parkingGarage.setName(request.getName());
         parkingGarage.setAirport(request.getAirport());
@@ -39,6 +99,7 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
         parkingGarage.setTravelTime(request.getTravelTime());
         parkingGarage.setPhoneNumber(request.getPhoneNumber());
         parkingGarage.setParkingGarageUtility(request.getParkingGarageUtility());
+        parkingGarage.setImagePaths(existingImageFilePaths);
         parkingGarageRepository.save(parkingGarage);
     }
 }
