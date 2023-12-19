@@ -45,7 +45,7 @@ public class ParkingGarageController {
     @PostMapping(consumes = {"multipart/form-data"})
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(
-            @ModelAttribute @Valid CreateParkingGarageRequest request) {
+            @ModelAttribute CreateParkingGarageRequest request) {
         CreateParkingGarageResponse response = createParkingGarageUseCase.CreateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -53,7 +53,7 @@ public class ParkingGarageController {
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(
             @PathVariable("id") long id,
-            @ModelAttribute @Valid UpdateParkingGarageRequest request) {
+            @ModelAttribute UpdateParkingGarageRequest request) {
 
         request.setId(id);
         UpdateParkingGarageResponse response = updateParkingGarageUseCase.updateParkingGarage(request);

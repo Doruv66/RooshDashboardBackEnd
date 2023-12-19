@@ -50,6 +50,9 @@ public class UpdateParkingGarageUseCaseImpl implements UpdateParkingGarageUseCas
         List<String> existingImageFilePaths = new ArrayList<>(parkingGarage.getImagePaths());
         List<String> newImageFilePaths = new ArrayList<>();
         Map<String, String> errors = validateCreateParkingGarageRequest(request);
+        if (!errors.isEmpty()) {
+            throw new InvalidDataException(errors);
+        }
         try {
             String uploadDir = "uploaded-images/";
             Path uploadPath = Paths.get(uploadDir);

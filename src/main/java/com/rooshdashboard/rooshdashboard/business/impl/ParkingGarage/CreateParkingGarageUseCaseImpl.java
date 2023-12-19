@@ -45,6 +45,9 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {
         Map<String, String> errors = validateCreateParkingGarageRequest(request);
         List<String> imageFilePaths = new ArrayList<>();
+        if (!errors.isEmpty()) {
+            throw new InvalidDataException(errors);
+        }
         try {
             String uploadDir = "uploaded-images/";
             Path uploadPath = Paths.get(uploadDir);
