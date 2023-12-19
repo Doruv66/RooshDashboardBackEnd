@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.DeleteParkingGarageUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.DeleteParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
@@ -14,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -40,7 +43,9 @@ public class DeleteParkingGarageUseCaseImpl implements DeleteParkingGarageUseCas
                             Path filePath = Paths.get(decodedPath);
                             Files.deleteIfExists(filePath);
                         } catch (IOException e) {
-                            // Handle file deletion error
+                            Map<String, String> errors = new HashMap<>();
+                            errors.put("image", "Unable to delete removed images.");
+                            throw new InvalidDataException(errors);
                         }
                     }
                 }

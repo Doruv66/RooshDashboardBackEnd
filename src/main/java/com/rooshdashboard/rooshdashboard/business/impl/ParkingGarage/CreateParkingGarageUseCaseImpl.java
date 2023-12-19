@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.CreateParkingGarageUseCase;
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageRequest;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageResponse;
@@ -42,7 +43,7 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
     }
 
     private ParkingGarageEntity saveNewParkingGarage(CreateParkingGarageRequest request) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, String> errors = validateCreateParkingGarageRequest(request);
         List<String> imageFilePaths = new ArrayList<>();
         try {
             String uploadDir = "uploaded-images/";
@@ -73,6 +74,9 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
         } catch (IOException e) {
             errors.put("image", "Unable to save the image files.");;
         }
+        if (!errors.isEmpty()) {
+            throw new InvalidDataException(errors);
+        }
 //        AccountEntity foundAccount = accountRepository.getReferenceById(request.getAccountId());
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
@@ -87,5 +91,58 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
                 .imagePaths(imageFilePaths)
                 .build();
         return parkingGarageRepository.save(newParkingGarage);
+    }
+    private Map<String, String> validateCreateParkingGarageRequest(CreateParkingGarageRequest request) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (request.getName() == null || request.getName().isBlank()) {
+            errors.put("name", "Name cannot be blank");
+        } else if (request.getName().length() > 255) {
+            errors.put("name", "Name must not exceed 255 characters");
+        }
+
+        if (request.getAirport() == null || request.getAirport().isBlank()) {
+            errors.put("airport", "Airport cannot be blank");
+        } else if (request.getAirport().length() > 255) {
+            errors.put("airport", "Airport must not exceed 255 characters");
+        }
+
+        if (request.getLocation() == null || request.getLocation().isBlank()) {
+            errors.put("location", "Location cannot be blank");
+        } else if (request.getLocation().length() > 255) {
+            errors.put("location", "Location must not exceed 255 characters");
+        }
+
+        if (request.getTravelTime() == null) {
+            errors.put("travelTime", "Travel time cannot be null");
+        }
+
+        if (request.getTravelDistance() == null) {
+            errors.put("travelDistance", "Travel distance cannot be null");
+        }
+
+        if (request.getPhoneNumber() == null || request.getPhoneNumber().isBlank()) {
+            errors.put("phoneNumber", "Phone number cannot be blank");
+        }
+
+        if (request.getParkingGarageUtility() == null) {
+            errors.put("parkingGarageUtility", "Parking garage utility cannot be null");
+        }
+
+        if (!isImage(request.getImages())) {
+            errors.put("images", "Please make sure the images are valid.");
+        }
+
+        return errors;
+    }
+    private boolean isImage(List<MultipartFile> images) {
+        for(MultipartFile file : images){
+            if (file != null) {
+                String contentType = file.getContentType();
+                return contentType != null && contentType.startsWith("image/");
+            }
+            return false;
+        }
+        return true;
     }
 }

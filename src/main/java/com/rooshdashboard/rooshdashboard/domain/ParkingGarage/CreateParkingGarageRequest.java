@@ -32,6 +32,5 @@ public class CreateParkingGarageRequest {
     private String phoneNumber;
     @NotNull
     private ParkingGarageUtilityEntity parkingGarageUtility;
-    @NotNull
     private List<MultipartFile> images;
 }
