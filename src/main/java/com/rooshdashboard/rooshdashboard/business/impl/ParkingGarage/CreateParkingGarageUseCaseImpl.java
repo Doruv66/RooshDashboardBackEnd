@@ -71,8 +71,7 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
                 }
             }
         } catch (IOException e) {
-//            errors.put("image", "Unable to save the image files.");
-//            throw new InvalidDataException(errors);
+            errors.put("image", "Unable to save the image files.");;
         }
 //        AccountEntity foundAccount = accountRepository.getReferenceById(request.getAccountId());
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()

@@ -52,4 +52,11 @@ public class GlobalExceptionHandler {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(responseBody, headers, ex.getStatusCode());
     }
+
+    @ExceptionHandler(InvalidDataException.class)
+    public ResponseEntity<Object> handleInvalidDataException(InvalidDataException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(ex.getValidationErrors());
+    }
 }
