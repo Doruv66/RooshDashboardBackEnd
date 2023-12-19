@@ -1,5 +1,6 @@
 package com.rooshdashboard.rooshdashboard.configuration.exceptionhandler;
 
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -18,6 +19,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Slf4j
@@ -61,6 +63,21 @@ public class RestCustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ProblemDetail handleUnknownRuntimeError(final RuntimeException error) {
         log.error("Internal server error occurred.", error);
         return ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = {InvalidDataException.class})
+    public ResponseEntity<Object> handleInvalidDataException(final InvalidDataException error) {
+        log.error("InvalidDataException with status {} occurred.", HttpStatus.BAD_REQUEST, error);
+
+        List<ValidationErrorDTO> validationErrors = error.getValidationErrors().entrySet().stream()
+                .map(entry -> new ValidationErrorDTO(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
+
+        ProblemDetail problemDetail = convertToProblemDetail(HttpStatus.BAD_REQUEST, validationErrors);
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(problemDetail);
     }
 
     private ProblemDetail convertToProblemDetail(final List<ValidationErrorDTO> errors) {
