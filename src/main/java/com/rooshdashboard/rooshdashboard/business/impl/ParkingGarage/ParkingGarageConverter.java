@@ -20,6 +20,7 @@ public class ParkingGarageConverter {
 //                .account(AccountConverter.convert(parkingGarage.getAccount()))
                 .name(parkingGarage.getName())
                 .travelDistance(parkingGarage.getTravelDistance())
+                .imagePaths(parkingGarage.getImagePaths())
                 .build();
     }
 }

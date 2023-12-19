@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,5 +22,5 @@ public class ParkingGarage {
     private Long travelDistance;
     private String phoneNumber;
     private ParkingGarageUtility parkingGarageUtility;
-
+    private List<String> imagePaths;
 }
