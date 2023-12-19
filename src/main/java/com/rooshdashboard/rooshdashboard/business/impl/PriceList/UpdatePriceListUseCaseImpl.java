@@ -19,14 +19,14 @@ public class UpdatePriceListUseCaseImpl implements UpdatePriceListUseCase {
     public UpdatePriceListResponse updatePriceList(UpdatePriceListRequest request) {
         Optional<PriceListEntity> priceListEntityOptional = priceListRepository.findById(request.getId());
         if (priceListEntityOptional.isEmpty()) {
-            throw new InvalidPriceListException("ORDER_ID_INVALID");
+            throw new InvalidPriceListException("PRICELIST_ID_INVALID");
         }
 
         PriceListEntity priceList = priceListEntityOptional.get();
         updateFields(request, priceList);
 
         return UpdatePriceListResponse.builder()
-                .message("Successfully update order with ID " + order.getId())
+                .message("Successfully update priceList with ID " + priceList.getId())
                 .build();
     }
 
