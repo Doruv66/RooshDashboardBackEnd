@@ -10,6 +10,8 @@ import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,15 @@ public class FilterBookingUseCaseImpl implements FilterBookingsUseCase {
                 predicates.add(cb.equal(root.get("service").get("serviceType"), request.getService()));
             }
 
-            if (request.isFinished() && !request.isOngoing()) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), LocalDateTime.now()));
-            } else if (!request.isFinished() && request.isOngoing()) {
-                predicates.add(cb.greaterThan(root.get("endDate"), LocalDateTime.now()));
+            if (!(request.isFinished() && request.isOngoing()) && !(request.isFinished() == request.isOngoing())) {
+                if (request.isFinished() && !request.isOngoing()) {
+                    // Finished bookings: endDate is before today
+                    predicates.add(cb.lessThan(root.get("endDate").as(LocalDate.class), LocalDate.now()));
+                } else if (!request.isFinished() && request.isOngoing()) {
+                    // Ongoing bookings: endDate is today or in the future
+                    predicates.add(cb.greaterThanOrEqualTo(root.get("endDate").as(LocalDate.class), LocalDate.now()));
+                }
+                // When both are true or both are false, no predicates are added
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

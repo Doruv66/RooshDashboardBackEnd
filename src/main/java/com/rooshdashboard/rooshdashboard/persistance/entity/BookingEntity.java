@@ -48,4 +48,7 @@ public class BookingEntity {
     @PrimaryKeyJoinColumn(name = "service_id")
     @OneToOne
     private ServiceEntity service;
+    @NotNull
+    @Column(name = "price")
+    private Double price;
 }

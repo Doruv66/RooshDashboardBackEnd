@@ -41,4 +41,6 @@ public class Booking {
     private ParkingGarage garage;
     @NotNull
     private Service service;
+    @NotNull
+    private Double price;
 }

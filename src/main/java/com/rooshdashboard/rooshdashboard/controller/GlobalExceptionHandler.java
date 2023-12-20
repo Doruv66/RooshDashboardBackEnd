@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.exception.*;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,5 +52,12 @@ public class GlobalExceptionHandler {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<>(responseBody, headers, ex.getStatusCode());
+    }
+
+    @ExceptionHandler(InvalidDataException.class)
+    public ResponseEntity<Object> handleInvalidDataException(InvalidDataException ex) {
+        return ResponseEntity
+                .badRequest()
+                .body(ex.getValidationErrors());
     }
 }
