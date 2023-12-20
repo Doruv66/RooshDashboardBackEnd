@@ -19,7 +19,6 @@ public class CreateParkingGarageRequest {
     private String airport;
     @NotBlank
     private String location;
-//    @NotNull
     private Long accountId;
     @NotNull
     private Long travelTime;
