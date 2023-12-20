@@ -42,15 +42,19 @@ public class ParkingGarageController {
         }
 
     }
-    @PostMapping()
+    @PostMapping(consumes = {"multipart/form-data"})
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(@RequestBody @Valid CreateParkingGarageRequest request) {
+    public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(
+            @ModelAttribute CreateParkingGarageRequest request) {
         CreateParkingGarageResponse response = createParkingGarageUseCase.CreateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-    @PutMapping("{id}")
+    @PutMapping(value = "{id}", consumes = {"multipart/form-data"})
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(@PathVariable("id") long id, @RequestBody @Valid UpdateParkingGarageRequest request){
+    public ResponseEntity<UpdateParkingGarageResponse> updateParkingGarage(
+            @PathVariable("id") long id,
+            @ModelAttribute UpdateParkingGarageRequest request) {
+
         request.setId(id);
         UpdateParkingGarageResponse response = updateParkingGarageUseCase.updateParkingGarage(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

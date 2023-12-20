@@ -34,7 +34,7 @@ public class DatabaseDataInitializer {
         AccountEntity savedAccount = AccountEntity.builder().email("jane@example.com").password("pass456").name("Jane").role(savedRole).build();
         ServiceEntity savedService = ServiceEntity.builder().serviceType(ServiceType.Valet).build();
         ParkingGarageUtilityEntity savedParkingGarageUtility = ParkingGarageUtilityEntity.builder().parkingSpaces(1L).parkingSpacesElectric(1L).electricChargePoint(false).floors(1L).toilet(false).build();
-        ParkingGarageEntity savedParkingGarage = ParkingGarageEntity.builder().location("123 Main St").airport("PQR Airport").name("Cedar Road Parking").phoneNumber("123").travelDistance(12L).parkingGarageUtility(savedParkingGarageUtility).travelTime(12L).build();
+            ParkingGarageEntity savedParkingGarage = ParkingGarageEntity.builder().location("123 Main St").airport("PQR Airport").name("Cedar Road Parking").phoneNumber("123").travelDistance(12L).parkingGarageUtility(savedParkingGarageUtility).travelTime(12L).build();
         if (userRepository.count() == 0)
         {
             insertAdminUser();
