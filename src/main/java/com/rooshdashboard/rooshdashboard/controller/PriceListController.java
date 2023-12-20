@@ -23,18 +23,18 @@ public class PriceListController {
     private final CreatePriceListUseCase createPriceListUseCase;
     private final UpdatePriceListUseCase updatePriceListUseCase;
 
-
+    @RolesAllowed({"ADMIN"})
     @GetMapping("/byParkingGarage/{garage}")
     public ResponseEntity<GetPriceListResponse> getPriceListByParkingGarage(@PathVariable(value = "garage") ParkingGarageEntity garage) {
         return ResponseEntity.ok(getPriceListUseCase.getPriceListByParkingGarage(garage));
     }
-
+    @RolesAllowed({"ADMIN"})
     @PostMapping()
     public ResponseEntity<CreatePriceListResponse> createPriceList(@RequestBody @Valid CreatePriceListRequest request) {
         CreatePriceListResponse response = createPriceListUseCase.createPriceList(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
-
+    @RolesAllowed({"ADMIN"})
     @PutMapping("{id}")
     public ResponseEntity<UpdatePriceListResponse> updatePriceList(@RequestBody @Valid UpdatePriceListRequest request) {
         UpdatePriceListResponse response = updatePriceListUseCase.updatePriceList(request);
