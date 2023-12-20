@@ -22,7 +22,7 @@ public class GetBookingStatisticsUseCaseImpl implements GetBookingStatisticsUseC
     @Override
     public GetBookingStatisticsResponse getBookingStatistics(LocalDate date, long garageId) {
         LocalDateTime startDateTime = date.atStartOfDay();
-        LocalDateTime endDateTime = LocalDate.now().plusDays(365).atStartOfDay();
+        LocalDateTime endDateTime = LocalDate.now().plusDays(1).atStartOfDay();
         List<Object[]> statistics = bookingRepository.findBookingStatistics(garageId, startDateTime, endDateTime);
 
 
