@@ -26,11 +26,11 @@ public class PriceListEntity {
     @ManyToOne
     private ParkingGarageEntity garage;
 
-    @NotBlank
+    @NotNull
     @Column(name = "start_date")
     private String startDate;
 
-    @NotBlank
+    @NotNull
     @Column(name = "end_date")
     private String endDate;
 

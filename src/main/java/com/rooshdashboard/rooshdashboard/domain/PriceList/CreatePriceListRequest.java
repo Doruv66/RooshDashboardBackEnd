@@ -20,10 +20,10 @@ public class CreatePriceListRequest {
     @NotNull
     private ParkingGarageEntity garage;
 
-    @NotBlank
+    @NotNull
     private String startDate;
 
-    @NotBlank
+    @NotNull
     private String endDate;
 
     @NotNull

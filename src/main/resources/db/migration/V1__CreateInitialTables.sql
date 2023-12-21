@@ -108,3 +108,43 @@ CREATE TABLE bookings (
                           FOREIGN KEY (service_id) REFERENCES service(id)
 );
 
+
+CREATE TABLE price_list (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          garage_id INT,
+                          start_date VARCHAR(2000) NOT NULL,
+                          end_date VARCHAR(2000) NOT NULL,
+                          extra_day_price DOUBLE,
+                          day1_price DOUBLE,
+                          day2_price DOUBLE,
+                          day3_price DOUBLE,
+                          day4_price DOUBLE,
+                          day5_price DOUBLE,
+                          day6_price DOUBLE,
+                          day7_price DOUBLE,
+                          day8_price DOUBLE,
+                          day9_price DOUBLE,
+                          day10_price DOUBLE,
+                          day11_price DOUBLE,
+                          day12_price DOUBLE,
+                          day13_price DOUBLE,
+                          day14_price DOUBLE,
+                          day15_price DOUBLE,
+                          day16_price DOUBLE,
+                          day17_price DOUBLE,
+                          day18_price DOUBLE,
+                          day19_price DOUBLE,
+                          day20_price DOUBLE,
+                          day21_price DOUBLE,
+                          day22_price DOUBLE,
+                          day23_price DOUBLE,
+                          day24_price DOUBLE,
+                          day25_price DOUBLE,
+                          day26_price DOUBLE,
+                          day27_price DOUBLE,
+                          day28_price DOUBLE,
+                          day29_price DOUBLE,
+                          day30_price DOUBLE,
+                          PRIMARY KEY (id),
+                          FOREIGN KEY (garage_id) REFERENCES parking_garages(id)
+);
