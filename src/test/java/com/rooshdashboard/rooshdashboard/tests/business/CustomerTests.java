@@ -101,7 +101,7 @@ public class CustomerTests {
     @Test
     public void testDeleteCustomerWithInvalidId() {
         // Arrange
-        Long invalidId = 99L;
+        Long invalidId = 100L;
         when(mockCustomerRepository.existsById(invalidId)).thenReturn(false);
 
         // Act & Assert
