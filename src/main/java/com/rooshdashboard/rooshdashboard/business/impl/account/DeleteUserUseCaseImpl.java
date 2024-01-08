@@ -2,24 +2,24 @@ package com.rooshdashboard.rooshdashboard.business.impl.account;
 
 import com.rooshdashboard.rooshdashboard.business.IAccount.DeleteAccountUseCase;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidAccountException;
-import com.rooshdashboard.rooshdashboard.domain.Account.DeleteAccountResponse;
-import com.rooshdashboard.rooshdashboard.persistance.AccountRepository;
+import com.rooshdashboard.rooshdashboard.domain.User.DeleteUserResponse;
+import com.rooshdashboard.rooshdashboard.persistance.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DeleteAccountUseCaseImpl implements DeleteAccountUseCase {
-    private final AccountRepository accountRepository;
+public class DeleteUserUseCaseImpl implements DeleteAccountUseCase {
+    private final UserRepository userRepository;
 
     @Override
-    public DeleteAccountResponse deleteAccount(long accountId) {
-        if(!accountRepository.existsById(accountId)){
+    public DeleteUserResponse deleteAccount(long accountId) {
+        if(!userRepository.existsById(accountId)){
             throw new InvalidAccountException("ACCOUNT_NOT_FOUND");
         }
-        this.accountRepository.deleteById(accountId);
+        this.userRepository.deleteById(accountId);
 
-        return DeleteAccountResponse.builder()
+        return DeleteUserResponse.builder()
                 .message("Successfully deleted account with id " + accountId)
                 .build();
     }

@@ -1,4 +1,4 @@
-package com.rooshdashboard.rooshdashboard.domain.Account;
+package com.rooshdashboard.rooshdashboard.domain.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

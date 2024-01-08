@@ -2,8 +2,8 @@ package com.rooshdashboard.rooshdashboard.tests.controller;
 
 import com.rooshdashboard.rooshdashboard.business.IAccount.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidAccountException;
-import com.rooshdashboard.rooshdashboard.controller.AccountController;
-import com.rooshdashboard.rooshdashboard.domain.Account.*;
+import com.rooshdashboard.rooshdashboard.controller.UserController;
+import com.rooshdashboard.rooshdashboard.domain.User.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import org.junit.jupiter.api.Test;
@@ -26,8 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AccountController.class)
-public class AccountControllerTests {
+@WebMvcTest(UserController.class)
+public class UserControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,10 +50,10 @@ public class AccountControllerTests {
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
 
-    private Account generateFakeAccount(long id) {
+    private User generateFakeAccount(long id) {
         Role role = Role.builder().roleName("User").build();
 
-        return Account.builder()
+        return User.builder()
                 .id(id)
                 .name("Account" + id)
                 .email("account@gmail.com")
@@ -64,10 +64,10 @@ public class AccountControllerTests {
 
     @Test
     void testGetAccounts_ShouldReturn200ResponseWithAccountArray() throws Exception {
-        List<Account> accounts = new ArrayList<>();
+        List<User> accounts = new ArrayList<>();
         accounts.add(generateFakeAccount(1));
         accounts.add(generateFakeAccount(2));
-        GetAccountResponse response = GetAccountResponse.builder().accounts(accounts).build();
+        GetUserResponse response = GetUserResponse.builder().accounts(accounts).build();
         when(getAccountsUseCase.getAccounts()).thenReturn(response);
 
         mockMvc.perform(get("/accounts"))
@@ -88,7 +88,7 @@ public class AccountControllerTests {
 
     @Test
     void testGetAccountById_ShouldReturn200ResponseWithAccount() throws Exception {
-        Account account = generateFakeAccount(1);
+        User account = generateFakeAccount(1);
         when(getAccountUseCase.getAccount(account.getId())).thenReturn(Optional.of(account));
 
         mockMvc.perform(get("/accounts/" + account.getId()))
@@ -112,13 +112,13 @@ public class AccountControllerTests {
     void testCreateAccount_ShouldReturn201ResponseWithCreatedAccount() throws Exception {
         RoleEntity role = RoleEntity.builder().roleName("User").build();
 
-        CreateAccountRequest request = CreateAccountRequest.builder()
+        CreateUserRequest request = CreateUserRequest.builder()
                 .name("Account")
                 .email("account@gmail.com")
                 .password("fakePass1234")
                 .role(role)
                 .build();
-        CreateAccountResponse response = CreateAccountResponse.builder()
+        CreateUserResponse response = CreateUserResponse.builder()
                 .id(1L)
                 .build();
         when(createAccountUseCase.CreateAccounts(request)).thenReturn(response);
@@ -134,7 +134,7 @@ public class AccountControllerTests {
 
     @Test
     void testCreateAccount_ShouldReturn400WhenInvalidData() throws Exception {
-        CreateAccountRequest request = new CreateAccountRequest();
+        CreateUserRequest request = new CreateUserRequest();
         mockMvc.perform(post("/accounts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
@@ -146,7 +146,7 @@ public class AccountControllerTests {
     @Test
     void testDeleteAccount_ShouldReturn200() throws Exception {
         long accountId = 1;
-        DeleteAccountResponse response = DeleteAccountResponse.builder().message("").build();
+        DeleteUserResponse response = DeleteUserResponse.builder().message("").build();
         when(deleteAccountUseCase.deleteAccount(accountId)).thenReturn(response);
 
         mockMvc.perform(delete("/accounts/" + accountId))
@@ -171,14 +171,14 @@ public class AccountControllerTests {
         long accountId = 1;
         RoleEntity role = RoleEntity.builder().roleName("User").build();
 
-        UpdateAccountRequest request = UpdateAccountRequest.builder()
+        UpdateUserRequest request = UpdateUserRequest.builder()
                 .id(1L)
                 .name("Account")
                 .email("account@gmail.com")
                 .password("fakePass1234")
                 .role(role)
                 .build();
-        UpdateAccountResponse response = UpdateAccountResponse.builder().message("").build();
+        UpdateUserResponse response = UpdateUserResponse.builder().message("").build();
 
         when(updateAccountUseCase.updateAccount(request)).thenReturn(response);
 
@@ -194,7 +194,7 @@ public class AccountControllerTests {
     @Test
     void testUpdateAccount_ShouldReturn400WhenInvalidData() throws Exception {
         long accountId = 1;
-        UpdateAccountRequest request = new UpdateAccountRequest();
+        UpdateUserRequest request = new UpdateUserRequest();
 
         mockMvc.perform(put("/accounts/" + accountId)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -207,7 +207,7 @@ public class AccountControllerTests {
     @Test
     void testUpdateAccount_ShouldReturn400WhenAccountNotFound() throws Exception {
         long accountId = 1;
-        UpdateAccountRequest request = new UpdateAccountRequest();
+        UpdateUserRequest request = new UpdateUserRequest();
 
         when(updateAccountUseCase.updateAccount( request)).thenThrow(new InvalidAccountException("ACCOUNT_NOT_FOUND"));
 

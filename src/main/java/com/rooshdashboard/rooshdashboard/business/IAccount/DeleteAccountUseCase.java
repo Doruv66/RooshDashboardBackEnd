@@ -1,7 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.IAccount;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.DeleteAccountResponse;
+import com.rooshdashboard.rooshdashboard.domain.User.DeleteUserResponse;
 
 public interface DeleteAccountUseCase {
-    DeleteAccountResponse deleteAccount(long accountId);
+    DeleteUserResponse deleteAccount(long accountId);
 }

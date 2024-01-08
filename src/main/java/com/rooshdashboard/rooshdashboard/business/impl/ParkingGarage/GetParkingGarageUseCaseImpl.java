@@ -1,6 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.GetParkingGarageUseCase;
+import com.rooshdashboard.rooshdashboard.configuration.security.token.AccessToken;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.GetParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.ParkingGarage;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
@@ -13,10 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class GetParkingGarageUseCaseImpl implements GetParkingGarageUseCase {
     private final ParkingGarageRepository parkingGarageRepository;
+    private AccessToken requestAccessToken;
+
 
     @Override
     public GetParkingGarageResponse getParkingGarage() {
-        List<ParkingGarage> parkingGarages = parkingGarageRepository.findAll()
+        Long userId = requestAccessToken.getAccountId();
+        List<ParkingGarage> parkingGarages = parkingGarageRepository.findByAccount_Id(userId)
                 .stream()
                 .map(ParkingGarageConverter::convert)
                 .toList();

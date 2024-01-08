@@ -1,8 +1,8 @@
 package com.rooshdashboard.rooshdashboard.business.IAccount;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.CreateAccountRequest;
-import com.rooshdashboard.rooshdashboard.domain.Account.CreateAccountResponse;
+import com.rooshdashboard.rooshdashboard.domain.User.CreateUserRequest;
+import com.rooshdashboard.rooshdashboard.domain.User.CreateUserResponse;
 
 public interface CreateAccountUseCase {
-    CreateAccountResponse CreateAccounts(CreateAccountRequest request);
+    CreateUserResponse CreateAccounts(CreateUserRequest request);
 }

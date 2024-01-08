@@ -1,7 +1,7 @@
 package com.rooshdashboard.rooshdashboard.business.IAccount;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.GetAccountResponse;
+import com.rooshdashboard.rooshdashboard.domain.User.GetUserResponse;
 
 public interface GetAccountsUseCase {
-    GetAccountResponse getAccounts();
+    GetUserResponse getAccounts();
 }

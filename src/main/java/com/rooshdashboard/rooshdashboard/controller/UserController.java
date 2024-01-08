@@ -1,7 +1,7 @@
 package com.rooshdashboard.rooshdashboard.controller;
 
 import com.rooshdashboard.rooshdashboard.business.IAccount.*;
-import com.rooshdashboard.rooshdashboard.domain.Account.*;
+import com.rooshdashboard.rooshdashboard.domain.User.*;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/accounts")
 @AllArgsConstructor
-public class AccountController {
+public class UserController {
     private final GetAccountsUseCase getAccountsUseCase;
     private final GetAccountUseCase getAccountUseCase;
     private final CreateAccountUseCase createAccountUseCase;
@@ -23,8 +23,8 @@ public class AccountController {
 
     @GetMapping("{id}")
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<Account> getAccount(@PathVariable(value = "id") final long id) {
-        final Optional<Account> accountOptional = getAccountUseCase.getAccount(id);
+    public ResponseEntity<User> getAccount(@PathVariable(value = "id") final long id) {
+        final Optional<User> accountOptional = getAccountUseCase.getAccount(id);
         if (accountOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -33,22 +33,22 @@ public class AccountController {
 
     @GetMapping
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<GetAccountResponse> getAccount() {
+    public ResponseEntity<GetUserResponse> getAccount() {
         return ResponseEntity.ok(getAccountsUseCase.getAccounts());
     }
 
     @PostMapping()
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<CreateAccountResponse> createAccount(@RequestBody @Valid CreateAccountRequest request) {
-        CreateAccountResponse response = createAccountUseCase.CreateAccounts(request);
+    public ResponseEntity<CreateUserResponse> createAccount(@RequestBody @Valid CreateUserRequest request) {
+        CreateUserResponse response = createAccountUseCase.CreateAccounts(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("{accountId}")
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<DeleteAccountResponse> deleteHouse(@PathVariable int accountId) {
+    public ResponseEntity<DeleteUserResponse> deleteHouse(@PathVariable int accountId) {
 
-        Optional<Account> OptionalAccountExists = getAccountUseCase.getAccount(accountId);
+        Optional<User> OptionalAccountExists = getAccountUseCase.getAccount(accountId);
         if (OptionalAccountExists.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -58,9 +58,9 @@ public class AccountController {
 
     @PutMapping("{id}")
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<UpdateAccountResponse> updateAccount(@RequestBody @Valid UpdateAccountRequest request) {
+    public ResponseEntity<UpdateUserResponse> updateAccount(@RequestBody @Valid UpdateUserRequest request) {
 
-        UpdateAccountResponse response = updateAccountUseCase.updateAccount(request);
+        UpdateUserResponse response = updateAccountUseCase.updateAccount(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

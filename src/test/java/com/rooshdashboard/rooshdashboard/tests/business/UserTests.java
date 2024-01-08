@@ -6,9 +6,8 @@ import static org.mockito.Mockito.*;
 import com.rooshdashboard.rooshdashboard.business.exception.AccountAlreadyExistsException;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidAccountException;
 import com.rooshdashboard.rooshdashboard.business.impl.account.*;
-import com.rooshdashboard.rooshdashboard.domain.Account.*;
-import com.rooshdashboard.rooshdashboard.persistance.AccountRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
+import com.rooshdashboard.rooshdashboard.domain.User.*;
+import com.rooshdashboard.rooshdashboard.persistance.UserRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,40 +15,39 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountTests {
+public class UserTests {
 
     @Mock
-    private AccountRepository mockAccountRepository;
+    private UserRepository mockAccountRepository;
 
     @InjectMocks
-    private CreateAccountUseCaseImpl createAccountUseCase;
+    private CreateUserUseCaseImpl createAccountUseCase;
     @InjectMocks
-    private UpdateAccountUseCaseImpl updateAccountUseCase;
+    private UpdateUserUseCaseImpl updateAccountUseCase;
     @InjectMocks
-    private DeleteAccountUseCaseImpl deleteAccountUseCase;
+    private DeleteUserUseCaseImpl deleteAccountUseCase;
     @InjectMocks
     private GetAccountUseCaseImpl getAccountUseCase;
     @InjectMocks
-    private GetAccountsUseCaseImpl getAccountsUseCase;
+    private GetUserUseCaseImpl getAccountsUseCase;
     @Test
     public void testCreateAccountWithUniqueEmail() {
         // Happy Flow
         RoleEntity role = RoleEntity.builder().roleName("user").build();
 
-        CreateAccountRequest validRequest = new CreateAccountRequest("John", "john@example.com", "pass123", role);
+        CreateUserRequest validRequest = new CreateUserRequest("John", "john@example.com", "pass123", role);
         AccountEntity savedAccount = AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").role(role).build();
 
         when(mockAccountRepository.checkIfEmailIsUsed(validRequest.getEmail())).thenReturn(String.valueOf(Optional.empty()));
         when(mockAccountRepository.save(any(AccountEntity.class))).thenReturn(savedAccount);
 
         // Act
-        CreateAccountResponse response = createAccountUseCase.CreateAccounts(validRequest);
+        CreateUserResponse response = createAccountUseCase.CreateAccounts(validRequest);
 
         // Assert
         assertNotNull(response);
@@ -63,7 +61,7 @@ public class AccountTests {
         // Arrange
         RoleEntity role = RoleEntity.builder().roleName("user").build();
 
-        CreateAccountRequest requestWithDuplicateEmail = CreateAccountRequest.builder()
+        CreateUserRequest requestWithDuplicateEmail = CreateUserRequest.builder()
                 .email("jane@example.com")
                 .password("pass456")
                 .name("Jane")
@@ -84,7 +82,7 @@ public class AccountTests {
         RoleEntity role = RoleEntity.builder().roleName("user").build();
 
         long validAccountId = 1L;
-        UpdateAccountRequest validRequest = UpdateAccountRequest.builder()
+        UpdateUserRequest validRequest = UpdateUserRequest.builder()
                 .id(validAccountId)
                 .email("jane@example.com")
                 .password("pass456")
@@ -94,7 +92,7 @@ public class AccountTests {
         when(mockAccountRepository.findById(validAccountId)).thenReturn(Optional.of(existingAccount));
 
         // Act
-        UpdateAccountResponse response = updateAccountUseCase.updateAccount(validRequest);
+        UpdateUserResponse response = updateAccountUseCase.updateAccount(validRequest);
 
         // Assert
         assertNotNull(response);
@@ -108,7 +106,7 @@ public class AccountTests {
         RoleEntity role = RoleEntity.builder().roleName("user").build();
 
         long invalidAccountId = 99L;
-        UpdateAccountRequest invalidRequest = new UpdateAccountRequest(invalidAccountId, "Jane", "jane@example.com", "pass456", role);
+        UpdateUserRequest invalidRequest = new UpdateUserRequest(invalidAccountId, "Jane", "jane@example.com", "pass456", role);
 
 
         // Act & Assert
@@ -123,7 +121,7 @@ public class AccountTests {
         when(mockAccountRepository.existsById(validId)).thenReturn(true);
 
         // Act
-        DeleteAccountResponse response = deleteAccountUseCase.deleteAccount(validId);
+        DeleteUserResponse response = deleteAccountUseCase.deleteAccount(validId);
 
         // Assert
         assertNotNull(response);
@@ -154,7 +152,7 @@ public class AccountTests {
         when(mockAccountRepository.findById(validId)).thenReturn(Optional.of(accountEntity));
 
         // Act
-        Optional<Account> response = getAccountUseCase.getAccount(validId);
+        Optional<User> response = getAccountUseCase.getAccount(validId);
 
         // Assert
         assertNotNull(response);
@@ -181,7 +179,7 @@ public class AccountTests {
         when(mockAccountRepository.findAll()).thenReturn(Collections.emptyList());
 
         // Act
-        GetAccountResponse response = getAccountsUseCase.getAccounts();
+        GetUserResponse response = getAccountsUseCase.getAccounts();
 
         // Assert
         assertNotNull(response);
@@ -201,7 +199,7 @@ public class AccountTests {
         when(mockAccountRepository.findAll()).thenReturn(accounts);
 
         // Act
-        GetAccountResponse response = getAccountsUseCase.getAccounts();
+        GetUserResponse response = getAccountsUseCase.getAccounts();
 
         // Assert
         assertNotNull(response);

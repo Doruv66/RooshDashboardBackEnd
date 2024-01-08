@@ -1,8 +1,8 @@
 package com.rooshdashboard.rooshdashboard.business.IAccount;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.UpdateAccountRequest;
-import com.rooshdashboard.rooshdashboard.domain.Account.UpdateAccountResponse;
+import com.rooshdashboard.rooshdashboard.domain.User.UpdateUserRequest;
+import com.rooshdashboard.rooshdashboard.domain.User.UpdateUserResponse;
 
 public interface UpdateAccountUseCase {
-    UpdateAccountResponse updateAccount(UpdateAccountRequest request);
+    UpdateUserResponse updateAccount(UpdateUserRequest request);
 }

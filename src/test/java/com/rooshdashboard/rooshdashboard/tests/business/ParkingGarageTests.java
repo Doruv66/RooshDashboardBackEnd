@@ -8,7 +8,6 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarage
 import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageUtilityEntity;

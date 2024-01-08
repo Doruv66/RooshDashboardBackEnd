@@ -1,6 +1,6 @@
 package com.rooshdashboard.rooshdashboard.domain.ParkingGarage;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.Account;
+import com.rooshdashboard.rooshdashboard.domain.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ParkingGarage {
     private Long id;
     private String name;
-    private Account account;
+    private User account;
     private String airport;
     private String location;
     private Long travelTime;

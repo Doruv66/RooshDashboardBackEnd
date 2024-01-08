@@ -1,4 +1,5 @@
 package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
+import com.rooshdashboard.rooshdashboard.business.impl.account.UserConverter;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.ParkingGarage;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 
@@ -15,7 +16,7 @@ public class ParkingGarageConverter {
                 .phoneNumber(parkingGarage.getPhoneNumber())
                 .airport(parkingGarage.getAirport())
                 .travelTime(parkingGarage.getTravelTime())
-//                .account(AccountConverter.convert(parkingGarage.getAccount()))
+                .account(UserConverter.convert(parkingGarage.getAccount()))
                 .name(parkingGarage.getName())
                 .travelDistance(parkingGarage.getTravelDistance())
                 .imagePaths(parkingGarage.getImagePaths())

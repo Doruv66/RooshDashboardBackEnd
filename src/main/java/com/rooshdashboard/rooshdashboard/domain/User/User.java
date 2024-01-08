@@ -1,18 +1,19 @@
-package com.rooshdashboard.rooshdashboard.domain.Account;
+package com.rooshdashboard.rooshdashboard.domain.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class User {
     private Long id;
     private String name;
-    private String email;
     private String password;
-    private Role role;
+    private Set<Role> roles;
 }

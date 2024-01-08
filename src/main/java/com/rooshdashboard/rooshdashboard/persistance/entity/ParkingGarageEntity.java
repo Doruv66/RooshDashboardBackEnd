@@ -27,10 +27,9 @@ public class ParkingGarageEntity {
     @Column(name = "name")
     @Length(max = 255)
     private String name;
-//    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")
-    private AccountEntity account;
+    private UserEntity account;
     @NotBlank
     @Column(name = "airport")
     @Length(max = 255)

@@ -56,8 +56,9 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
             Claims claims = jwt.getBody();
 
             List<String> roles = claims.get("roles", List.class);
+            Long accountId = claims.get("accountId", Long.class);
 
-            return new AccessTokenImpl(claims.getSubject(), roles);
+            return new AccessTokenImpl(claims.getSubject(), roles, accountId);
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }

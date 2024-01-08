@@ -46,7 +46,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
                 .toList();
 
         return accessTokenEncoder.encode(
-                new AccessTokenImpl(user.getUsername(), roles));
+                new AccessTokenImpl(user.getUsername(), roles, user.getId()));
     }
 
 }

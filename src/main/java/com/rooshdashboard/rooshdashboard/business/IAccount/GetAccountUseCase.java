@@ -1,9 +1,9 @@
 package com.rooshdashboard.rooshdashboard.business.IAccount;
 
-import com.rooshdashboard.rooshdashboard.domain.Account.Account;
+import com.rooshdashboard.rooshdashboard.domain.User.User;
 
 import java.util.Optional;
 
 public interface GetAccountUseCase {
-    Optional<Account> getAccount(long accountId);
+    Optional<User> getAccount(long accountId);
 }

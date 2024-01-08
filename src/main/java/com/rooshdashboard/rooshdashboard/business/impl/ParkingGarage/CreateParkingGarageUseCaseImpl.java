@@ -2,13 +2,12 @@ package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.CreateParkingGarageUseCase;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
-import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageRequest;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageResponse;
-import com.rooshdashboard.rooshdashboard.persistance.AccountRepository;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
-import com.rooshdashboard.rooshdashboard.persistance.entity.AccountEntity;
+import com.rooshdashboard.rooshdashboard.persistance.UserRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,7 +30,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCase {
     private final ParkingGarageRepository parkingGarageRepository;
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
     @Override
     public CreateParkingGarageResponse CreateParkingGarage(CreateParkingGarageRequest request)
@@ -80,11 +79,11 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
         if (!errors.isEmpty()) {
             throw new InvalidDataException(errors);
         }
-//        AccountEntity foundAccount = accountRepository.getReferenceById(request.getAccountId());
+        UserEntity foundAccount = userRepository.getReferenceById(request.getAccountId());
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
                 .name(request.getName())
-//                .account(foundAccount)
+                .account(foundAccount)
                 .parkingGarageUtility(request.getParkingGarageUtility())
                 .travelDistance(request.getTravelDistance())
                 .travelTime(request.getTravelTime())

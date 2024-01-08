@@ -13,10 +13,12 @@ import java.util.Set;
 public class AccessTokenImpl implements AccessToken {
     private final String subject;
     private final Set<String> roles;
+    private final Long accountId;
 
-    public AccessTokenImpl(String subject, Collection<String> roles) {
+    public AccessTokenImpl(String subject, Collection<String> roles, Long accountId) {
         this.subject = subject;
         this.roles = roles != null ? Set.copyOf(roles) : Collections.emptySet();
+        this.accountId = accountId;
     }
 
     @Override
