@@ -3,6 +3,7 @@ package com.rooshdashboard.rooshdashboard.tests.business;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
@@ -175,7 +176,7 @@ public class ParkingGarageTests {
 
         // Assert
         assertNotNull(response);
-        assertEquals("Parking Garage 1 Has been updated!", response.getMessage());
+        assertEquals("Parking Garage 1 Has been updated!", response.getId());
         verify(mockParkingGarageRepository).existsById(validGarageId);
         verify(mockParkingGarageRepository).findById(validGarageId);
     }
@@ -203,19 +204,19 @@ public class ParkingGarageTests {
         verify(mockParkingGarageRepository).existsById(invalidId);
     }
 
-//    @Test
-//    public void testUpdateParkingGarageWithInvalidId() {
-//        // Arrange
-//        Long invalidGarageId = 99L;
-//        ParkingGarageUtilityEntity parkingGarageUtility = new ParkingGarageUtilityEntity(2L, 1L, false, false, 2, 120, 2);
-//        UpdateParkingGarageRequest requestWithInvalidId = new UpdateParkingGarageRequest(invalidGarageId, "Fake Address", 1000, parkingGarageUtility);
-//        when(mockParkingGarageRepository.existsById(invalidGarageId)).thenReturn(false);
-//
-//        // Act & Assert
-//        assertThrows(InvalidParkingGarageExeption.class, () -> updateParkingGarageUseCase.updateParkingGarage(requestWithInvalidId));
-//        verify(mockParkingGarageRepository).existsById(invalidGarageId);
-//        verify(mockParkingGarageRepository, never()).findById(invalidGarageId);
-//    }
+    @Test
+    public void testUpdateParkingGarageWithInvalidId() {
+        // Arrange
+        Long invalidGarageId = 99L;
+        ParkingGarageUtilityEntity parkingGarageUtility = new ParkingGarageUtilityEntity(2L, false, false, 2L, 120L, 2L);
+        UpdateParkingGarageRequest requestWithInvalidId = new UpdateParkingGarageRequest(invalidGarageId, "Fake Address", "Eindhoven Airport", "Eindhoven", 10L, 10L, "0612345678", parkingGarageUtility, new ArrayList<>(), new ArrayList<>());
+        when(mockParkingGarageRepository.existsById(invalidGarageId)).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(InvalidParkingGarageExeption.class, () -> updateParkingGarageUseCase.updateParkingGarage(requestWithInvalidId));
+        verify(mockParkingGarageRepository).existsById(invalidGarageId);
+        verify(mockParkingGarageRepository, never()).findById(invalidGarageId);
+   }
 
     @Test
     public void testDeleteParkingGarageWithInvalidId() {
@@ -235,7 +236,7 @@ public class ParkingGarageTests {
         CreateParkingGarageRequest request = CreateParkingGarageRequest.builder().build();
 
         // Act & Assert
-        assertThrows(NullPointerException.class, () -> createParkingGarageUseCase.CreateParkingGarage(request));
+        assertThrows(InvalidDataException.class, () -> createParkingGarageUseCase.CreateParkingGarage(request));
         verify(mockParkingGarageRepository, never()).save(any(ParkingGarageEntity.class));
     }
 }
