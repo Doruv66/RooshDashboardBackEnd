@@ -22,13 +22,13 @@ public class CreateParkingGarageRequest {
     private String airport;
     @NotBlank
     private String location;
-    private Long accountId;
     @NotNull
     private Long travelTime;
     @NotNull
     private Long travelDistance;
     @NotBlank
     private String phoneNumber;
+    private Long userId;
     @NotNull
     private ParkingGarageUtilityEntity parkingGarageUtility;
     private List<MultipartFile> images;

@@ -22,7 +22,7 @@ public class GetParkingGaragesByUserIdUseCaseImpl implements GetParkingGaragesBy
     @Override
     public GetParkingGaragesByUserIdResponse getParkingGaragesByUserId (Long userId) {
         List<ParkingGarage> garages;
-        if (!userId.equals(requestAccessToken.getAccountId())) {
+        if (userId.equals(requestAccessToken.getAccountId())) {
             garages = parkingGarageRepository.findByAccount_Id(userId)
                     .stream()
                     .map(ParkingGarageConverter::convert)
