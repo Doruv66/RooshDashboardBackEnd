@@ -4,7 +4,6 @@ import com.rooshdashboard.rooshdashboard.business.IParkingGarage.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidParkingGarageExeption;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.*;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,8 @@ public class ParkingGarageController {
     private final GetParkingGarageUseCase getParkingGarageUseCase;
     private final DeleteParkingGarageUseCase deleteParkingGarageUseCase;
     private final GetParkingGarageByIdUseCase getParkingGarageByIdUseCase;
+    private final GetParkingGaragesByUserIdUseCase getParkingGaragesByUserIdUseCase;
+
 
     @GetMapping
     @RolesAllowed({"ADMIN"})
@@ -42,6 +43,14 @@ public class ParkingGarageController {
         }
 
     }
+
+    @GetMapping("/user/{userId}")
+    @RolesAllowed({"USER", "ADMIN"}) // Adjust the roles as per your requirements
+    public ResponseEntity<GetParkingGaragesByUserIdResponse> getParkingGaragesByUserId(@PathVariable(value = "userId") Long userId) {
+        GetParkingGaragesByUserIdResponse response = getParkingGaragesByUserIdUseCase.getParkingGaragesByUserId(userId);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping(consumes = {"multipart/form-data"})
     @RolesAllowed({"ADMIN"})
     public ResponseEntity<CreateParkingGarageResponse> createParkingGarage(

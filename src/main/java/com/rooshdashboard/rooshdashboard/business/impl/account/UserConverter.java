@@ -5,6 +5,7 @@ import com.rooshdashboard.rooshdashboard.domain.User.Role;
 import com.rooshdashboard.rooshdashboard.persistance.entity.UserEntity;
 import com.rooshdashboard.rooshdashboard.persistance.entity.UserRoleEntity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class UserConverter {
@@ -13,7 +14,7 @@ public class UserConverter {
 
     }
     public static User convert(UserEntity account) {
-        Set<Role> convertedRoles = null;
+        Set<Role> convertedRoles = new HashSet<>();
         for (UserRoleEntity r: account.getUserRoles()) {
             convertedRoles.add(RoleConverter.convert(r));
         }
