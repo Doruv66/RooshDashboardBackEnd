@@ -46,4 +46,5 @@ public class UpdatePriceListRequest {
     private Double day29Price;
     private Double day30Price;
     private Double extraDayPrice;
+    private String type;
 }

@@ -46,6 +46,7 @@ public class PriceListConverter {
                 .day28Price(priceList.getDay28Price())
                 .day29Price(priceList.getDay29Price())
                 .day30Price(priceList.getDay30Price())
+                .type(priceList.getType())
                 .build();
 
     }

@@ -137,6 +137,7 @@ CREATE TABLE price_list (
                           day28_price DOUBLE,
                           day29_price DOUBLE,
                           day30_price DOUBLE,
+                          type VARCHAR(2000),
                           PRIMARY KEY (id),
                           FOREIGN KEY (garage_id) REFERENCES parking_garages(id)
 );

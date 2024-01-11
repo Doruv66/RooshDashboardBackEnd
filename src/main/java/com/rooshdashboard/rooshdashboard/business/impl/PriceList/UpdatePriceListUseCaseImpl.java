@@ -64,6 +64,7 @@ public class UpdatePriceListUseCaseImpl implements UpdatePriceListUseCase {
         priceList.setDay28Price(request.getDay28Price());
         priceList.setDay29Price(request.getDay29Price());
         priceList.setDay30Price(request.getDay30Price());
+        priceList.setType(request.getType());
 
         priceListRepository.save(priceList);
     }
