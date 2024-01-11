@@ -61,6 +61,7 @@ public class CreatePriceListUseCaseImpl implements CreatePriceListUseCase {
                 .day28Price(request.getDay28Price())
                 .day29Price(request.getDay29Price())
                 .day30Price(request.getDay30Price())
+                .type(request.getType())
                 .build();
         return priceListRepository.save(newPriceList);
 

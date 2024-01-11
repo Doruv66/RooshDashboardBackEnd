@@ -118,4 +118,7 @@ public class CreatePriceListRequest {
 
     @NotNull
     private Double extraDayPrice;
+
+    @NotBlank
+    private String type;
 }

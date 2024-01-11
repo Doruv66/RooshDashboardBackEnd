@@ -158,4 +158,9 @@ public class PriceListEntity {
     @Column(name = "extra_day_price")
     private Double extraDayPrice;
 
+    @NotBlank
+    @Column(name = "type")
+    private String type;
+
+
 }
