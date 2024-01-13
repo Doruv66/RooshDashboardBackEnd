@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.business.impl.ParkingGarage;
 
 import com.rooshdashboard.rooshdashboard.business.IParkingGarage.CreateParkingGarageUseCase;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidDataException;
+import com.rooshdashboard.rooshdashboard.configuration.security.token.AccessToken;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageRequest;
 import com.rooshdashboard.rooshdashboard.domain.ParkingGarage.CreateParkingGarageResponse;
 import com.rooshdashboard.rooshdashboard.persistance.ParkingGarageRepository;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCase {
     private final ParkingGarageRepository parkingGarageRepository;
     private final UserRepository userRepository;
+    private final AccessToken accessToken;
 
     @Override
     public CreateParkingGarageResponse CreateParkingGarage(CreateParkingGarageRequest request)
@@ -47,39 +49,44 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
         if (!errors.isEmpty()) {
             throw new InvalidDataException(errors);
         }
-        try {
-            String uploadDir = "uploaded-images/";
-            Path uploadPath = Paths.get(uploadDir);
+        if(request.getImages() != null) {
+            try {
+                String uploadDir = "uploaded-images/";
+                Path uploadPath = Paths.get(uploadDir);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            for (MultipartFile image : request.getImages()) {
-                String fileName = StringUtils.cleanPath(image.getOriginalFilename());
-
-                String fileExtension = "";
-                int lastDot = fileName.lastIndexOf('.');
-                if (lastDot > 0) {
-                    fileExtension = fileName.substring(lastDot);
-                    fileName = fileName.substring(0, lastDot);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
                 }
-                String uniqueFileName = fileName + "_" + System.currentTimeMillis() + fileExtension;
-                Path filePath = uploadPath.resolve(uniqueFileName);
 
-                try (InputStream inputStream = image.getInputStream()) {
-                    Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                    String encodedFileName = URLEncoder.encode(uniqueFileName, StandardCharsets.UTF_8).replace("+", "%20");
-                    imageFilePaths.add(uploadDir + encodedFileName);
+                for (MultipartFile image : request.getImages()) {
+                    String fileName = StringUtils.cleanPath(image.getOriginalFilename());
+
+                    String fileExtension = "";
+                    int lastDot = fileName.lastIndexOf('.');
+                    if (lastDot > 0) {
+                        fileExtension = fileName.substring(lastDot);
+                        fileName = fileName.substring(0, lastDot);
+                    }
+                    String uniqueFileName = fileName + "_" + System.currentTimeMillis() + fileExtension;
+                    Path filePath = uploadPath.resolve(uniqueFileName);
+
+                    try (InputStream inputStream = image.getInputStream()) {
+                        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+                        String encodedFileName = URLEncoder.encode(uniqueFileName, StandardCharsets.UTF_8).replace("+", "%20");
+                        imageFilePaths.add(uploadDir + encodedFileName);
+                    }
                 }
+            } catch (IOException e) {
+                errors.put("image", "Unable to save the image files.");
+                ;
             }
-        } catch (IOException e) {
-            errors.put("image", "Unable to save the image files.");;
         }
         if (!errors.isEmpty()) {
             throw new InvalidDataException(errors);
         }
-        UserEntity foundAccount = userRepository.getReferenceById(request.getAccountId());
+        Long userId = request.getUserId();
+        Long tokenUserId = accessToken.getAccountId();
+        UserEntity foundAccount = userRepository.getReferenceById(userId);
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
                 .name(request.getName())

@@ -36,7 +36,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         Map<String, Object> claimsMap = new HashMap<>();
         if (!CollectionUtils.isEmpty(accessToken.getRoles())) {
             claimsMap.put("roles", accessToken.getRoles());
-            claimsMap.put("id", accessToken.getAccountId());
+            claimsMap.put("accountId", accessToken.getAccountId());
         }
 
         Instant now = Instant.now();
