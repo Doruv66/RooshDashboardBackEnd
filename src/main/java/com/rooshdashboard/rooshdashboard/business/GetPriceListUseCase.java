@@ -6,4 +6,6 @@ import com.rooshdashboard.rooshdashboard.persistance.entity.ParkingGarageEntity;
 public interface GetPriceListUseCase {
 
     GetPriceListResponse getPriceListByParkingGarage(ParkingGarageEntity garage);
+
+    GetPriceListResponse getPriceListByStartDateEndDate(String startDate, String EndDate);
 }

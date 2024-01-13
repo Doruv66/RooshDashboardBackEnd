@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface PriceListRepository extends JpaRepository<PriceListEntity, Long> {
     List<PriceListEntity> findByGarage(ParkingGarageEntity garage);
+
+    List<PriceListEntity> findByStartDateAndEndDate(String startDate, String EndDate);
 }

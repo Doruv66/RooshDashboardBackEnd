@@ -27,4 +27,15 @@ public class GetPriceListUseCaseImpl implements GetPriceListUseCase {
                 .priceLists(priceLists)
                 .build();
     }
+
+    @Override
+    public GetPriceListResponse getPriceListByStartDateEndDate(String StartDate, String EndDate) {
+        List<PriceList> priceLists = priceListRepository.findByStartDateAndEndDate(StartDate, EndDate)
+                .stream()
+                .map(PriceListConverter::convert)
+                .toList();
+        return GetPriceListResponse.builder()
+                .priceLists(priceLists)
+                .build();
+    }
 }
