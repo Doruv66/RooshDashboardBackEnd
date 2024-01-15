@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/tokens").permitAll()                 // Creating a student and login are public
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()
                                 .requestMatchers(HttpMethod.GET,"/parkinggarage/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/pricelists/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/pricelists").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/pricelists/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/bookings/getBookingStatistics").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/pricelists").permitAll()// Creating a student and login are public

@@ -31,9 +31,6 @@ public class UpdatePriceListUseCaseImpl implements UpdatePriceListUseCase {
     }
 
     private void updateFields(UpdatePriceListRequest request, PriceListEntity priceList) {
-        priceList.setGarage(request.getGarage());
-        priceList.setStartDate(request.getStartDate());
-        priceList.setEndDate(request.getEndDate());
         priceList.setExtraDayPrice(request.getExtraDayPrice());
         priceList.setDay1Price(request.getDay1Price());
         priceList.setDay2Price(request.getDay2Price());

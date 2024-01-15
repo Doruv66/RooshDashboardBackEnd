@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdatePriceListRequest {
     private long id;
-    private ParkingGarageEntity garage;
-    private String startDate;
-    private String endDate;
     private Double day1Price;
     private Double day2Price;
     private Double day3Price;
