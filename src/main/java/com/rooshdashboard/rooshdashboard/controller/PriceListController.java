@@ -54,10 +54,12 @@ public class PriceListController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("{priceListId}")
+    @DeleteMapping
     @RolesAllowed({"ADMIN"})
-    public ResponseEntity<DeletePriceListResponse> deletePriceList(@PathVariable long priceListId) {
-        final DeletePriceListResponse response = deletePriceListUseCase.deletePriceList(priceListId);
+    public ResponseEntity<DeletePriceListResponse> deletePriceList(
+            @RequestParam(required = true) String startDate,
+            @RequestParam(required = true) String endDate) {
+        final DeletePriceListResponse response = deletePriceListUseCase.deletePriceList(startDate, endDate);
         return ResponseEntity.ok().body(response);
     }
 }

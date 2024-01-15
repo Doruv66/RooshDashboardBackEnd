@@ -4,5 +4,5 @@ import com.rooshdashboard.rooshdashboard.domain.PriceList.DeletePriceListRespons
 
 public interface DeletePriceListUseCase {
 
-    DeletePriceListResponse deletePriceList(Long priceListId);
+    DeletePriceListResponse deletePriceList(String startDate, String endDate);
 }

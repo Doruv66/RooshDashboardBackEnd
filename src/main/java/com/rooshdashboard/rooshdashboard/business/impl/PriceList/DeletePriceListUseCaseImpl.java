@@ -5,8 +5,11 @@ import com.rooshdashboard.rooshdashboard.business.exception.InvalidCustomerExcep
 import com.rooshdashboard.rooshdashboard.domain.Customer.DeleteCustomerResponse;
 import com.rooshdashboard.rooshdashboard.domain.PriceList.DeletePriceListResponse;
 import com.rooshdashboard.rooshdashboard.persistance.PriceListRepository;
+import com.rooshdashboard.rooshdashboard.persistance.entity.PriceListEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -14,11 +17,14 @@ public class DeletePriceListUseCaseImpl implements DeletePriceListUseCase {
     private final PriceListRepository priceListRepository;
 
     @Override
-    public DeletePriceListResponse deletePriceList(Long priceListId){
-        if(priceListRepository.existsById(priceListId)) {
-            this.priceListRepository.deleteById(priceListId);
-            return DeletePriceListResponse.builder().message("Successfully deleted price list").build();
+    public DeletePriceListResponse deletePriceList(String startDate, String endDate) {
+        List<PriceListEntity> priceListsToDelete = priceListRepository.findByStartDateAndEndDate(startDate, endDate);
+
+        if (!priceListsToDelete.isEmpty()) {
+            priceListRepository.deleteAll(priceListsToDelete);
+            return DeletePriceListResponse.builder().message("Successfully deleted price lists").build();
+        } else {
+            throw new InvalidCustomerException("PRICE_LISTS_NOT_FOUND");
         }
-        throw new InvalidCustomerException("CUSTOMER_NOT_FOUND");
     }
 }
