@@ -9,15 +9,15 @@ import com.rooshdashboard.rooshdashboard.business.impl.account.*;
 import com.rooshdashboard.rooshdashboard.domain.User.*;
 import com.rooshdashboard.rooshdashboard.persistance.UserRepository;
 import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.UserEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserTests {
@@ -38,13 +38,12 @@ public class UserTests {
     @Test
     public void testCreateAccountWithUniqueEmail() {
         // Happy Flow
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
-        CreateUserRequest validRequest = new CreateUserRequest("John", "john@example.com", "pass123", role);
-        AccountEntity savedAccount = AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").role(role).build();
-
-        when(mockAccountRepository.checkIfEmailIsUsed(validRequest.getEmail())).thenReturn(String.valueOf(Optional.empty()));
-        when(mockAccountRepository.save(any(AccountEntity.class))).thenReturn(savedAccount);
+        CreateUserRequest validRequest = new CreateUserRequest("John", "pass123", userRoleEntities);
+        UserEntity savedAccount = UserEntity.builder().id(1L).username("John").password("pass123").userRoles(userRoleEntities).build();
+        when(mockAccountRepository.checkIfNameIsUsed(validRequest.getName())).thenReturn(String.valueOf(Optional.empty()));
+        when(mockAccountRepository.save(any(UserEntity.class))).thenReturn(savedAccount);
 
         // Act
         CreateUserResponse response = createAccountUseCase.CreateAccounts(validRequest);
@@ -52,43 +51,42 @@ public class UserTests {
         // Assert
         assertNotNull(response);
         assertEquals(savedAccount.getId(), response.getId());
-        verify(mockAccountRepository).checkIfEmailIsUsed(validRequest.getEmail());
-        verify(mockAccountRepository).save(any(AccountEntity.class));
+        verify(mockAccountRepository).checkIfNameIsUsed(validRequest.getName());
+        verify(mockAccountRepository).save(any(UserEntity.class));
     }
 
     @Test
     public void testCreateAccountWithDuplicateEmail() {
         // Arrange
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
-        CreateUserRequest requestWithDuplicateEmail = CreateUserRequest.builder()
-                .email("jane@example.com")
+        CreateUserRequest requestWithDuplicateName = CreateUserRequest.builder()
                 .password("pass456")
                 .name("Jane")
-                .role(role)
+                .roles(userRoleEntities)
                 .build();
 
-        when(mockAccountRepository.checkIfEmailIsUsed(requestWithDuplicateEmail.getEmail())).thenReturn("jane@example.com");
+        when(mockAccountRepository.checkIfNameIsUsed(requestWithDuplicateName.getName())).thenReturn("Jane");
 
         // Act & Assert
-        assertThrows(AccountAlreadyExistsException.class, () -> createAccountUseCase.CreateAccounts(requestWithDuplicateEmail));
-        verify(mockAccountRepository).checkIfEmailIsUsed(requestWithDuplicateEmail.getEmail());
-        verify(mockAccountRepository, never()).save(any(AccountEntity.class));
+        assertThrows(AccountAlreadyExistsException.class, () -> createAccountUseCase.CreateAccounts(requestWithDuplicateName));
+        verify(mockAccountRepository).checkIfNameIsUsed(requestWithDuplicateName.getName());
+        verify(mockAccountRepository, never()).save(any(UserEntity.class));
     }
 
     @Test
     public void testUpdateAccountWithValidRequest() {
         // Arrange
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
         long validAccountId = 1L;
         UpdateUserRequest validRequest = UpdateUserRequest.builder()
                 .id(validAccountId)
-                .email("jane@example.com")
                 .password("pass456")
                 .name("Jane")
-                .role(role)
-                .build();        AccountEntity existingAccount = AccountEntity.builder().id(validAccountId).name("John").email("john@example.com").password("pass123").role(role).build();
+                .roles(userRoleEntities)
+                .build();
+        UserEntity existingAccount = UserEntity.builder().id(validAccountId).username("John").password("pass123").userRoles(userRoleEntities).build();
         when(mockAccountRepository.findById(validAccountId)).thenReturn(Optional.of(existingAccount));
 
         // Act
@@ -103,10 +101,10 @@ public class UserTests {
     @Test
     public void testUpdateAccountWithInvalidId() {
         // Arrange
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
         long invalidAccountId = 99L;
-        UpdateUserRequest invalidRequest = new UpdateUserRequest(invalidAccountId, "Jane", "jane@example.com", "pass456", role);
+        UpdateUserRequest invalidRequest = new UpdateUserRequest(invalidAccountId, "Jane", "pass456", userRoleEntities);
 
 
         // Act & Assert
@@ -145,10 +143,10 @@ public class UserTests {
     @Test
     public void testGetAccountByIdWithExistingAccount() {
         // Arrange
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
         Long validId = 1L;
-        AccountEntity accountEntity = AccountEntity.builder().id(validId).name("John").email("john@example.com").password("pass123").role(role).build();
+        UserEntity accountEntity = UserEntity.builder().id(validId).username("John").password("pass123").userRoles(userRoleEntities).build();
         when(mockAccountRepository.findById(validId)).thenReturn(Optional.of(accountEntity));
 
         // Act
@@ -189,12 +187,13 @@ public class UserTests {
     @Test
     public void testGetAllAccountsWithFilledRepository() {
         // Happy Flow
-        RoleEntity role = RoleEntity.builder().roleName("user").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
 
-        List<AccountEntity> accounts = List.of(
-                AccountEntity.builder().id(1L).name("John").email("john@example.com").password("pass123").role(role).build(),
-                AccountEntity.builder().id(2L).name("Jane").email("jane@example.com").password("pass456").role(role).build()
+
+        List<UserEntity> accounts = List.of(
+                UserEntity.builder().id(1L).username("John").password("pass123").userRoles(userRoleEntities).build(),
+                UserEntity.builder().id(2L).username("Jane").password("pass456").userRoles(userRoleEntities).build()
         );
         when(mockAccountRepository.findAll()).thenReturn(accounts);
 

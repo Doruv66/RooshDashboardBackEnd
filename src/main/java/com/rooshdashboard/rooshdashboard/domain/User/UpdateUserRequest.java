@@ -1,6 +1,5 @@
 package com.rooshdashboard.rooshdashboard.domain.User;
 
-import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
 import com.rooshdashboard.rooshdashboard.persistance.entity.UserRoleEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -19,8 +18,6 @@ public class UpdateUserRequest {
     private Long id;
     @NotBlank
     private String name;
-    @NotBlank
-    private String email;
     @NotBlank
     private String password;
     @NotNull

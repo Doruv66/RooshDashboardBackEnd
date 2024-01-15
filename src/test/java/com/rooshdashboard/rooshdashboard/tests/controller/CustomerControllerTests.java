@@ -2,6 +2,7 @@ package com.rooshdashboard.rooshdashboard.tests.controller;
 
 import com.rooshdashboard.rooshdashboard.business.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidCustomerException;
+import com.rooshdashboard.rooshdashboard.configuration.security.token.AccessTokenDecoder;
 import com.rooshdashboard.rooshdashboard.controller.CustomerController;
 import com.rooshdashboard.rooshdashboard.domain.Customer.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,6 +48,9 @@ public class CustomerControllerTests {
 
     @MockBean
     private CreateCustomerUseCase createCustomerUseCase;
+
+    @MockBean
+    private AccessTokenDecoder accessTokenDecoder;
 
     private Customer generateFakeCustomer(long id) {
         return Customer.builder()

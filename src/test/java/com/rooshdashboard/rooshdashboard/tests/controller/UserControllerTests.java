@@ -2,10 +2,12 @@ package com.rooshdashboard.rooshdashboard.tests.controller;
 
 import com.rooshdashboard.rooshdashboard.business.IAccount.*;
 import com.rooshdashboard.rooshdashboard.business.exception.InvalidAccountException;
+import com.rooshdashboard.rooshdashboard.configuration.security.token.AccessTokenDecoder;
 import com.rooshdashboard.rooshdashboard.controller.UserController;
 import com.rooshdashboard.rooshdashboard.domain.User.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rooshdashboard.rooshdashboard.persistance.entity.RoleEntity;
+import com.rooshdashboard.rooshdashboard.persistance.entity.UserRoleEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -50,15 +50,18 @@ public class UserControllerTests {
     @MockBean
     private CreateAccountUseCase createAccountUseCase;
 
+    @MockBean
+    private AccessTokenDecoder accessTokenDecoder;
+
     private User generateFakeAccount(long id) {
         Role role = Role.builder().roleName("User").build();
+        Set<Role> roles = Set.of(role);
 
         return User.builder()
                 .id(id)
                 .name("Account" + id)
-                .email("account@gmail.com")
                 .password("fakePass1234")
-                .role(role)
+                .roles(roles)
                 .build();
     }
 
@@ -110,13 +113,13 @@ public class UserControllerTests {
 
     @Test
     void testCreateAccount_ShouldReturn201ResponseWithCreatedAccount() throws Exception {
-        RoleEntity role = RoleEntity.builder().roleName("User").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
+
 
         CreateUserRequest request = CreateUserRequest.builder()
                 .name("Account")
-                .email("account@gmail.com")
                 .password("fakePass1234")
-                .role(role)
+                .roles(userRoleEntities)
                 .build();
         CreateUserResponse response = CreateUserResponse.builder()
                 .id(1L)
@@ -169,14 +172,13 @@ public class UserControllerTests {
     @Test
     void testUpdateAccount_ShouldReturn200ResponseWithUpdatedAccount() throws Exception {
         long accountId = 1;
-        RoleEntity role = RoleEntity.builder().roleName("User").build();
+        Set<UserRoleEntity> userRoleEntities = new HashSet<>();
 
         UpdateUserRequest request = UpdateUserRequest.builder()
                 .id(1L)
                 .name("Account")
-                .email("account@gmail.com")
                 .password("fakePass1234")
-                .role(role)
+                .roles(userRoleEntities)
                 .build();
         UpdateUserResponse response = UpdateUserResponse.builder().message("").build();
 
