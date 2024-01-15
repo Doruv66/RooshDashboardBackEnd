@@ -44,11 +44,27 @@ public class BookingTests {
         // Arrange
         Long validId = 1L;
         ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
-        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+
+        UserEntity adminUser = UserEntity.builder()
+                .username("admin@gmail.com")
+                .password("123456789")
+                .build();
+        UserRoleEntity adminRole = UserRoleEntity.builder().role(RoleEnum.ADMIN).user(adminUser).build();
+        adminUser.setUserRoles(Set.of(adminRole));
+
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().account(adminUser).parkingGarageUtility(fakeUtility).build();
         ServiceEntity fakeService = new ServiceEntity();
-        CustomerEntity fakeCustomer = new CustomerEntity();
+        CustomerEntity fakeCustomer = CustomerEntity.builder()
+
+                .build();
         CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
-        BookingEntity bookingEntity = BookingEntity.builder().id(validId).garage(fakeGarage).service(fakeService).customer(fakeCustomer).car(fakeCar).build();
+        BookingEntity bookingEntity = BookingEntity.builder()
+                .id(validId)
+                .garage(fakeGarage)
+                .service(fakeService)
+                .customer(fakeCustomer)
+                .car(fakeCar)
+                .build();
         Booking booking  = BookingConverters.convertToBooking(bookingEntity);
 
         when(mockBookingRepository.existsById(validId)).thenReturn(true);
@@ -149,7 +165,15 @@ public class BookingTests {
         long validBookingId = 1L;
         UpdateBookingRequest validRequest = UpdateBookingRequest.builder().id(validBookingId).build();
         ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
-        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+
+        UserEntity adminUser = UserEntity.builder()
+                .username("admin@gmail.com")
+                .password("123456789")
+                .build();
+        UserRoleEntity adminRole = UserRoleEntity.builder().role(RoleEnum.ADMIN).user(adminUser).build();
+        adminUser.setUserRoles(Set.of(adminRole));
+
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().account(adminUser).parkingGarageUtility(fakeUtility).build();
         ServiceEntity fakeService = new ServiceEntity();
         CustomerEntity fakeCustomer = new CustomerEntity();
         CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
@@ -201,7 +225,15 @@ public class BookingTests {
         // Arrange
         List<BookingEntity> storageList = new ArrayList<>();
         ParkingGarageUtilityEntity fakeUtility = new ParkingGarageUtilityEntity();
-        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().parkingGarageUtility(fakeUtility).build();
+
+        UserEntity adminUser = UserEntity.builder()
+                .username("admin@gmail.com")
+                .password("123456789")
+                .build();
+        UserRoleEntity adminRole = UserRoleEntity.builder().role(RoleEnum.ADMIN).user(adminUser).build();
+        adminUser.setUserRoles(Set.of(adminRole));
+
+        ParkingGarageEntity fakeGarage = ParkingGarageEntity.builder().account(adminUser).parkingGarageUtility(fakeUtility).build();
         ServiceEntity fakeService = new ServiceEntity();
         CustomerEntity fakeCustomer = new CustomerEntity();
         CarEntity fakeCar = CarEntity.builder().customer(fakeCustomer).build();
