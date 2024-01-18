@@ -69,7 +69,7 @@ CREATE TABLE cars (
 );
 CREATE TABLE service (
                          id INT NOT NULL AUTO_INCREMENT,
-                         type ENUM('Valet', 'Shuttle'), -- actual enum values here
+                         type ENUM('Valet', 'Shuttle'),
                          PRIMARY KEY (id)
 );
 
