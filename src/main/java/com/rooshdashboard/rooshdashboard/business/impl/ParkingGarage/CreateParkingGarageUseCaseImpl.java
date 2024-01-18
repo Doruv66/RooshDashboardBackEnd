@@ -84,9 +84,8 @@ public class CreateParkingGarageUseCaseImpl implements CreateParkingGarageUseCas
         if (!errors.isEmpty()) {
             throw new InvalidDataException(errors);
         }
-        Long userId = request.getUserId();
         Long tokenUserId = accessToken.getAccountId();
-        UserEntity foundAccount = userRepository.getReferenceById(userId);
+        UserEntity foundAccount = userRepository.getReferenceById(tokenUserId);
         ParkingGarageEntity newParkingGarage = ParkingGarageEntity.builder()
                 .location(request.getLocation())
                 .name(request.getName())
